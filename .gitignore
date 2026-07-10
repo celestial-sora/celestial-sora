@@ -23,8 +23,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
-# custom local metadata
+# exclude instruction/config files from repository as requested
 AGENTS.md
 CLAUDE.md
 README.md
-
