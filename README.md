@@ -39,7 +39,7 @@
 <p align="center">
   <img src="https://cdn.simpleicons.org/claude" width="40" height="40" alt="Claude" />
   &nbsp;&nbsp;
-  <img src="assets/icons/antigravity.svg" width="40" height="40" alt="AntiGravity" />
+  <img src="assets/icons/antigravity-logo.svg" width="40" height="40" alt="AntiGravity" />
   &nbsp;&nbsp;
   <img src="assets/icons/codex.svg" width="40" height="40" alt="OpenAI Codex" />
   &nbsp;&nbsp;
