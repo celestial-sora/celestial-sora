@@ -78,7 +78,7 @@
 
         // 4x4 Cubes Grid
         const cubeSize = 0.8;
-        const spacing = 1.3;
+        const spacing = 0.8; // Set spacing equal to cubeSize so they touch side-by-side
         const startX = -1.5 * spacing;
         const startY = -1.5 * spacing;
 
@@ -91,7 +91,7 @@
                 // Base Pos
                 const x = startX + col * spacing;
                 const y = startY + row * spacing;
-                const z = (Math.random() - 0.5) * 0.5; // slight initial z variance
+                const z = 0; // Flat initial Z position so they form a perfect solid block
 
                 // Material
                 const cubeMat = new THREE.MeshStandardMaterial({
@@ -116,8 +116,8 @@
 
                 cubesGroup.add(mesh);
 
-                // Scatter direction for scroll-driven dispersion
-                const scatterDir = new THREE.Vector3(x, y, (Math.random() - 0.5) * 2).normalize();
+                // Scatter direction for scroll-driven dispersion (include Z axis dispersion)
+                const scatterDir = new THREE.Vector3(x, y, (Math.random() - 0.5) * 3).normalize();
 
                 cubesList.push({
                     mesh,
