@@ -1,0 +1,75 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LoadingScreen from '../components/LoadingScreen.astro';
+import Navbar from '../components/Navbar.astro';
+import MobileMenu from '../components/MobileMenu.astro';
+import HeroSection from '../components/HeroSection.astro';
+import AboutSection from '../components/AboutSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import SocialSection from '../components/SocialSection.astro';
+import Footer from '../components/Footer.astro';
+import ScrollToTop from '../components/ScrollToTop.astro';
+---
+<Layout title="Sora Astralis" description="Sora Astralis — Creator & Vibe Coder Portfolio">
+	<!-- Loading Screen (runs once on load) -->
+	<LoadingScreen />
+
+	<!-- Navigation Menu -->
+	<Navbar />
+	<MobileMenu />
+
+	<!-- Main Sections -->
+	<main>
+		<!-- Hero Area with ThreeJS Cubes & 3D Character Card -->
+		<HeroSection />
+
+		<!-- About Me (text & stats card only) -->
+		<AboutSection />
+
+		<!-- Projects (Creations) -->
+		<ProjectsSection />
+
+		<!-- Donation Hub & Social Links -->
+		<SocialSection />
+	</main>
+
+	<!-- Footer Area -->
+	<Footer />
+
+	<!-- Back to Top Button -->
+	<ScrollToTop />
+</Layout>
+
+<script>
+	// Scroll Reveal Animations
+	document.addEventListener('DOMContentLoaded', () => {
+		const revealElements = document.querySelectorAll(
+			'.about-text-card, .project-card, .social-card, .section-header, .donation-hub-container, .social-grid-header'
+		);
+
+		revealElements.forEach(el => el.classList.add('reveal'));
+
+		const revealObserver = new IntersectionObserver((entries) => {
+			entries.forEach(entry => {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('visible');
+					revealObserver.unobserve(entry.target);
+				}
+			});
+		}, {
+			threshold: 0.1,
+			rootMargin: '0px 0px -40px 0px'
+		});
+
+		revealElements.forEach(el => revealObserver.observe(el));
+
+		// Staggered Reveal for Grids (Projects & Socials)
+		const gridContainers = document.querySelectorAll('.projects-grid, .social-grid');
+		gridContainers.forEach(grid => {
+			const children = grid.children;
+			Array.from(children).forEach((child, index) => {
+				(child as HTMLElement).style.transitionDelay = `${index * 0.08}s`;
+			});
+		});
+	});
+</script>

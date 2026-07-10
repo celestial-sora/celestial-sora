@@ -1,0 +1,81 @@
+---
+import ThreeScene from './ThreeScene.astro';
+import ModelViewer from './ModelViewer.astro';
+---
+<section class="hero" id="home">
+    <!-- Interactive Background Canvas -->
+    <ThreeScene />
+
+    <div class="hero-content">
+        <div class="hero-badge frosted-glass">
+            <span>Creator & Vibe Coder</span>
+        </div>
+        <h1 class="hero-title">
+            <span class="title-line">Sora</span>
+            <span class="title-line accent">Astralis</span>
+        </h1>
+        <p class="hero-subtitle">SORA ASTRALIS</p>
+        <div class="hero-tags">
+            <span class="tag frosted-glass">
+                <span class="tag-icon">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="6" width="20" height="12" rx="3"></rect>
+                        <path d="M12 12h.01M16 10h.01M16 14h.01M6 12h4M8 10v4"></path>
+                    </svg>
+                </span>
+                <span>Content Creator</span>
+            </span>
+            <span class="tag frosted-glass">
+                <span class="tag-icon">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                </span>
+                <span>Vibe Coder</span>
+            </span>
+        </div>
+        <div class="hero-buttons">
+            <a href="#donate" class="btn btn-primary">
+                <span>สนับสนุน</span>
+                <span class="btn-arrow">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                </span>
+            </a>
+            <a href="#social" class="btn btn-outline">โซเชียล</a>
+        </div>
+
+        <!-- Interactive 3D Character Card -->
+        <div class="character-card frosted-glass" id="characterCard">
+            <div class="card-header">Sora Character</div>
+            <div class="card-image-wrapper">
+                <ModelViewer />
+            </div>
+            <div class="card-footer">
+                <span class="card-name">SORA</span>
+                <span class="card-title">
+                    <span class="card-title-icon">
+                        <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
+                            <path d="M12 2L14.85 9.15L22 12L14.85 14.85L12 22L9.15 14.85L2 12L9.15 9.15L12 2Z"></path>
+                        </svg>
+                    </span>
+                    Astralis
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <a href="#about" class="hero-scroll-cue" aria-label="Scroll down">
+        <span class="scroll-cue-text">เลื่อนลงโลดดดด</span>
+        <span class="scroll-cue-arrow">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <polyline points="19 12 12 19 5 12"></polyline>
+            </svg>
+        </span>
+    </a>
+</section>

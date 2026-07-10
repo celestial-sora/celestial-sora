@@ -1,0 +1,96 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+<nav class="navbar" id="navbar">
+    <div class="nav-logo" id="navLogo">
+        <span class="logo-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M12 2L14.85 9.15L22 12L14.85 14.85L12 22L9.15 14.85L2 12L9.15 9.15L12 2Z"></path>
+            </svg>
+        </span>
+        <span class="logo-text">SORA</span>
+    </div>
+    <div class="nav-links" id="navLinks">
+        <a href="#home" class="nav-link active" data-section="home">หน้าแรก</a>
+        <a href="#about" class="nav-link" data-section="about">เกี่ยวกับ</a>
+        <a href="#projects" class="nav-link" data-section="projects">ผลงาน</a>
+        <a href="#social" class="nav-link" data-section="social">โซเชียล</a>
+    </div>
+    <div class="nav-actions">
+        <ThemeToggle />
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</nav>
+
+<script>
+    // Navbar Scroll Effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar?.classList.add('scrolled');
+        } else {
+            navbar?.classList.remove('scrolled');
+        }
+        updateActiveSection();
+    });
+
+    // Active Section Tracking
+    const navLinks = document.querySelectorAll('.nav-link');
+    function updateActiveSection() {
+        const sections = ['home', 'about', 'projects', 'social'];
+        const scrollPosition = window.scrollY + 200;
+
+        sections.forEach(section => {
+            const element = document.getElementById(section);
+            if (element) {
+                const top = element.offsetTop;
+                const bottom = top + element.offsetHeight;
+
+                if (scrollPosition >= top && scrollPosition < bottom) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('data-section') === section) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    // Smooth Scroll
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href')?.slice(1);
+            if (targetId) {
+                const target = document.getElementById(targetId);
+                if (target) {
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            }
+        });
+    });
+
+    // Logo Click Scroll to Top
+    const navLogo = document.getElementById('navLogo');
+    navLogo?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Hamburger Menu Toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileOverlay = document.getElementById('mobileMenuOverlay');
+
+    hamburger?.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        mobileOverlay?.classList.toggle('active');
+        document.body.style.overflow = mobileOverlay?.classList.contains('active') ? 'hidden' : '';
+    });
+</script>

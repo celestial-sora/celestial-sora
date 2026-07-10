@@ -1,0 +1,323 @@
+---
+---
+<div class="three-canvas-container" id="threeBgContainer">
+    <canvas id="threeBgCanvas"></canvas>
+</div>
+
+<script>
+    import * as THREE from 'three';
+
+    let scene: THREE.Scene;
+    let camera: THREE.PerspectiveCamera;
+    let renderer: THREE.WebGLRenderer;
+    let cubesGroup: THREE.Group;
+    let particlesGeometry: THREE.BufferGeometry;
+    let particles: THREE.Points;
+    let animationFrameId: number;
+
+    const baseBgColorDark = 0x1a1915;
+    const baseBgColorLight = 0xfaf9f5;
+    const accentColor = 0xC3B1E1;
+    const edgeColorDark = 0x504e46;
+    const edgeColorLight = 0xd4cfc1;
+
+    const cubesList: Array<{
+        mesh: THREE.Mesh;
+        edges: THREE.LineSegments;
+        basePos: THREE.Vector3;
+        scatterDir: THREE.Vector3;
+        rotSpeed: THREE.Vector3;
+        targetRot: THREE.Vector3;
+        baseScale: THREE.Vector3;
+    }> = [];
+
+    let mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    let scrollPercent = 0;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function init() {
+        const container = document.getElementById('threeBgContainer');
+        const canvas = document.getElementById('threeBgCanvas') as HTMLCanvasElement;
+        if (!container || !canvas) return;
+
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        // Scene
+        scene = new THREE.Scene();
+        const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const bgColor = theme === 'dark' ? baseBgColorDark : baseBgColorLight;
+        scene.background = new THREE.Color(bgColor);
+        scene.fog = new THREE.FogExp2(bgColor, 0.04);
+
+        // Camera
+        camera = new THREE.PerspectiveCamera(60, width / height, 0.1, 100);
+        camera.position.z = 10;
+        camera.position.y = 0;
+
+        // Renderer
+        renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: false });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        // Group for cubes
+        cubesGroup = new THREE.Group();
+        scene.add(cubesGroup);
+
+        // Light
+        const ambientLight = new THREE.AmbientLight(0xffffff, theme === 'dark' ? 0.3 : 0.6);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, theme === 'dark' ? 0.8 : 1.2);
+        dirLight.position.set(5, 5, 5);
+        scene.add(dirLight);
+
+        const pointLight = new THREE.PointLight(accentColor, 1.5, 30);
+        pointLight.position.set(0, 0, 5);
+        scene.add(pointLight);
+
+        // 4x4 Cubes Grid
+        const cubeSize = 0.8;
+        const spacing = 1.3;
+        const startX = -1.5 * spacing;
+        const startY = -1.5 * spacing;
+
+        const cubeGeo = new THREE.BoxGeometry(cubeSize, cubeSize, cubeSize);
+
+        const activeEdgeColor = theme === 'dark' ? edgeColorDark : edgeColorLight;
+
+        for (let row = 0; row < 4; row++) {
+            for (let col = 0; col < 4; col++) {
+                // Base Pos
+                const x = startX + col * spacing;
+                const y = startY + row * spacing;
+                const z = (Math.random() - 0.5) * 0.5; // slight initial z variance
+
+                // Material
+                const cubeMat = new THREE.MeshStandardMaterial({
+                    color: theme === 'dark' ? 0x24231f : 0xffffff,
+                    roughness: 0.4,
+                    metalness: 0.1,
+                    transparent: true,
+                    opacity: 0.9
+                });
+
+                const mesh = new THREE.Mesh(cubeGeo, cubeMat);
+                mesh.position.set(x, y, z);
+
+                // Edges glow
+                const edgesGeo = new THREE.EdgesGeometry(cubeGeo);
+                const edgesMat = new THREE.LineBasicMaterial({
+                    color: activeEdgeColor,
+                    linewidth: 1
+                });
+                const edges = new THREE.LineSegments(edgesGeo, edgesMat);
+                mesh.add(edges);
+
+                cubesGroup.add(mesh);
+
+                // Scatter direction for scroll-driven dispersion
+                const scatterDir = new THREE.Vector3(x, y, (Math.random() - 0.5) * 2).normalize();
+
+                cubesList.push({
+                    mesh,
+                    edges,
+                    basePos: new THREE.Vector3(x, y, z),
+                    scatterDir,
+                    rotSpeed: new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.5,
+                        (Math.random() - 0.5) * 0.5,
+                        (Math.random() - 0.5) * 0.5
+                    ),
+                    targetRot: new THREE.Vector3(),
+                    baseScale: new THREE.Vector3(1, 1, 1)
+                });
+            }
+        }
+
+        // Particle field
+        const particleCount = window.innerWidth < 640 ? 600 : 1500;
+        particlesGeometry = new THREE.BufferGeometry();
+        const positions = new Float32Array(particleCount * 3);
+        const velocities = new Float32Array(particleCount);
+
+        for (let i = 0; i < particleCount * 3; i += 3) {
+            positions[i] = (Math.random() - 0.5) * 30; // x
+            positions[i+1] = (Math.random() - 0.5) * 30; // y
+            positions[i+2] = (Math.random() - 0.5) * 30; // z
+            velocities[i/3] = 0.01 + Math.random() * 0.02; // speed
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+        const pColor = theme === 'dark' ? 0xd2c4eb : 0xa38ec7;
+        const pMaterial = new THREE.PointsMaterial({
+            color: pColor,
+            size: 0.05,
+            transparent: true,
+            opacity: 0.6
+        });
+
+        particles = new THREE.Points(particlesGeometry, pMaterial);
+        scene.add(particles);
+
+        // Listeners
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('scroll', onScroll);
+        window.addEventListener('resize', onWindowResize);
+
+        // Theme Toggle Observer
+        const observer = new MutationObserver(() => {
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const updatedBg = currentTheme === 'dark' ? baseBgColorDark : baseBgColorLight;
+            const updatedEdge = currentTheme === 'dark' ? edgeColorDark : edgeColorLight;
+            const updatedCubeColor = currentTheme === 'dark' ? 0x24231f : 0xffffff;
+            const updatedPColor = currentTheme === 'dark' ? 0xd2c4eb : 0xa38ec7;
+            const updatedLightIntensity = currentTheme === 'dark' ? 0.3 : 0.6;
+            const updatedDirIntensity = currentTheme === 'dark' ? 0.8 : 1.2;
+
+            scene.background = new THREE.Color(updatedBg);
+            if (scene.fog) {
+                (scene.fog as THREE.FogExp2).color.setHex(updatedBg);
+            }
+
+            ambientLight.intensity = updatedLightIntensity;
+            dirLight.intensity = updatedDirIntensity;
+
+            pMaterial.color.setHex(updatedPColor);
+
+            cubesList.forEach(cube => {
+                (cube.mesh.material as THREE.MeshStandardMaterial).color.setHex(updatedCubeColor);
+                (cube.edges.material as THREE.LineBasicMaterial).color.setHex(updatedEdge);
+            });
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
+
+        // Initial Scroll Check
+        onScroll();
+
+        // Animation Loop
+        if (prefersReducedMotion) {
+            // Render static frame
+            renderer.render(scene, camera);
+        } else {
+            animate();
+        }
+    }
+
+    function onMouseMove(event: MouseEvent) {
+        mouse.targetX = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.targetY = -(event.clientY / window.innerHeight) * 2 + 1;
+    }
+
+    function onScroll() {
+        const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (totalHeight <= 0) {
+            scrollPercent = 0;
+        } else {
+            scrollPercent = window.scrollY / totalHeight;
+        }
+    }
+
+    function onWindowResize() {
+        const container = document.getElementById('threeBgContainer');
+        if (!container || !camera || !renderer) return;
+
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(width, height);
+    }
+
+    function animate() {
+        animationFrameId = requestAnimationFrame(animate);
+
+        // Smooth mouse transition
+        mouse.x += (mouse.targetX - mouse.x) * 0.05;
+        mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+        // Camera gentle float and tilt
+        camera.position.x = mouse.x * 1.5;
+        camera.position.y = mouse.y * 1.5;
+        camera.lookAt(0, 0, 0);
+
+        // Camera scroll-driven zoom out
+        camera.position.z = 10 + scrollPercent * 6;
+
+        // Update Cubes
+        const time = Date.now() * 0.001;
+
+        cubesList.forEach((cube, index) => {
+            // Base Idle Float (sine waves)
+            const idleX = Math.sin(time + index) * 0.1;
+            const idleY = Math.cos(time * 0.8 + index) * 0.1;
+            const idleZ = Math.sin(time * 0.5 + index) * 0.1;
+
+            // Dispersion offset based on scroll
+            const disperseScale = scrollPercent * 12; // push cubes outward
+            const targetPos = cube.basePos.clone();
+            targetPos.addScaledVector(cube.scatterDir, disperseScale);
+
+            cube.mesh.position.set(
+                targetPos.x + idleX,
+                targetPos.y + idleY,
+                targetPos.z + idleZ
+            );
+
+            // Cube rotation: Idle speed + Mouse influence based on distance
+            const distance = cube.mesh.position.distanceTo(new THREE.Vector3(mouse.x * 2.5, mouse.y * 2.5, 0));
+            const mouseFactor = Math.max(0, 1.5 - distance) * 0.5; // close cubes react
+
+            // Rotation update
+            cube.mesh.rotation.x += cube.rotSpeed.x * 0.02 + mouseFactor * 0.05;
+            cube.mesh.rotation.y += cube.rotSpeed.y * 0.02 + mouseFactor * 0.05;
+            cube.mesh.rotation.z += cube.rotSpeed.z * 0.01;
+
+            // Edge highlight based on mouse proximity
+            if (mouseFactor > 0.05) {
+                cube.edges.material.color.setHex(accentColor);
+                cube.mesh.scale.set(1.1, 1.1, 1.1);
+            } else {
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+                cube.edges.material.color.setHex(currentTheme === 'dark' ? edgeColorDark : edgeColorLight);
+                cube.mesh.scale.set(1, 1, 1);
+            }
+        });
+
+        // Rotate particles & drift
+        if (particles) {
+            const positions = particlesGeometry.attributes.position.array as Float32Array;
+            const count = positions.length;
+
+            for (let i = 1; i < count; i += 3) {
+                // drift upwards (y)
+                positions[i] += 0.005;
+                if (positions[i] > 15) {
+                    positions[i] = -15;
+                }
+            }
+            particlesGeometry.attributes.position.needsUpdate = true;
+            particles.rotation.y = time * 0.02;
+        }
+
+        renderer.render(scene, camera);
+    }
+
+    // Initialize
+    init();
+
+    // Clean up
+    document.addEventListener('astro:before-swap', () => {
+        cancelAnimationFrame(animationFrameId);
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('scroll', onScroll);
+        window.removeEventListener('resize', onWindowResize);
+    });
+</script>
