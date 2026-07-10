@@ -1,0 +1,37 @@
+---
+---
+<div class="mobile-menu-overlay" id="mobileMenuOverlay">
+    <div class="mobile-menu">
+        <a href="#home" class="mobile-link" data-section="home">หน้าแรก</a>
+        <a href="#about" class="mobile-link" data-section="about">เกี่ยวกับ</a>
+        <a href="#projects" class="mobile-link" data-section="projects">ผลงาน</a>
+        <a href="#social" class="mobile-link" data-section="social">โซเชียล</a>
+    </div>
+</div>
+
+<script>
+    const mobileLinks = document.querySelectorAll('.mobile-link');
+    const hamburger = document.getElementById('hamburger');
+    const mobileOverlay = document.getElementById('mobileMenuOverlay');
+
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            // Close menu
+            hamburger?.classList.remove('active');
+            mobileOverlay?.classList.remove('active');
+            document.body.style.overflow = '';
+
+            // Smooth scroll
+            const targetId = link.getAttribute('href')?.slice(1);
+            if (targetId) {
+                const target = document.getElementById(targetId);
+                if (target) {
+                    const offset = 80;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            }
+        });
+    });
+</script>

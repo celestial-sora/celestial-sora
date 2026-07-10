@@ -1,0 +1,144 @@
+---
+---
+<div class="loading-screen" id="loadingScreen">
+    <div class="terminal-window">
+        <div class="terminal-titlebar">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="terminal-path">~/sora</span>
+        </div>
+        <div class="terminal-body" id="terminalBody"></div>
+    </div>
+</div>
+
+<script>
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const loadingScreen = document.getElementById('loadingScreen');
+    const terminalBody = document.getElementById('terminalBody');
+
+    if (loadingScreen && terminalBody && !prefersReducedMotion) {
+        document.body.style.overflow = 'hidden';
+
+        const lines = [
+            { type: 'prompt', text: '> npx sora --awaken' },
+            { type: 'output', text: 'loading starlight modules... ' },
+            { type: 'output-ok', text: 'ok' },
+            { type: 'ready', text: 'ready..._' }
+        ];
+
+        let currentLineIdx = 0;
+        let currentCharIdx = 0;
+        const typewriterSpeed = 40; // ms per character
+
+        function typeNextChar() {
+            if (currentLineIdx >= lines.length) {
+                setTimeout(() => {
+                    loadingScreen?.classList.add('done');
+                    setTimeout(() => {
+                        loadingScreen?.classList.add('hidden');
+                        document.body.style.overflow = '';
+                        loadingScreen?.addEventListener('transitionend', () => {
+                            loadingScreen?.remove();
+                        }, { once: true });
+                    }, 300);
+                }, 400);
+                return;
+            }
+
+            const line = lines[currentLineIdx];
+            const textToType = line.text;
+
+            let lineEl = terminalBody?.querySelector(`.terminal-line[data-line="${currentLineIdx}"]`) as HTMLDivElement;
+            if (!lineEl && terminalBody) {
+                lineEl = document.createElement('div');
+                lineEl.className = 'terminal-line';
+                lineEl.setAttribute('data-line', currentLineIdx.toString());
+                
+                if (line.type === 'prompt') {
+                    lineEl.innerHTML = `<span class="terminal-prompt"></span>`;
+                } else if (line.type === 'output') {
+                    lineEl.innerHTML = `<span class="terminal-text"></span>`;
+                } else if (line.type === 'output-ok') {
+                    lineEl.innerHTML = `<span class="terminal-ok"></span>`;
+                } else if (line.type === 'ready') {
+                    lineEl.innerHTML = `<span class="terminal-text"></span>`;
+                }
+                
+                terminalBody.appendChild(lineEl);
+            }
+
+            const span = lineEl?.querySelector('span');
+            
+            if (span && currentCharIdx < textToType.length) {
+                span.textContent += textToType[currentCharIdx];
+                currentCharIdx++;
+                setTimeout(typeNextChar, typewriterSpeed);
+            } else {
+                if (line.type === 'output-ok') {
+                    currentLineIdx++;
+                    currentCharIdx = 0;
+                    setTimeout(typeNextChar, 200);
+                } else if (line.type === 'ready') {
+                    const cursor = document.createElement('span');
+                    cursor.className = 'cursor';
+                    span?.appendChild(cursor);
+                    
+                    setTimeout(() => {
+                        loadingScreen?.classList.add('done');
+                        setTimeout(() => {
+                            loadingScreen?.classList.add('hidden');
+                            document.body.style.overflow = '';
+                            loadingScreen?.addEventListener('transitionend', () => {
+                                loadingScreen?.remove();
+                            }, { once: true });
+                        }, 300);
+                    }, 800);
+                } else {
+                    currentLineIdx++;
+                    currentCharIdx = 0;
+                    setTimeout(typeNextChar, 150);
+                }
+            }
+        }
+
+        typeNextChar();
+    } else if (loadingScreen && terminalBody && prefersReducedMotion) {
+        document.body.style.overflow = 'hidden';
+        
+        terminalBody.innerHTML = `
+            <div class="terminal-line">
+                <span class="terminal-prompt">> npx sora --awaken</span>
+            </div>
+            <div class="terminal-line">
+                <span class="terminal-text">loading starlight modules... <span class="terminal-ok">ok</span></span>
+            </div>
+            <div class="terminal-line">
+                <span class="terminal-text">ready...</span>
+            </div>
+        `;
+
+        setTimeout(() => {
+            loadingScreen.classList.add('done');
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                document.body.style.overflow = '';
+                loadingScreen.addEventListener('transitionend', () => {
+                    loadingScreen.remove();
+                }, { once: true });
+            }, 200);
+        }, 600);
+    } else if (loadingScreen) {
+        document.body.style.overflow = 'hidden';
+        setTimeout(() => {
+            loadingScreen.classList.add('done');
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                document.body.style.overflow = '';
+                loadingScreen.addEventListener('transitionend', () => {
+                    loadingScreen.remove();
+                }, { once: true });
+            }, 300);
+        }, 1000);
+    }
+</script>

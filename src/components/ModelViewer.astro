@@ -1,0 +1,164 @@
+---
+---
+<div class="model-container model-viewer-grab" id="modelViewerContainer">
+    <div class="model-loading" id="modelLoading">
+        <svg class="spinner" viewBox="0 0 50 50">
+            <circle cx="25" cy="25" r="20" fill="none" stroke="currentColor"></circle>
+        </svg>
+        <span>กำลังดาวน์โหลดโมเดล 3D...</span>
+    </div>
+    <canvas id="modelViewerCanvas"></canvas>
+</div>
+
+<script>
+    import * as THREE from 'three';
+    import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+    import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
+    let scene: THREE.Scene;
+    let camera: THREE.PerspectiveCamera;
+    let renderer: THREE.WebGLRenderer;
+    let controls: OrbitControls;
+    let modelGroup: THREE.Group;
+    let animationFrameId: number;
+    let isDragging = false;
+
+    function init() {
+        const container = document.getElementById('modelViewerContainer');
+        const canvas = document.getElementById('modelViewerCanvas') as HTMLCanvasElement;
+        const loaderEl = document.getElementById('modelLoading');
+        if (!container || !canvas) return;
+
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        // Scene
+        scene = new THREE.Scene();
+
+        // Camera
+        camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 100);
+        camera.position.set(0, 0, 6);
+
+        // Renderer
+        renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x000000, 0); // transparent background
+
+        // Model Group
+        modelGroup = new THREE.Group();
+        scene.add(modelGroup);
+
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const dirLight1 = new THREE.DirectionalLight(0xffffff, 1.0);
+        dirLight1.position.set(5, 10, 7);
+        scene.add(dirLight1);
+
+        const dirLight2 = new THREE.DirectionalLight(0xC3B1E1, 0.6); // slight purple accent tint
+        dirLight2.position.set(-5, -5, -5);
+        scene.add(dirLight2);
+
+        // Controls
+        controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.enableZoom = false; // prevent scroll hijacking
+        controls.enablePan = false; // keep model centered
+        controls.autoRotate = false;
+
+        // Cursor Feedback
+        controls.addEventListener('start', () => {
+            isDragging = true;
+            container.style.cursor = 'grabbing';
+        });
+        controls.addEventListener('end', () => {
+            isDragging = false;
+            container.style.cursor = 'grab';
+        });
+
+        // Load GLB Model
+        const loader = new GLTFLoader();
+        loader.load(
+            '/sora-model.glb',
+            (gltf) => {
+                // Center and scale model auto-fitting
+                const model = gltf.scene;
+                
+                const box = new THREE.Box3().setFromObject(model);
+                const size = box.getSize(new THREE.Vector3());
+                const center = box.getCenter(new THREE.Vector3());
+
+                // Offset model position to align its center to (0,0,0)
+                model.position.x += (model.position.x - center.x);
+                model.position.y += (model.position.y - center.y);
+                model.position.z += (model.position.z - center.z);
+
+                // Auto scale to fit within size bounds (target height around 3.5 units)
+                const maxDim = Math.max(size.x, size.y, size.z);
+                const scale = 3.2 / maxDim;
+                model.scale.set(scale, scale, scale);
+
+                modelGroup.add(model);
+
+                // Hide loader
+                if (loaderEl) {
+                    loaderEl.style.display = 'none';
+                }
+
+                // Render loop
+                animate();
+            },
+            undefined,
+            (error) => {
+                console.error('Failed to load 3D model:', error);
+                if (loaderEl) {
+                    const textSpan = loaderEl.querySelector('span');
+                    if (textSpan) {
+                        textSpan.textContent = 'ไม่สามารถโหลดโมเดล 3D ได้';
+                    }
+                }
+            }
+        );
+
+        window.addEventListener('resize', onWindowResize);
+    }
+
+    function onWindowResize() {
+        const container = document.getElementById('modelViewerContainer');
+        if (!container || !camera || !renderer) return;
+
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(width, height);
+    }
+
+    function animate() {
+        animationFrameId = requestAnimationFrame(animate);
+
+        // Update controls
+        controls.update();
+
+        // Slow spin if user is not dragging
+        if (!isDragging && modelGroup) {
+            modelGroup.rotation.y += 0.006;
+        }
+
+        renderer.render(scene, camera);
+    }
+
+    // Initialize
+    init();
+
+    // Clean up
+    document.addEventListener('astro:before-swap', () => {
+        cancelAnimationFrame(animationFrameId);
+        window.removeEventListener('resize', onWindowResize);
+    });
+</script>
