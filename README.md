@@ -1,6 +1,3 @@
-<p align="center">
-  <img src="assets/banner.svg" width="800" alt="rukamori banner" />
-</p>
 
 <p align="center">
   <a href="https://celestial-sora.github.io/" target="_blank">
