@@ -91,8 +91,8 @@
     inset: 0;
     z-index: -1;
     background: rgba(33, 32, 28, 0.55); /* Softened 55% opacity warm charcoal */
-    backdrop-filter: blur(12px) saturate(140%);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    backdrop-filter: blur(12px) /**/ saturate(140%);
+    -webkit-backdrop-filter: blur(12px) /**/ saturate(140%);
     transition: background 0.3s ease;
     transform: translateZ(0);
     will-change: backdrop-filter, transform;
@@ -118,8 +118,8 @@
 
 [data-theme="light"] .frosted-glass::before {
     background: rgba(250, 249, 245, 0.65); /* Softened 65% opacity warm cream */
-    backdrop-filter: blur(12px) saturate(140%);
-    -webkit-backdrop-filter: blur(12px) saturate(140%);
+    backdrop-filter: blur(12px) /**/ saturate(140%);
+    -webkit-backdrop-filter: blur(12px) /**/ saturate(140%);
 }
 
 [data-theme="light"] .frosted-glass:hover {
@@ -345,8 +345,8 @@ body {
     width: 90%;
     max-width: 1100px;
     background: var(--bg-nav);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) /**/ saturate(180%);
+    -webkit-backdrop-filter: blur(20px) /**/ saturate(180%);
     border: 1px solid var(--border-nav);
     border-radius: 999px;
     box-shadow: 
