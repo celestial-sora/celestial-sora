@@ -47,7 +47,7 @@
   &nbsp;&nbsp;
   <img src="https://cdn.simpleicons.org/googlegemini" width="40" height="40" alt="Gemini" />
   &nbsp;&nbsp;
-  <img src="assets/icons/vscode.svg" width="40" height="40" alt="VS Code" />
+  <img src="assets/icons/vscode-blue.svg" width="40" height="40" alt="VS Code" />
   &nbsp;&nbsp;
   <!-- Responsive GitHub icon (dark-mode aware) -->
   <img src="https://cdn.simpleicons.org/github/181717/ffffff" width="40" height="40" alt="GitHub" />
