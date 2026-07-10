@@ -186,14 +186,16 @@
 
 .terminal-path {
     margin-left: auto;
-    font-family: 'JetBrains Mono', 'Courier New', 'Courier', monospace;
+    font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+    font-weight: 600;
     font-size: 11px;
     color: #888;
 }
 
 .terminal-body {
     padding: 16px 12px;
-    font-family: 'JetBrains Mono', 'Courier New', 'Courier', monospace;
+    font-family: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+    font-weight: 600;
     font-size: clamp(12px, 2.5vw, 14px);
     line-height: 1.6;
     color: #e0e0e0;
