@@ -12,6 +12,7 @@
     --bg-nav-scrolled: rgba(26, 25, 21, 0.55); /* 55% opacity dark nav scrolled */
     --border-nav: rgba(255, 255, 255, 0.08); /* 8% opacity white border */
     --shadow-nav: 0 10px 30px rgba(0, 0, 0, 0.25);
+    --page-bg-image: url('/hero-bg-desktop.webp'); /* Static fallback image for filter blur */
 
     --text-primary: #faf9f5;
     --text-secondary: #b0aea5;
@@ -48,6 +49,7 @@
     --bg-nav-scrolled: rgba(250, 249, 245, 0.55); /* 55% opacity light nav scrolled */
     --border-nav: rgba(0, 0, 0, 0.06); /* 6% opacity dark border */
     --shadow-nav: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --page-bg-image: url('/hero-bg-desktop.webp');
 
     --text-primary: #1a1915;
     --text-secondary: #504e46;
@@ -82,6 +84,21 @@
         0 8px 32px rgba(0, 0, 0, 0.15);
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     overflow: hidden;
+}
+
+/* Level 2 static image blur layer (guaranteed backdrop blur effect) */
+.frosted-glass::after {
+    content: '';
+    position: absolute;
+    inset: -20px; /* extends boundary to avoid blurred edges clipping */
+    z-index: -2;
+    background-image: var(--page-bg-image, none);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    opacity: 0.35; /* soft purple/starry background glow */
+    transition: opacity 0.3s ease;
 }
 
 .frosted-glass::before {
@@ -330,7 +347,6 @@ body {
     color: white;
 }
 
-/* ===== Navigation ===== */
 .navbar {
     position: fixed;
     top: 24px;
@@ -344,23 +360,50 @@ body {
     padding: 10px 28px;
     width: 90%;
     max-width: 1100px;
-    background: var(--bg-nav);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid var(--border-nav);
     border-radius: 999px;
     box-shadow: 
         inset 0 1px 0 #ffffff0d,
         var(--shadow-nav);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.navbar::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--bg-nav);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     transform: translateZ(0);
     will-change: backdrop-filter, transform;
+    transition: background 0.3s ease;
+}
+
+.navbar::after {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    z-index: -2;
+    background-image: var(--page-bg-image, none);
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    filter: blur(20px);
+    opacity: 0.45; /* solid blurred background image layer */
+    transition: opacity 0.3s ease;
+}
+
+.navbar.scrolled::before {
+    background: var(--bg-nav-scrolled);
 }
 
 .navbar.scrolled {
     top: 12px;
     padding: 8px 24px;
-    background: var(--bg-nav-scrolled);
     border-color: var(--border-nav);
     box-shadow: var(--shadow-nav), 0 12px 40px rgba(0, 0, 0, 0.15);
 }
@@ -1584,8 +1627,11 @@ body {
     }
 }
 
-/* Mobile */
 @media (max-width: 640px) {
+    :root {
+        --page-bg-image: url('/hero-bg-mobile.webp');
+    }
+
     .navbar {
         top: 12px;
         width: calc(100% - 24px);
