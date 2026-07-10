@@ -93,6 +93,8 @@
     backdrop-filter: blur(8px) saturate(130%);
     -webkit-backdrop-filter: blur(8px) saturate(130%);
     transition: background 0.3s ease;
+    transform: translateZ(0);
+    will-change: backdrop-filter, transform;
 }
 
 .frosted-glass:hover {
@@ -351,6 +353,8 @@ body {
         inset 0 1px 0 #ffffff0d,
         var(--shadow-nav);
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transform: translateZ(0);
+    will-change: backdrop-filter, transform;
 }
 
 .navbar.scrolled {
