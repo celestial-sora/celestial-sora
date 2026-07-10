@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40">
+  <defs>
+    <!-- Gemini signature gradient -->
+    <linearGradient id="gemini-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4285F4" />
+      <stop offset="35%" stop-color="#9B51E0" />
+      <stop offset="70%" stop-color="#E91E63" />
+      <stop offset="100%" stop-color="#F2C94C" />
+    </linearGradient>
+    
+    <!-- Specular highlight for 3D glassy look -->
+    <linearGradient id="glass-highlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.6" />
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.0" />
+    </linearGradient>
+    
+    <!-- Glow filter -->
+    <filter id="glow-3d" x="-25%" y="-25%" width="150%" height="150%">
+      <feGaussianBlur stdDeviation="1.8" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+  
+  <!-- Base colored star -->
+  <path d="M12 2C12 8.5 15.5 12 22 12C15.5 12 12 15.5 12 22C12 15.5 8.5 12 2 12C8.5 12 12 8.5 12 2Z" 
+        fill="url(#gemini-grad)" 
+        filter="url(#glow-3d)" />
+        
+  <!-- Specular 3D highlight overlay -->
+  <path d="M12 2C12 8.5 15.5 12 22 12C15.5 12 12 15.5 12 22C12 15.5 8.5 12 2 12C8.5 12 12 8.5 12 2Z" 
+        fill="url(#glass-highlight)" 
+        mask="url(#highlight-mask)" 
+        style="mix-blend-mode: overlay;" />
+</svg>
