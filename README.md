@@ -1,3 +1,8 @@
+<br />
+
+<p align="center">
+  <b>My Website</b>
+</p>
 <p align="center">
   <a href="https://celestial-sora.github.io/" target="_blank">
     <img src="assets/icons/sparkle-purple.svg" width="40" height="40" alt="Normal Hero Website" />
