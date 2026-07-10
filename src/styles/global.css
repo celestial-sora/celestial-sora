@@ -8,9 +8,9 @@
     --bg-tertiary: #2a2924;
     --bg-card: #24231f;
     --bg-card-hover: #2e2d28;
-    --bg-nav: rgba(26, 25, 21, 0.45); /* 45% opacity dark nav */
-    --bg-nav-scrolled: rgba(26, 25, 21, 0.65); /* 65% opacity dark nav scrolled */
-    --border-nav: rgba(255, 255, 255, 0.08); /* 8% opacity white border */
+    --bg-nav: rgba(26, 25, 21, 0.28); /* Soft 28% opacity dark nav */
+    --bg-nav-scrolled: rgba(26, 25, 21, 0.48); /* Soft 48% opacity scrolled */
+    --border-nav: rgba(255, 255, 255, 0.06); /* Softer 6% opacity white border */
     --shadow-nav: 0 10px 30px rgba(0, 0, 0, 0.25);
 
     --text-primary: #faf9f5;
@@ -44,9 +44,9 @@
     --bg-tertiary: #e9e5db;
     --bg-card: #ffffff;
     --bg-card-hover: #fcfbfa;
-    --bg-nav: rgba(250, 249, 245, 0.45); /* 45% opacity light nav */
-    --bg-nav-scrolled: rgba(250, 249, 245, 0.65); /* 65% opacity light nav scrolled */
-    --border-nav: rgba(0, 0, 0, 0.06); /* 6% opacity dark border */
+    --bg-nav: rgba(250, 249, 245, 0.28); /* Soft 28% opacity light nav */
+    --bg-nav-scrolled: rgba(250, 249, 245, 0.48); /* Soft 48% opacity scrolled */
+    --border-nav: rgba(0, 0, 0, 0.04); /* Softer 4% opacity dark border */
     --shadow-nav: 0 10px 30px rgba(0, 0, 0, 0.08);
 
     --text-primary: #1a1915;
@@ -90,7 +90,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: rgba(33, 32, 28, 0.65); /* 65% opacity warm charcoal fallback */
+    background: rgba(33, 32, 28, 0.55); /* Softened 55% opacity warm charcoal */
     backdrop-filter: blur(12px) saturate(140%);
     -webkit-backdrop-filter: blur(12px) saturate(140%);
     transition: background 0.3s ease;
@@ -106,7 +106,7 @@
 }
 
 .frosted-glass:hover::before {
-    background: rgba(42, 41, 36, 0.75); /* slightly lighter on hover */
+    background: rgba(42, 41, 36, 0.65); /* Softened 65% opacity on hover */
 }
 
 [data-theme="light"] .frosted-glass {
@@ -117,7 +117,7 @@
 }
 
 [data-theme="light"] .frosted-glass::before {
-    background: rgba(250, 249, 245, 0.75); /* 75% opacity warm cream fallback */
+    background: rgba(250, 249, 245, 0.65); /* Softened 65% opacity warm cream */
     backdrop-filter: blur(12px) saturate(140%);
     -webkit-backdrop-filter: blur(12px) saturate(140%);
 }
@@ -127,7 +127,7 @@
 }
 
 [data-theme="light"] .frosted-glass:hover::before {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.75);
 }
 
 /* Fallback for browsers without backdrop-filter support */
