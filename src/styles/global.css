@@ -67,50 +67,50 @@
 
 /* ===== Frosted Glass Samsung Style ===== */
 .frosted-glass {
-    background: rgba(33, 32, 28, 0.75); /* Sleek warm charcoal background fallback */
+    background: #21201cbe; /* 75% opacity of --bg-secondary */
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid #ffffff14; /* 8% opacity white border */
     border-radius: 16px;
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 #ffffff0d, /* 5% opacity white inset */
         0 8px 32px rgba(0, 0, 0, 0.2);
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .frosted-glass:hover {
-    background: rgba(42, 41, 36, 0.8);
+    background: #2a2924cc; /* 80% opacity of --bg-tertiary */
     border-color: var(--accent-primary);
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 #ffffff1a, /* 10% opacity white inset */
         0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="light"] .frosted-glass {
-    background: rgba(250, 249, 245, 0.8); /* Warm cream background fallback */
+    background: #faf9f5cc; /* 80% opacity of --bg-primary */
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border-color: rgba(255, 255, 255, 0.5);
+    border-color: #ffffff80; /* 50% opacity white border */
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.7),
+        inset 0 1px 0 #ffffffb3, /* 70% opacity white inset */
         0 8px 32px rgba(0, 0, 0, 0.06);
 }
 
 [data-theme="light"] .frosted-glass:hover {
-    background: rgba(255, 255, 255, 0.85);
+    background: #ffffffd9; /* 85% opacity white */
     border-color: var(--accent-primary);
     box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.8),
+        inset 0 1px 0 #ffffffcc,
         0 12px 40px rgba(0, 0, 0, 0.1);
 }
 
 /* Fallback for browsers without backdrop-filter support */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .frosted-glass {
-        background: rgba(33, 32, 28, 0.95);
+        background: #21201cf2; /* 95% opacity */
     }
     [data-theme="light"] .frosted-glass {
-        background: rgba(250, 249, 245, 0.95);
+        background: #faf9f5f2; /* 95% opacity */
     }
 }
 
