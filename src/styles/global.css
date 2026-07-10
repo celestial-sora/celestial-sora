@@ -8,8 +8,9 @@
     --bg-tertiary: #2a2924;
     --bg-card: #24231f;
     --bg-card-hover: #2e2d28;
-    --bg-nav: #21201cbe; /* 75% opacity warm charcoal for floating Dynamic Island */
-    --border-nav: #ffffff14; /* faint white border */
+    --bg-nav: rgba(26, 25, 21, 0.35); /* 35% opacity dark nav from reference project */
+    --bg-nav-scrolled: rgba(26, 25, 21, 0.55); /* 55% opacity dark nav scrolled */
+    --border-nav: rgba(255, 255, 255, 0.08); /* 8% opacity white border */
     --shadow-nav: 0 10px 30px rgba(0, 0, 0, 0.25);
 
     --text-primary: #faf9f5;
@@ -43,8 +44,9 @@
     --bg-tertiary: #e9e5db;
     --bg-card: #ffffff;
     --bg-card-hover: #fcfbfa;
-    --bg-nav: #faf9f5cc; /* 80% opacity warm cream for floating Dynamic Island */
-    --border-nav: #1a191514; /* faint dark border */
+    --bg-nav: rgba(250, 249, 245, 0.35); /* 35% opacity light nav from reference project */
+    --bg-nav-scrolled: rgba(250, 249, 245, 0.55); /* 55% opacity light nav scrolled */
+    --border-nav: rgba(0, 0, 0, 0.06); /* 6% opacity dark border */
     --shadow-nav: 0 10px 30px rgba(0, 0, 0, 0.08);
 
     --text-primary: #1a1915;
@@ -73,11 +75,11 @@
 .frosted-glass {
     position: relative;
     isolation: isolate;
-    border: 1px solid #ffffff14; /* 8% opacity white border */
+    border: 1px solid rgba(255, 255, 255, 0.08); /* Faint white border */
     border-radius: 16px;
     box-shadow: 
-        inset 0 1px 0 #ffffff0d, /* 5% opacity white inset */
-        0 8px 32px rgba(0, 0, 0, 0.2);
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 8px 32px rgba(0, 0, 0, 0.15);
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
     overflow: hidden;
 }
@@ -87,43 +89,42 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: #21201cbe; /* 75% opacity of --bg-secondary */
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    background: rgba(255, 255, 255, 0.07); /* 7% opacity white glass */
+    backdrop-filter: blur(8px) saturate(130%);
+    -webkit-backdrop-filter: blur(8px) saturate(130%);
     transition: background 0.3s ease;
 }
 
 .frosted-glass:hover {
-    border-color: var(--accent-primary);
+    border-color: rgba(255, 255, 255, 0.25);
     box-shadow: 
-        inset 0 1px 0 #ffffff1a, /* 10% opacity white inset */
-        0 12px 40px rgba(0, 0, 0, 0.3);
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 12px 40px rgba(0, 0, 0, 0.25);
 }
 
 .frosted-glass:hover::before {
-    background: #2a2924cc; /* 80% opacity of --bg-tertiary */
+    background: rgba(255, 255, 255, 0.12); /* Slightly brighter on hover */
 }
 
 [data-theme="light"] .frosted-glass {
-    border-color: #ffffff80; /* 50% opacity white border */
+    border-color: rgba(0, 0, 0, 0.06);
     box-shadow:
-        inset 0 1px 0 #ffffffb3, /* 70% opacity white inset */
+        inset 0 1px 0 rgba(255, 255, 255, 0.5),
         0 8px 32px rgba(0, 0, 0, 0.06);
 }
 
 [data-theme="light"] .frosted-glass::before {
-    background: #faf9f5cc; /* 80% opacity of --bg-primary */
+    background: rgba(0, 0, 0, 0.03); /* 3% opacity black */
+    backdrop-filter: blur(8px) saturate(130%);
+    -webkit-backdrop-filter: blur(8px) saturate(130%);
 }
 
 [data-theme="light"] .frosted-glass:hover {
-    border-color: var(--accent-primary);
-    box-shadow:
-        inset 0 1px 0 #ffffffcc,
-        0 12px 40px rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.15);
 }
 
 [data-theme="light"] .frosted-glass:hover::before {
-    background: #ffffffd9; /* 85% opacity white */
+    background: rgba(0, 0, 0, 0.06);
 }
 
 /* Fallback for browsers without backdrop-filter support */
@@ -355,7 +356,7 @@ body {
 .navbar.scrolled {
     top: 12px;
     padding: 8px 24px;
-    background: var(--bg-nav);
+    background: var(--bg-nav-scrolled);
     border-color: var(--border-nav);
     box-shadow: var(--shadow-nav), 0 12px 40px rgba(0, 0, 0, 0.15);
 }
