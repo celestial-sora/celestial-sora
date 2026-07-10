@@ -82,7 +82,7 @@
         // Load GLB Model
         const loader = new GLTFLoader();
         loader.load(
-            '/sora-model.glb',
+            import.meta.env.BASE_URL + 'sora-model.glb',
             (gltf) => {
                 // Center and scale model auto-fitting
                 const model = gltf.scene;
