@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.55 0 235.1 235.1" width="40" height="40">
+  <defs>
+    <!-- Custom diagonal rainbow gradient for VS Code icon -->
+    <linearGradient id="vscode-rainbow" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E5C158" />
+      <stop offset="25%" stop-color="#6DBF59" />
+      <stop offset="50%" stop-color="#288DF7" />
+      <stop offset="75%" stop-color="#A04BF0" />
+      <stop offset="100%" stop-color="#F14545" />
+    </linearGradient>
+    <filter id="vs-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#288DF7" flood-opacity="0.12" />
+    </filter>
+  </defs>
+  <path d="M83.3 143.9l-58 45.2L0 176.5V58.7L25.2 46l57.6 45.3L174 0l60 23.9v186.9l-59.7 24.3-91-91.2zm88.9 15.9V75.3l-54.6 42.3 54.6 42.2zM27.3 144.6L56 118.5 27.3 89.9v54.7z" 
+        fill="url(#vscode-rainbow)" 
+        filter="url(#vs-shadow)" />
+</svg>
