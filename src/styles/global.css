@@ -31,7 +31,7 @@
 
     --scrollbar-track: #1a1915;
     --scrollbar-thumb: #3a3832;
-    --font-heading: 'Inter', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-heading: 'Itim', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 [data-theme="light"] {
@@ -67,27 +67,27 @@
 
 /* ===== Frosted Glass Samsung Style ===== */
 .frosted-glass {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(33, 32, 28, 0.75); /* Sleek warm charcoal background fallback */
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 16px;
     box-shadow: 
         inset 0 1px 0 rgba(255, 255, 255, 0.05),
-        0 8px 32px rgba(0, 0, 0, 0.15);
+        0 8px 32px rgba(0, 0, 0, 0.2);
     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .frosted-glass:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(42, 41, 36, 0.8);
     border-color: var(--accent-primary);
     box-shadow: 
         inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 12px 40px rgba(0, 0, 0, 0.25);
+        0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
 [data-theme="light"] .frosted-glass {
-    background: rgba(255, 255, 255, 0.45);
+    background: rgba(250, 249, 245, 0.8); /* Warm cream background fallback */
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     border-color: rgba(255, 255, 255, 0.5);
@@ -97,7 +97,7 @@
 }
 
 [data-theme="light"] .frosted-glass:hover {
-    background: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.85);
     border-color: var(--accent-primary);
     box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.8),
@@ -107,10 +107,10 @@
 /* Fallback for browsers without backdrop-filter support */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .frosted-glass {
-        background: rgba(30, 29, 25, 0.95);
+        background: rgba(33, 32, 28, 0.95);
     }
     [data-theme="light"] .frosted-glass {
-        background: rgba(255, 255, 255, 0.95);
+        background: rgba(250, 249, 245, 0.95);
     }
 }
 
@@ -271,7 +271,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Itim', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
     background-color: var(--bg-primary);
     color: var(--text-primary);
     overflow-x: hidden;
