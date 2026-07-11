@@ -10,15 +10,8 @@
         <!-- Integrated Loading Screen -->
         <div class="cube-hero__loading" id="cubeLoading">
             <div class="loading-content">
-                <div class="loading-logo">
-                    <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
-                        <path d="M12 2L14.85 9.15L22 12L14.85 14.85L12 22L9.15 14.85L2 12L9.15 9.15L12 2Z"></path>
-                    </svg>
-                </div>
-                <span class="loading-text">กำลังโหลดโลกจำลอง... <span id="loadingPercent">0%</span></span>
-                <div class="loading-bar">
-                    <div class="loading-bar__fill" id="loadingBarFill"></div>
-                </div>
+                <div id="loadingShimmerText" class="loading-shimmer-text">Creating the perfect world...</div>
+                <div class="loading-progress-subtle" id="loadingPercent">0%</div>
             </div>
         </div>
 
@@ -85,6 +78,30 @@
     import { initCubeHeroScene } from '../three/cubeHeroScene';
 
     document.addEventListener('DOMContentLoaded', () => {
+        // Setup Text Shimmer Wave character splitting
+        const shimmerTextElement = document.getElementById('loadingShimmerText');
+        if (shimmerTextElement) {
+            const text = shimmerTextElement.textContent || 'Creating the perfect world...';
+            shimmerTextElement.innerHTML = '';
+            
+            const duration = 1.0; // duration of shimmer wave loop
+            const spread = 1.0;
+            
+            text.split('').forEach((char, i) => {
+                const span = document.createElement('span');
+                // Use non-breaking space to prevent collapse
+                span.textContent = char === ' ' ? '\u00A0' : char;
+                span.className = 'shimmer-char';
+                
+                // delay = (i * duration * (1 / spread)) / length
+                const delay = (i * duration * (1 / spread)) / text.length;
+                span.style.animationDelay = `${delay}s`;
+                span.style.animationDuration = `${duration}s`;
+                
+                shimmerTextElement.appendChild(span);
+            });
+        }
+
         const container = document.getElementById('cubeHeroContainer');
         const canvas = document.getElementById('cubeHeroCanvas') as HTMLCanvasElement;
         
