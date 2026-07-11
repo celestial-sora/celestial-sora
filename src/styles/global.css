@@ -646,13 +646,23 @@ body {
 }
 
 @keyframes shimmer-wave-anim {
-    0%, 100% {
-        transform: translateZ(0) translateX(0) translateY(0) scale(1) rotateY(0deg);
+    /* Active animation phase: 0% to 40.8% (corresponding to 1.0s of a 2.45s loop) */
+    0% {
+        transform: translate3d(0, 0, 0) scale(1) rotateY(0deg);
         color: var(--base-color);
     }
-    50% {
-        transform: translateZ(10px) translateX(2px) translateY(-2px) scale(1.1) rotateY(20deg);
+    20.4% { /* Peak state at 0.5s */
+        transform: translate3d(2px, -2px, 10px) scale(1.1) rotateY(20deg);
         color: var(--base-gradient-color);
+    }
+    40.8% { /* End of active state at 1.0s */
+        transform: translate3d(0, 0, 0) scale(1) rotateY(0deg);
+        color: var(--base-color);
+    }
+    /* Pause/Rest phase: 40.8% to 100% (stays static for the remaining 1.45s) */
+    100% {
+        transform: translate3d(0, 0, 0) scale(1) rotateY(0deg);
+        color: var(--base-color);
     }
 }
 
