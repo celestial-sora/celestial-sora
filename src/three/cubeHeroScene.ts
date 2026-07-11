@@ -103,55 +103,57 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
     // Create main cube geometry
     const cubeGeo = new THREE.BoxGeometry(2.3, 2.3, 2.3);
     
-    // Create highly refractive physical ice material (MeshPhysicalMaterial)
-    // Fallback to simpler MeshStandardMaterial on low-end mobile devices to ensure smooth FPS
+    // Create cube mosaic tile texture — matches reference: dark 3D grid tiles with groove lines
     const iceTexLoader = new THREE.TextureLoader();
 
-    // Load ice crack texture — used as normalMap (surface detail) and roughnessMap (variation)
-    const iceCrackTexture = iceTexLoader.load('/ice-texture.png');
-    iceCrackTexture.wrapS = THREE.RepeatWrapping;
-    iceCrackTexture.wrapT = THREE.RepeatWrapping;
-    iceCrackTexture.repeat.set(2, 2);  // Tile 2x2 across each face for finer grain detail
-    iceCrackTexture.colorSpace = THREE.SRGBColorSpace;
+    // Color/roughness map — the mosaic tile image
+    const iceTileMap = iceTexLoader.load('/ice-texture.png');
+    iceTileMap.wrapS = THREE.RepeatWrapping;
+    iceTileMap.wrapT = THREE.RepeatWrapping;
+    iceTileMap.repeat.set(1, 1);       // 1x1 so the full grid fits the face cleanly
+    iceTileMap.colorSpace = THREE.SRGBColorSpace;
 
-    // Normal map version: convert color texture into surface bump detail
-    // Using the same image — darker areas become recessed cracks, lighter = raised frost
-    const iceCrackNormal = iceTexLoader.load('/ice-texture.png');
-    iceCrackNormal.wrapS = THREE.RepeatWrapping;
-    iceCrackNormal.wrapT = THREE.RepeatWrapping;
-    iceCrackNormal.repeat.set(2, 2);
+    // Normal map — same image, used to create the ลีกตื้น (shallow groove relief) effect
+    // Lighter areas = raised tiles, darker groove gaps = recessed channels
+    const iceTileNormal = iceTexLoader.load('/ice-texture.png');
+    iceTileNormal.wrapS = THREE.RepeatWrapping;
+    iceTileNormal.wrapT = THREE.RepeatWrapping;
+    iceTileNormal.repeat.set(1, 1);
 
     let cubeMat: THREE.Material;
     if (isMobile) {
         cubeMat = new THREE.MeshStandardMaterial({
             color: ASSET_CONFIG.cubeColor,
-            roughness: 0.35,
+            roughness: 0.4,
             metalness: 0.05,
             transparent: true,
             opacity: 0.92,
-            map: iceCrackTexture,
-            normalMap: iceCrackNormal,
-            normalScale: new THREE.Vector2(0.3, 0.3),
+            map: iceTileMap,
+            normalMap: iceTileNormal,
+            normalScale: new THREE.Vector2(0.6, 0.6),   // Stronger normal for visible groove
+            bumpMap: iceTileMap,
+            bumpScale: 0.04,                              // Shallow physical depth
         });
     } else {
         cubeMat = new THREE.MeshPhysicalMaterial({
             color: ASSET_CONFIG.cubeColor,
-            transmission: 0.90,
+            transmission: 0.85,
             opacity: 1.0,
             transparent: true,
-            roughness: 0.12,
+            roughness: 0.18,
             metalness: 0.0,
             ior: 1.31,
             thickness: 1.5,
             clearcoat: 1.0,
-            clearcoatRoughness: 0.18,
+            clearcoatRoughness: 0.2,
             attenuationColor: ASSET_CONFIG.cubeAttenuationColor,
             attenuationDistance: 1.5,
-            // Apply ice crack texture as normal map for surface relief (cracks/frost)
-            normalMap: iceCrackNormal,
-            normalScale: new THREE.Vector2(0.5, 0.5),
-            // Apply as roughness map so crack edges are slightly more diffuse than smooth ice
-            roughnessMap: iceCrackTexture,
+            // ลีกตื้น (shallow groove) effect — normalScale controls depth intensity
+            normalMap: iceTileNormal,
+            normalScale: new THREE.Vector2(1.2, 1.2),    // Strong enough to see tile edges
+            roughnessMap: iceTileMap,                     // Groove gaps look rougher, tiles smoother
+            bumpMap: iceTileMap,
+            bumpScale: 0.06,                              // Subtle physical height variation
         });
     }
 
