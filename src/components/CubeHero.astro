@@ -84,8 +84,9 @@
             const text = shimmerTextElement.textContent || 'Creating the perfect world...';
             shimmerTextElement.innerHTML = '';
             
-            const duration = 1.0; // duration of shimmer wave loop
-            const spread = 1.0;
+            const activeDuration = 1.0; // active character animation time
+            const repeatDelay = text.length * 0.05; // pause between wave iterations (matching repeatDelay spec)
+            const totalDuration = activeDuration + repeatDelay; // total animation loop duration
             
             text.split('').forEach((char, i) => {
                 const span = document.createElement('span');
@@ -93,10 +94,10 @@
                 span.textContent = char === ' ' ? '\u00A0' : char;
                 span.className = 'shimmer-char';
                 
-                // delay = (i * duration * (1 / spread)) / length
-                const delay = (i * duration * (1 / spread)) / text.length;
+                // delay = (i * activeDuration) / text.length
+                const delay = (i * activeDuration) / text.length;
                 span.style.animationDelay = `${delay}s`;
-                span.style.animationDuration = `${duration}s`;
+                span.style.animationDuration = `${totalDuration}s`;
                 
                 shimmerTextElement.appendChild(span);
             });
