@@ -1,9 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import LoadingScreen from '../components/LoadingScreen.astro';
 import Navbar from '../components/Navbar.astro';
 import MobileMenu from '../components/MobileMenu.astro';
-import HeroSection from '../components/HeroSection.astro';
+import CubeHero from '../components/CubeHero.astro';
 import AboutSection from '../components/AboutSection.astro';
 import ProjectsSection from '../components/ProjectsSection.astro';
 import SocialSection from '../components/SocialSection.astro';
@@ -11,17 +10,14 @@ import Footer from '../components/Footer.astro';
 import ScrollToTop from '../components/ScrollToTop.astro';
 ---
 <Layout title="Sora Astralis" description="Sora Astralis — Creator & Vibe Coder Portfolio">
-	<!-- Loading Screen (runs once on load) -->
-	<LoadingScreen />
-
 	<!-- Navigation Menu -->
 	<Navbar />
 	<MobileMenu />
 
 	<!-- Main Sections -->
 	<main>
-		<!-- Hero Area with ThreeJS Cubes & 3D Character Card -->
-		<HeroSection />
+		<!-- Scroll-Zoom Cube Hero Section -->
+		<CubeHero />
 
 		<!-- About Me (text & stats card only) -->
 		<AboutSection />
