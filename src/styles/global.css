@@ -612,7 +612,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 999;
+    z-index: 9999; /* Set extremely high to override canvas stacking context */
+    transform: translateZ(999px); /* Force layer stack promotion above Three.js canvas */
 }
 
 .loading-content {
@@ -641,7 +642,9 @@ body {
     display: inline-block;
     white-space: pre;
     transform-style: preserve-3d;
-    animation: shimmer-wave-anim infinite ease-in-out;
+    animation-name: shimmer-wave-anim;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
     color: var(--base-color);
 }
 
