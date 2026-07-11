@@ -604,7 +604,7 @@ body {
     pointer-events: auto;
 }
 
-/* Integrated Loading Overlay */
+/* Integrated Loading Overlay (Text Shimmer Wave Style) */
 .cube-hero__loading {
     position: absolute;
     inset: 0;
@@ -619,43 +619,51 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    max-width: 300px;
-    width: 90%;
+    gap: 16px;
     text-align: center;
-}
-
-.loading-logo {
-    color: var(--accent-primary);
-    animation: loading-pulse 2s ease-in-out infinite;
-}
-
-.loading-text {
-    font-family: var(--font-heading);
-    font-size: 16px;
-    color: var(--text-primary);
-    letter-spacing: 1px;
-}
-
-.loading-bar {
     width: 100%;
-    height: 4px;
-    background: var(--bg-tertiary);
-    border-radius: 2px;
-    overflow: hidden;
-    border: 1px solid var(--border-color);
+    padding: 20px;
 }
 
-.loading-bar__fill {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, var(--accent-primary), var(--accent-hover));
-    transition: width 0.1s ease-out;
+.loading-shimmer-text {
+    position: relative;
+    display: inline-block;
+    perspective: 500px;
+    font-size: clamp(20px, 4vw, 28px);
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-family: var(--font-heading);
+    --base-color: var(--text-muted);
+    --base-gradient-color: var(--accent-primary);
 }
 
-@keyframes loading-pulse {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 8px var(--accent-primary)); }
+.shimmer-char {
+    display: inline-block;
+    white-space: pre;
+    transform-style: preserve-3d;
+    animation: shimmer-wave-anim infinite ease-in-out;
+    color: var(--base-color);
+}
+
+@keyframes shimmer-wave-anim {
+    0%, 100% {
+        transform: translateZ(0) translateX(0) translateY(0) scale(1) rotateY(0deg);
+        color: var(--base-color);
+    }
+    50% {
+        transform: translateZ(10px) translateX(2px) translateY(-2px) scale(1.1) rotateY(20deg);
+        color: var(--base-gradient-color);
+    }
+}
+
+.loading-progress-subtle {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    opacity: 0.7;
+    letter-spacing: 1px;
+    font-family: monospace;
+    margin-top: 8px;
 }
 
 /* Accessibility reduced-motion fallback */
