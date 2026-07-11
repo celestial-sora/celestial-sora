@@ -1,0 +1,95 @@
+---
+---
+<section class="cube-hero" id="home">
+    <div class="cube-hero__pin-wrapper">
+        <!-- Main WebGL Canvas -->
+        <div class="three-canvas-container" id="cubeHeroContainer">
+            <canvas id="cubeHeroCanvas"></canvas>
+        </div>
+
+        <!-- Integrated Loading Screen -->
+        <div class="cube-hero__loading" id="cubeLoading">
+            <div class="loading-content">
+                <div class="loading-logo">
+                    <svg viewBox="0 0 24 24" width="32" height="32" fill="currentColor">
+                        <path d="M12 2L14.85 9.15L22 12L14.85 14.85L12 22L9.15 14.85L2 12L9.15 9.15L12 2Z"></path>
+                    </svg>
+                </div>
+                <span class="loading-text">กำลังโหลดโลกจำลอง... <span id="loadingPercent">0%</span></span>
+                <div class="loading-bar">
+                    <div class="loading-bar__fill" id="loadingBarFill"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero Content Overlay (fades out on scroll) -->
+        <div class="cube-hero__overlay" id="cubeOverlay">
+            <div class="hero-content">
+                <div class="hero-badge frosted-glass">
+                    <span>Creator & Vibe Coder</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">Sora</span>
+                    <span class="title-line accent">Astralis</span>
+                </h1>
+                <p class="hero-subtitle">SORA ASTRALIS</p>
+                <div class="hero-tags">
+                    <span class="tag frosted-glass">
+                        <span class="tag-icon">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="6" width="20" height="12" rx="3"></rect>
+                                <path d="M12 12h.01M16 10h.01M16 14h.01M6 12h4M8 10v4"></path>
+                            </svg>
+                        </span>
+                        <span>Content Creator</span>
+                    </span>
+                    <span class="tag frosted-glass">
+                        <span class="tag-icon">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                                <line x1="8" y1="21" x2="16" y2="21"></line>
+                                <line x1="12" y1="17" x2="12" y2="21"></line>
+                            </svg>
+                        </span>
+                        <span>Vibe Coder</span>
+                    </span>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#donate" class="btn btn-primary">
+                        <span>สนับสนุน</span>
+                        <span class="btn-arrow">
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                                <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                        </span>
+                    </a>
+                    <a href="#social" class="btn btn-outline">โซเชียล</a>
+                </div>
+            </div>
+
+            <a href="#about" class="hero-scroll-cue" id="cubeScrollCue" aria-label="Scroll down">
+                <span class="scroll-cue-text">เลื่อนลงเพื่อเข้าสู่โลกใหม่</span>
+                <span class="scroll-cue-arrow">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <polyline points="19 12 12 19 5 12"></polyline>
+                    </svg>
+                </span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<script>
+    import { initCubeHeroScene } from '../three/cubeHeroScene';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const container = document.getElementById('cubeHeroContainer');
+        const canvas = document.getElementById('cubeHeroCanvas') as HTMLCanvasElement;
+        
+        if (container && canvas) {
+            initCubeHeroScene(container, canvas);
+        }
+    });
+</script>
