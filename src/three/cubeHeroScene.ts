@@ -32,6 +32,9 @@ const clock = new THREE.Clock();
 export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElement) {
     const startTime = Date.now();
 
+    // Add class to body to hide Navbar during loading
+    document.body.classList.add('is-loading');
+
     // Clean up any previously active instances before initializing a new one
     disposeCubeHeroScene();
 
@@ -259,6 +262,8 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
                         pointerEvents: 'none',
                         onComplete: () => {
                             loadingScreen.style.display = 'none';
+                            // Remove body class to restore Navbar after loading
+                            document.body.classList.remove('is-loading');
                         }
                     });
                 }
@@ -282,6 +287,7 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
             const delayTime = Math.max(0, minDuration - elapsed);
             setTimeout(() => {
                 if (loadingScreen) loadingScreen.style.display = 'none';
+                document.body.classList.remove('is-loading');
             }, delayTime);
         }
     );

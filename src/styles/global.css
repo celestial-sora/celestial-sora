@@ -606,14 +606,22 @@ body {
 
 /* Integrated Loading Overlay (Text Shimmer Wave Style) */
 .cube-hero__loading {
-    position: fixed; /* Change from absolute to fixed to cover viewport-fixed elements like Navbar */
+    position: fixed;
     inset: 0;
     background: var(--bg-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 999999; /* Set extremely high to stack above fixed navigation elements */
-    transform: translateZ(999px); /* Force layer stack promotion above Three.js canvas */
+    z-index: 999999;
+    transform: translateZ(999px);
+}
+
+/* Hide navbar + mobile menu while loading overlay is active */
+body.is-loading .navbar,
+body.is-loading .mobile-menu-overlay {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    visibility: hidden !important;
 }
 
 .loading-content {
