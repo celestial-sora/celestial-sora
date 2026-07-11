@@ -606,13 +606,13 @@ body {
 
 /* Integrated Loading Overlay (Text Shimmer Wave Style) */
 .cube-hero__loading {
-    position: absolute;
+    position: fixed; /* Change from absolute to fixed to cover viewport-fixed elements like Navbar */
     inset: 0;
     background: var(--bg-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 9999; /* Set extremely high to override canvas stacking context */
+    z-index: 999999; /* Set extremely high to stack above fixed navigation elements */
     transform: translateZ(999px); /* Force layer stack promotion above Three.js canvas */
 }
 
