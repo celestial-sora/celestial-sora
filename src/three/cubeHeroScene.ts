@@ -30,6 +30,8 @@ let modelMixer: THREE.AnimationMixer | null = null;
 const clock = new THREE.Clock();
 
 export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElement) {
+    const startTime = Date.now();
+
     // Clean up any previously active instances before initializing a new one
     disposeCubeHeroScene();
 
@@ -241,30 +243,46 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
                 action.play();
             }
 
-            // Fade out the loading screen overlay
-            if (loadingScreen) {
-                gsap.to(loadingScreen, {
-                    opacity: 0,
-                    duration: 0.8,
-                    pointerEvents: 'none',
-                    onComplete: () => {
-                        loadingScreen.style.display = 'none';
-                    }
-                });
-            }
+            // Enforce minimum 5 seconds display for the loading screen animation
+            const elapsed = Date.now() - startTime;
+            const minDuration = 5000; // 5000ms = 5 seconds
+            const delayTime = Math.max(0, minDuration - elapsed);
+
+            setTimeout(() => {
+                if (loadingPercentText) {
+                    loadingPercentText.textContent = '100%';
+                }
+                if (loadingScreen) {
+                    gsap.to(loadingScreen, {
+                        opacity: 0,
+                        duration: 0.8,
+                        pointerEvents: 'none',
+                        onComplete: () => {
+                            loadingScreen.style.display = 'none';
+                        }
+                    });
+                }
+            }, delayTime);
         },
         // Progress callback to feed the loading UI
         (xhr) => {
             if (xhr.total > 0) {
                 const percent = Math.round((xhr.loaded / xhr.total) * 100);
-                if (loadingPercentText) loadingPercentText.textContent = `${percent}%`;
-                if (loadingBarFill) loadingBarFill.style.width = `${percent}%`;
+                // Keep percent display capped before final 100% delay completion
+                const displayedPercent = percent >= 100 ? 99 : percent;
+                if (loadingPercentText) loadingPercentText.textContent = `${displayedPercent}%`;
+                if (loadingBarFill) loadingBarFill.style.width = `${displayedPercent}%`;
             }
         },
         (error) => {
             console.error('Error loading 3D VTuber Model:', error);
-            // Hide loading screen even on failure so page isn't blocked
-            if (loadingScreen) loadingScreen.style.display = 'none';
+            // Hide loading screen after minimum delay on error so page isn't blocked
+            const elapsed = Date.now() - startTime;
+            const minDuration = 5000;
+            const delayTime = Math.max(0, minDuration - elapsed);
+            setTimeout(() => {
+                if (loadingScreen) loadingScreen.style.display = 'none';
+            }, delayTime);
         }
     );
 
