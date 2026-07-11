@@ -189,6 +189,9 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
     const particles = new THREE.Points(particleGeo, particleMat);
     scene.add(particles);
 
+    // Model opacity tracker for ScrollTrigger
+    const modelOpacity = { value: prefersReducedMotion ? 1.0 : 0.0 };
+
     // 8. Load the 3D VTuber/Catgirl Model
     let loadedModel: THREE.Object3D | null = null;
     const gltfLoader = new GLTFLoader();
@@ -204,7 +207,12 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
             loadedModel = gltf.scene;
             loadedModel.scale.setScalar(ASSET_CONFIG.modelScale);
             loadedModel.position.copy(ASSET_CONFIG.modelPosition);
-            loadedModel.rotation.y = Math.PI; // Face the camera (looking positive Z)
+            loadedModel.rotation.y = 0; // Face the camera forwards (GLB modeled facing away from default Z-backwards)
+
+            // Hide initially until scrolled past 50%
+            if (!prefersReducedMotion) {
+                loadedModel.visible = false;
+            }
 
             // Setup shadows and ensure transparency compatibility for fade-in
             loadedModel.traverse((child) => {
@@ -217,7 +225,7 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
                         const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
                         mats.forEach(mat => {
                             mat.transparent = true;
-                            mat.opacity = 0.0; // Start hidden, fade in
+                            mat.opacity = prefersReducedMotion ? 1.0 : 0.0;
                         });
                     }
                 }
@@ -232,21 +240,6 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
                 const action = modelMixer.clipAction(gltf.animations[0]);
                 action.play();
             }
-
-            // Animate model fade-in once loaded
-            loadedModel.traverse((child) => {
-                if ((child as THREE.Mesh).isMesh) {
-                    const mesh = child as THREE.Mesh;
-                    const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
-                    mats.forEach(mat => {
-                        gsap.to(mat, {
-                            opacity: 1.0,
-                            duration: 1.5,
-                            ease: 'power2.out'
-                        });
-                    });
-                }
-            });
 
             // Fade out the loading screen overlay
             if (loadingScreen) {
@@ -335,12 +328,18 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
             duration: 2.0
         }, 3.0);
 
-        // Step E: Fade in background scene texture + lighting (55% -> 90%)
+        // Step E: Fade in background scene texture + lighting + model (55% -> 90%)
         scrollTimeline.to(bgMat, {
             opacity: 1.0,
             duration: 3.0,
             ease: 'power2.out'
         }, 3.8);
+
+        scrollTimeline.to(modelOpacity, {
+            value: 1.0,
+            duration: 2.5,
+            ease: 'power2.out'
+        }, 4.0);
 
         scrollTimeline.to(ambientLight, {
             intensity: 0.75,
@@ -457,8 +456,22 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
             modelMixer.update(delta);
         } else if (loadedModel) {
             // Sway bobbing animation fallback if no clips are defined
-            loadedModel.rotation.y = Math.PI + Math.sin(time * 0.4) * 0.06;
+            loadedModel.rotation.y = 0 + Math.sin(time * 0.4) * 0.06;
             loadedModel.position.y = ASSET_CONFIG.modelPosition.y + Math.sin(time * 1.2) * 0.04;
+        }
+
+        // Update loaded model visibility & opacity dynamically based on scroll timeline progress
+        if (loadedModel && !prefersReducedMotion) {
+            loadedModel.visible = modelOpacity.value > 0.01;
+            loadedModel.traverse((child) => {
+                if ((child as THREE.Mesh).isMesh) {
+                    const mesh = child as THREE.Mesh;
+                    const mats = Array.isArray(mesh.material) ? mesh.material : [mesh.material];
+                    mats.forEach(mat => {
+                        mat.opacity = modelOpacity.value;
+                    });
+                }
+            });
         }
 
         // Rotate the ice cube in starting/middle phases
