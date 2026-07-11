@@ -404,8 +404,8 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
 
         // Step F: Move camera to its final resting position in the new world (70% -> 100%)
         scrollTimeline.to(camera.position, {
-            z: 5.0,
-            y: 0.5,
+            z: -4.5,
+            y: 1.0,
             duration: 2.5,
             ease: 'power1.out'
         }, 5.5);
@@ -415,7 +415,7 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
 
     } else {
         // Fallback for prefers-reduced-motion: skip animation, display final state immediately
-        camera.position.set(0, 0.5, 5.0);
+        camera.position.set(0, 1.0, -4.5);
         lookTarget.copy(ASSET_CONFIG.modelPosition).y += 0.9;
         bgMat.opacity = 1.0;
         cubeMat.opacity = 0.0;
