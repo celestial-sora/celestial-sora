@@ -471,20 +471,60 @@
             coordEl.textContent = `${x} X · ${y} Y`;
         }, { passive: true });
 
-        // ── 3D PARALLAX TILT ON SORA CHARACTER CARD ───────────────────────────
+        // ── 3D PARALLAX TILT ON SORA CHARACTER CARD (Mouse, Gyroscope & Touch) ──
         const card = document.getElementById('profileHeroCard');
         if (card) {
             let reqId: number | null = null;
             const targetRot  = { x: 0, y: 0 };
             const currentRot = { x: 0, y: 0 };
 
+            // 1. Mouse Tilt (Desktop)
             const onMouseMove = (e: MouseEvent) => {
                 const rect = card.getBoundingClientRect();
                 const cardCenterX = rect.left + rect.width / 2;
                 const cardCenterY = rect.top + rect.height / 2;
 
-                targetRot.y =  ((e.clientX - cardCenterX) / (window.innerWidth / 2)) * 16;
-                targetRot.x = -((e.clientY - cardCenterY) / (window.innerHeight / 2)) * 16;
+                targetRot.y =  ((e.clientX - cardCenterX) / (window.innerWidth / 2)) * 18;
+                targetRot.x = -((e.clientY - cardCenterY) / (window.innerHeight / 2)) * 18;
+            };
+
+            // 2. Gyroscope Device Orientation Tilt (Mobile Hardware Sensor)
+            const handleDeviceOrientation = (e: DeviceOrientationEvent) => {
+                if (e.beta === null || e.gamma === null) return;
+                
+                // e.gamma = left/right tilt (-90 to 90)
+                // e.beta  = front/back tilt (holding phone naturally is ~40-45deg)
+                const normY = Math.max(-1, Math.min(1, e.gamma / 30));
+                const normX = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
+
+                targetRot.y = normY * 22;
+                targetRot.x = -normX * 22;
+            };
+
+            const requestGyroPermission = () => {
+                if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
+                    (DeviceOrientationEvent as any).requestPermission()
+                        .then((res: string) => {
+                            if (res === 'granted') {
+                                window.addEventListener('deviceorientation', handleDeviceOrientation, true);
+                            }
+                        })
+                        .catch(() => {});
+                } else {
+                    window.addEventListener('deviceorientation', handleDeviceOrientation, true);
+                }
+            };
+
+            // 3. Touch Drag Tilt (Mobile Touchscreen)
+            const onTouchMove = (e: TouchEvent) => {
+                if (!e.touches[0]) return;
+                const t = e.touches[0];
+                const rect = card.getBoundingClientRect();
+                const cardCenterX = rect.left + rect.width / 2;
+                const cardCenterY = rect.top + rect.height / 2;
+
+                targetRot.y =  ((t.clientX - cardCenterX) / (window.innerWidth / 2)) * 18;
+                targetRot.x = -((t.clientY - cardCenterY) / (window.innerHeight / 2)) * 18;
             };
 
             const onMouseLeave = () => {
@@ -492,8 +532,11 @@
                 targetRot.y = 0;
             };
 
-            window.addEventListener('mousemove', onMouseMove, { passive: true });
-            card.addEventListener('mouseleave', onMouseLeave);
+            window.addEventListener('mousemove',  onMouseMove,  { passive: true });
+            window.addEventListener('touchmove',  onTouchMove,  { passive: true });
+            window.addEventListener('mouseleave', onMouseLeave);
+            window.addEventListener('touchstart', requestGyroPermission, { once: true });
+            requestGyroPermission();
 
             const animateCard = () => {
                 reqId = requestAnimationFrame(animateCard);
