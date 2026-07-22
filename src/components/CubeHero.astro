@@ -471,7 +471,7 @@
             coordEl.textContent = `${x} X · ${y} Y`;
         }, { passive: true });
 
-        // ── 3D PARALLAX TILT ON SORA CHARACTER CARD (Mouse, Gyroscope & Touch) ──
+        // ── 3D PARALLAX TILT ON SORA CHARACTER CARD (Mouse & Touch Drag) ─────────
         const card = document.getElementById('profileHeroCard');
         if (card) {
             let reqId: number | null = null;
@@ -488,34 +488,7 @@
                 targetRot.x = -((e.clientY - cardCenterY) / (window.innerHeight / 2)) * 18;
             };
 
-            // 2. Gyroscope Device Orientation Tilt (Mobile Hardware Sensor)
-            const handleDeviceOrientation = (e: DeviceOrientationEvent) => {
-                if (e.beta === null || e.gamma === null) return;
-                
-                // e.gamma = left/right tilt (-90 to 90)
-                // e.beta  = front/back tilt (holding phone naturally is ~40-45deg)
-                const normY = Math.max(-1, Math.min(1, e.gamma / 30));
-                const normX = Math.max(-1, Math.min(1, (e.beta - 45) / 30));
-
-                targetRot.y = normY * 22;
-                targetRot.x = -normX * 22;
-            };
-
-            const requestGyroPermission = () => {
-                if (typeof (DeviceOrientationEvent as any).requestPermission === 'function') {
-                    (DeviceOrientationEvent as any).requestPermission()
-                        .then((res: string) => {
-                            if (res === 'granted') {
-                                window.addEventListener('deviceorientation', handleDeviceOrientation, true);
-                            }
-                        })
-                        .catch(() => {});
-                } else {
-                    window.addEventListener('deviceorientation', handleDeviceOrientation, true);
-                }
-            };
-
-            // 3. Touch Drag Tilt (Mobile Touchscreen)
+            // 2. Touch Drag Tilt (Mobile Touchscreen)
             const onTouchMove = (e: TouchEvent) => {
                 if (!e.touches[0]) return;
                 const t = e.touches[0];
@@ -527,16 +500,15 @@
                 targetRot.x = -((t.clientY - cardCenterY) / (window.innerHeight / 2)) * 18;
             };
 
-            const onMouseLeave = () => {
+            const resetTilt = () => {
                 targetRot.x = 0;
                 targetRot.y = 0;
             };
 
-            window.addEventListener('mousemove',  onMouseMove,  { passive: true });
-            window.addEventListener('touchmove',  onTouchMove,  { passive: true });
-            window.addEventListener('mouseleave', onMouseLeave);
-            window.addEventListener('touchstart', requestGyroPermission, { once: true });
-            requestGyroPermission();
+            window.addEventListener('mousemove',  onMouseMove, { passive: true });
+            window.addEventListener('touchmove',  onTouchMove, { passive: true });
+            window.addEventListener('mouseleave', resetTilt);
+            window.addEventListener('touchend',   resetTilt,   { passive: true });
 
             const animateCard = () => {
                 reqId = requestAnimationFrame(animateCard);
