@@ -1253,6 +1253,9 @@ body.is-loading .mobile-menu-overlay {
 
 .project-buttons {
     margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
 .project-btn {
