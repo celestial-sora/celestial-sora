@@ -37,13 +37,34 @@ import ScrollToTop from '../components/ScrollToTop.astro';
 </Layout>
 
 <script>
-	// Scroll Reveal Animations
+	import { gsap } from 'gsap';
+	import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+	gsap.registerPlugin(ScrollTrigger);
+
 	document.addEventListener('DOMContentLoaded', () => {
-		const revealElements = document.querySelectorAll(
-			'.about-text-card, .project-card, .social-card, .section-header, .donation-hub-container, .social-grid-header'
+		// Zoom-In Transition on scroll for Who is Sora? (#about)
+		gsap.fromTo('#about .section-header, #about .about-text-card',
+			{ scale: 0.65, opacity: 0, y: 60 },
+			{
+				scale: 1,
+				opacity: 1,
+				y: 0,
+				ease: 'power2.out',
+				scrollTrigger: {
+					trigger: '#about',
+					start: 'top 85%',
+					end: 'top 35%',
+					scrub: 1,
+				}
+			}
 		);
 
-		revealElements.forEach(el => el.classList.add('reveal'));
+		// Other sections keep standard reveal
+		const otherElements = document.querySelectorAll(
+			'.project-card, .social-card, .projects-section .section-header, .social-section .section-header, .donation-hub-container'
+		);
+		otherElements.forEach(el => el.classList.add('reveal'));
 
 		const revealObserver = new IntersectionObserver((entries) => {
 			entries.forEach(entry => {
@@ -53,11 +74,11 @@ import ScrollToTop from '../components/ScrollToTop.astro';
 				}
 			});
 		}, {
-			threshold: 0.1,
+			threshold: 0.12,
 			rootMargin: '0px 0px -40px 0px'
 		});
 
-		revealElements.forEach(el => revealObserver.observe(el));
+		document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
 		// Staggered Reveal for Grids (Projects & Socials)
 		const gridContainers = document.querySelectorAll('.projects-grid, .social-grid');
