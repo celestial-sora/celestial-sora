@@ -2,110 +2,512 @@
 ---
 <section class="cube-hero" id="home">
     <div class="cube-hero__pin-wrapper">
-        <!-- Main WebGL Canvas -->
+
+        <!-- WebGL Canvas (Starfield particles + ambient glow) -->
         <div class="three-canvas-container" id="cubeHeroContainer">
             <canvas id="cubeHeroCanvas"></canvas>
         </div>
 
-        <!-- Integrated Loading Screen -->
+        <!-- Video Loading Screen -->
         <div class="cube-hero__loading" id="cubeLoading">
-            <div class="loading-content">
-                <div id="loadingShimmerText" class="loading-shimmer-text">Creating the perfect world...</div>
+            <video
+                id="loadingVideo"
+                src={import.meta.env.BASE_URL + "loading-video.mp4"}
+                autoplay
+                muted
+                playsinline
+                class="loading-video-media"
+            ></video>
+            <div class="loading-video-badge">
+                <div id="loadingShimmerText" class="loading-shimmer-text">Sora Astralis</div>
                 <div class="loading-progress-subtle" id="loadingPercent">0%</div>
             </div>
         </div>
 
-        <!-- Hero Content Overlay (fades out on scroll) -->
+        <!-- Hero Overlay -->
         <div class="cube-hero__overlay" id="cubeOverlay">
-            <div class="hero-content">
-                <div class="hero-badge frosted-glass">
-                    <span>Creator & Vibe Coder</span>
-                </div>
-                <h1 class="hero-title">
-                    <span class="title-line">Sora</span>
-                    <span class="title-line accent">Astralis</span>
-                </h1>
-                <p class="hero-subtitle">SORA ASTRALIS</p>
-                <div class="hero-tags">
-                    <span class="tag frosted-glass">
-                        <span class="tag-icon">
-                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="6" width="20" height="12" rx="3"></rect>
-                                <path d="M12 12h.01M16 10h.01M16 14h.01M6 12h4M8 10v4"></path>
-                            </svg>
-                        </span>
-                        <span>Content Creator</span>
-                    </span>
-                    <span class="tag frosted-glass">
-                        <span class="tag-icon">
-                            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                                <line x1="8" y1="21" x2="16" y2="21"></line>
-                                <line x1="12" y1="17" x2="12" y2="21"></line>
-                            </svg>
-                        </span>
-                        <span>Vibe Coder</span>
-                    </span>
-                </div>
-                <div class="hero-buttons">
-                    <a href="#donate" class="btn btn-primary">
-                        <span>สนับสนุน</span>
-                        <span class="btn-arrow">
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                        </span>
-                    </a>
-                    <a href="#social" class="btn btn-outline">โซเชียล</a>
+
+            <!-- Top Info Row -->
+            <div class="hero-info-row">
+                <span class="hero-info-tag">Creator &amp; Vibe Coder</span>
+                <span class="hero-info-tag hero-info-right">Sora Astralis © 2026</span>
+            </div>
+
+            <!-- ── GIANT STATIC 2D TEXT "Sorachan" (iOS Clock Style Depth Layer) ── -->
+            <div class="ios-clock-depth-layer" aria-hidden="true">
+                <h1 class="ios-clock-title">Sorachan</h1>
+            </div>
+
+            <!-- ── SINGLE PROFILE CARD (Matches Reference Image) ── -->
+            <div class="hero-card-stage">
+                <div class="sora-character-card frosted-glass" id="profileHeroCard">
+
+                    <!-- Card Header Tag -->
+                    <div class="card-header-text">SORA CHARACTER</div>
+
+                    <!-- Main Character Image Box -->
+                    <div class="card-image-box">
+                        <img
+                            src={import.meta.env.BASE_URL + "sora-profile.jpg"}
+                            alt="Sora Character"
+                            class="card-character-img"
+                        />
+                    </div>
+
+                    <!-- Card Footer Row -->
+                    <div class="card-footer-row">
+                        <div class="footer-col footer-left">SORA</div>
+                        
+                        <a href="#about" class="footer-col footer-center" aria-label="Scroll down">
+                            <span class="scroll-prompt-text">เลื่อนลงโลดดดด</span>
+                            <span class="scroll-prompt-arrow">↓</span>
+                        </a>
+
+                        <div class="footer-col footer-right">
+                            <span class="star-icon">✦</span>
+                            <span>Astralis</span>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-            <a href="#about" class="hero-scroll-cue" id="cubeScrollCue" aria-label="Scroll down">
-                <span class="scroll-cue-text">เลื่อนลงเพื่อเข้าสู่โลกใหม่</span>
-                <span class="scroll-cue-arrow">
-                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <polyline points="19 12 12 19 5 12"></polyline>
-                    </svg>
-                </span>
-            </a>
+            <!-- Bottom Info Bar -->
+            <div class="hero-bottom-bar">
+                <span class="hero-bottom-left">GMT+7 TH · <span id="live-time">--:--</span></span>
+                <span class="hero-bottom-right" id="mouse-coords">0000 X · 0000 Y</span>
+            </div>
+
         </div>
+
     </div>
 </section>
+
+<style>
+/* ── Video Loading Screen ────────────────────────────────────────────── */
+.loading-video-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.loading-video-badge {
+    position: absolute;
+    bottom: 36px;
+    right: 36px;
+    z-index: 2;
+    padding: 10px 22px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(8, 9, 26, 0.60);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.loading-video-badge .loading-shimmer-text {
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.loading-video-badge .loading-progress-subtle {
+    margin-top: 0;
+}
+
+/* ── Hero Overlay Layout ──────────────────────────────────────────────── */
+.cube-hero__overlay {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 92px 44px 28px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ── Top Info Row ─────────────────────────────────────────────────────── */
+.hero-info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.hero-info-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(0.68rem, 1.1vw, 0.82rem);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0;
+    animation: fadeIn 0.7s ease forwards 1.6s;
+}
+
+/* ── GIANT STATIC 2D TEXT "Sorachan" (iOS 26 Clock Style Depth Layer) ──── */
+.ios-clock-depth-layer {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    pointer-events: none;
+    user-select: none;
+}
+
+.ios-clock-title {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 900;
+    font-size: clamp(6rem, 21vw, 17rem);
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+    margin: 0;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.08);
+
+    /* Subtle pastel purple gradient glow */
+    background: linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.16) 0%,
+        rgba(195, 177, 225, 0.12) 50%,
+        rgba(142, 200, 216, 0.04) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+
+    /* Subtle depth drop shadow */
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+}
+
+[data-theme="light"] .ios-clock-title {
+    background: linear-gradient(
+        180deg,
+        rgba(26, 25, 21, 0.14) 0%,
+        rgba(106, 69, 170, 0.10) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* ── Card Stage (Center 3D Container) ─────────────────────────────────── */
+.hero-card-stage {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    z-index: 4;
+    padding: 10px 0;
+}
+
+/* ── SORA CHARACTER CARD (Exact Match to Reference Image) ─────────────── */
+.sora-character-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 24px 22px;
+    width: min(92%, 390px);
+    background: rgba(22, 20, 32, 0.58);
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 24px 70px rgba(0, 0, 0, 0.55),
+        0 0 50px rgba(195, 177, 225, 0.12);
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    pointer-events: auto;
+    cursor: pointer;
+}
+
+.sora-character-card:hover {
+    border-color: rgba(195, 177, 225, 0.35);
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.22),
+        0 32px 85px rgba(0, 0, 0, 0.65),
+        0 0 60px rgba(195, 177, 225, 0.22);
+}
+
+[data-theme="light"] .sora-character-card {
+    background: rgba(250, 249, 245, 0.70);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Card Header Text */
+.card-header-text {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+[data-theme="light"] .card-header-text {
+    color: rgba(0, 0, 0, 0.45);
+}
+
+/* Card Image Box */
+.card-image-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card-character-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.sora-character-card:hover .card-character-img {
+    transform: scale(1.03);
+}
+
+/* Card Footer Row */
+.card-footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 4px;
+}
+
+.footer-col {
+    font-family: 'Inter', -apple-system, sans-serif;
+    font-size: 14px;
+}
+
+.footer-left {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.90);
+}
+
+[data-theme="light"] .footer-left {
+    color: rgba(26, 25, 21, 0.90);
+}
+
+.footer-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--accent-primary);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.footer-center:hover {
+    opacity: 0.85;
+    transform: translateY(2px);
+}
+
+.scroll-prompt-text {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: #d8b4e2; /* Soft pink-purple Thai prompt color */
+}
+
+.arrow-down {
+    font-size: 14px;
+    font-weight: 700;
+    color: #d8b4e2;
+    margin-top: -2px;
+    animation: bounceDown 1.8s infinite ease-in-out;
+}
+
+@keyframes bounceDown {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(4px); }
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #cbb8e8;
+}
+
+.star-icon {
+    font-size: 12px;
+    color: var(--accent-primary);
+}
+
+/* ── Bottom Info Bar ──────────────────────────────────────────────────── */
+.hero-bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.hero-bottom-left,
+.hero-bottom-right {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(0.58rem, 1vw, 0.72rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0;
+    animation: fadeIn 0.7s ease forwards 2.0s;
+}
+
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* ── Mobile Responsiveness ────────────────────────────────────────────── */
+@media (max-width: 640px) {
+    .cube-hero__overlay {
+        padding: 72px 16px 20px;
+    }
+    .sora-character-card {
+        padding: 16px 18px 18px;
+        width: min(92%, 330px);
+        border-radius: 24px;
+    }
+    .card-header-text {
+        font-size: 10px;
+        letter-spacing: 0.20em;
+        margin-bottom: 12px;
+    }
+    .card-image-box {
+        margin-bottom: 14px;
+        border-radius: 16px;
+    }
+    .footer-left {
+        font-size: 13px;
+    }
+    .scroll-prompt-text {
+        font-size: 11px;
+    }
+    .footer-right {
+        font-size: 12px;
+    }
+    .ios-clock-title {
+        font-size: clamp(4rem, 23vw, 7.5rem);
+    }
+    .hero-info-right,
+    .hero-bottom-right {
+        display: none;
+    }
+    .hero-bottom-bar {
+        justify-content: center;
+    }
+    .loading-video-badge {
+        bottom: 20px;
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        padding: 8px 16px;
+    }
+}
+</style>
 
 <script>
     import { initCubeHeroScene } from '../three/cubeHeroScene';
 
     document.addEventListener('DOMContentLoaded', () => {
-        // Setup Text Shimmer Wave character splitting
-        const shimmerTextElement = document.getElementById('loadingShimmerText');
-        if (shimmerTextElement) {
-            const text = shimmerTextElement.textContent || 'Creating the perfect world...';
-            shimmerTextElement.innerHTML = '';
-            
-            const activeDuration = 1.0; // active character animation time
-            const repeatDelay = text.length * 0.05; // pause between wave iterations (matching repeatDelay spec)
-            const totalDuration = activeDuration + repeatDelay; // total animation loop duration
-            
+        // Loading shimmer wave
+        const shimmerEl = document.getElementById('loadingShimmerText');
+        if (shimmerEl) {
+            const text = shimmerEl.textContent || '';
+            shimmerEl.innerHTML = '';
+            const activeDur  = 1.0;
+            const totalDur   = activeDur + text.length * 0.05;
             text.split('').forEach((char, i) => {
-                const span = document.createElement('span');
-                // Use non-breaking space to prevent collapse
-                span.textContent = char === ' ' ? '\u00A0' : char;
-                span.className = 'shimmer-char';
-                
-                // delay = (i * activeDuration) / text.length
-                const delay = (i * activeDuration) / text.length;
-                span.style.animationDelay = `${delay}s`;
-                span.style.animationDuration = `${totalDuration}s`;
-                
-                shimmerTextElement.appendChild(span);
+                const s = document.createElement('span');
+                s.textContent = char === ' ' ? '\u00A0' : char;
+                s.className = 'shimmer-char';
+                s.style.animationDelay    = `${(i * activeDur) / text.length}s`;
+                s.style.animationDuration = `${totalDur}s`;
+                shimmerEl.appendChild(s);
             });
         }
 
+        // Live clock
+        const timeEl = document.getElementById('live-time');
+        const updateTime = () => {
+            if (!timeEl) return;
+            const now = new Date();
+            timeEl.textContent =
+                String(now.getHours()).padStart(2, '0') + ':' +
+                String(now.getMinutes()).padStart(2, '0');
+        };
+        updateTime();
+        setInterval(updateTime, 30_000);
+
+        // Mouse coordinates display
+        const coordEl = document.getElementById('mouse-coords');
+        window.addEventListener('mousemove', (e) => {
+            if (!coordEl) return;
+            const x = String(e.clientX).padStart(4, '0');
+            const y = String(e.clientY).padStart(4, '0');
+            coordEl.textContent = `${x} X · ${y} Y`;
+        }, { passive: true });
+
+        // ── 3D PARALLAX TILT ON SORA CHARACTER CARD ───────────────────────────
+        const card = document.getElementById('profileHeroCard');
+        if (card) {
+            let reqId: number | null = null;
+            const targetRot  = { x: 0, y: 0 };
+            const currentRot = { x: 0, y: 0 };
+
+            const onMouseMove = (e: MouseEvent) => {
+                const rect = card.getBoundingClientRect();
+                const cardCenterX = rect.left + rect.width / 2;
+                const cardCenterY = rect.top + rect.height / 2;
+
+                targetRot.y =  ((e.clientX - cardCenterX) / (window.innerWidth / 2)) * 16;
+                targetRot.x = -((e.clientY - cardCenterY) / (window.innerHeight / 2)) * 16;
+            };
+
+            const onMouseLeave = () => {
+                targetRot.x = 0;
+                targetRot.y = 0;
+            };
+
+            window.addEventListener('mousemove', onMouseMove, { passive: true });
+            card.addEventListener('mouseleave', onMouseLeave);
+
+            const animateCard = () => {
+                reqId = requestAnimationFrame(animateCard);
+                currentRot.x += (targetRot.x - currentRot.x) * 0.08;
+                currentRot.y += (targetRot.y - currentRot.y) * 0.08;
+
+                card.style.transform = `perspective(1000px) rotateX(${currentRot.x}deg) rotateY(${currentRot.y}deg)`;
+            };
+            animateCard();
+        }
+
+        // Init WebGL Background
         const container = document.getElementById('cubeHeroContainer');
-        const canvas = document.getElementById('cubeHeroCanvas') as HTMLCanvasElement;
-        
+        const canvas    = document.getElementById('cubeHeroCanvas') as HTMLCanvasElement;
         if (container && canvas) {
             initCubeHeroScene(container, canvas);
         }
