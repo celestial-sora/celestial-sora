@@ -4,9 +4,7 @@ import ThemeToggle from './ThemeToggle.astro';
 <nav class="navbar" id="navbar">
     <div class="nav-logo" id="navLogo">
         <span class="logo-icon">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                <path d="M12 2L14.85 9.15L22 12L14.85 14.85L12 22L9.15 14.85L2 12L9.15 9.15L12 2Z"></path>
-            </svg>
+            <img src={import.meta.env.BASE_URL + "sora-logo.png"} alt="Sora Logo" class="logo-img" />
         </span>
         <span class="logo-text">SORA</span>
     </div>
