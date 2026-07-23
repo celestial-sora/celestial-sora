@@ -385,9 +385,27 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20px;
-    height: 20px;
-    color: var(--accent-primary);
+    width: 22px;
+    height: 22px;
+}
+
+.logo-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 6px rgba(195, 177, 225, 0.45));
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-logo:hover .logo-img {
+    transform: scale(1.18) rotate(-8deg);
+}
+
+.footer-logo-img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 5px rgba(195, 177, 225, 0.4));
 }
 
 .logo-text {
