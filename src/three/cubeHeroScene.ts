@@ -9,6 +9,7 @@ let animFrameId: number | null = null;
 let scrollTriggerInstance: ScrollTrigger | null = null;
 let activeRenderer: THREE.WebGLRenderer | null = null;
 let activeScene: THREE.Scene | null = null;
+let themeObserverInstance: MutationObserver | null = null;
 
 export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElement) {
     disposeCubeHeroScene();
@@ -56,8 +57,16 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
     // ── 3D Scene ──────────────────────────────────────────────────────────
     const scene = new THREE.Scene();
     activeScene = scene;
-    scene.background = new THREE.Color(0x08091a);
-    scene.fog = new THREE.FogExp2(0x08091a, 0.016);
+
+    const baseBgColorDark  = 0x000000; // Pure OLED Black
+    const baseBgColorLight = 0xfaf9f5; // Claude.ai Sand / Warm Cream
+
+    const getTheme = () => document.documentElement.getAttribute('data-theme') || 'dark';
+    const initialTheme = getTheme();
+    const initialBgHex = initialTheme === 'dark' ? baseBgColorDark : baseBgColorLight;
+
+    scene.background = new THREE.Color(initialBgHex);
+    scene.fog = new THREE.FogExp2(initialBgHex, 0.016);
 
     const camera = new THREE.PerspectiveCamera(50, w / h, 0.1, 100);
     camera.position.set(0, 0, 9.5);
@@ -69,7 +78,8 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
     pmrem.dispose();
 
     // Lighting
-    scene.add(new THREE.AmbientLight(0xffffff, 0.30));
+    const ambientLight = new THREE.AmbientLight(0xffffff, initialTheme === 'dark' ? 0.30 : 0.60);
+    scene.add(ambientLight);
 
     const keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
     keyLight.position.set(4, 6, 8); scene.add(keyLight);
@@ -89,12 +99,29 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
     for (let i = 0; i < pCount * 3; i++) pPos[i] = (Math.random() - 0.5) * 32;
     const pGeo = new THREE.BufferGeometry();
     pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
+    const initialPColor = initialTheme === 'dark' ? 0xC3B1E1 : 0x8f79b5;
     const pMat = new THREE.PointsMaterial({
-        color: 0xC3B1E1, size: isMobile ? 0.035 : 0.05,
-        transparent: true, opacity: 0.35, depthWrite: false,
+        color: initialPColor, size: isMobile ? 0.05 : 0.07,
+        transparent: true, opacity: 0.65, depthWrite: false,
     });
     const particles = new THREE.Points(pGeo, pMat);
     scene.add(particles);
+
+    // Dynamic Theme Listener
+    themeObserverInstance = new MutationObserver(() => {
+        const t = getTheme();
+        const bgHex = t === 'dark' ? baseBgColorDark : baseBgColorLight;
+        scene.background = new THREE.Color(bgHex);
+        if (scene.fog) {
+            (scene.fog as THREE.FogExp2).color.setHex(bgHex);
+        }
+        ambientLight.intensity = t === 'dark' ? 0.30 : 0.60;
+        pMat.color.setHex(t === 'dark' ? 0xC3B1E1 : 0x8f79b5);
+    });
+    themeObserverInstance.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-theme'],
+    });
 
     // ── ScrollTrigger (Zoom-In into Character Card on Scroll) ────────────
     if (!prefersNoMotion) {
@@ -203,6 +230,7 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
 export function disposeCubeHeroScene() {
     if (animFrameId)           { cancelAnimationFrame(animFrameId); animFrameId = null; }
     if (scrollTriggerInstance) { scrollTriggerInstance.kill(); scrollTriggerInstance = null; }
+    if (themeObserverInstance) { themeObserverInstance.disconnect(); themeObserverInstance = null; }
     if (activeScene) {
         activeScene.traverse((obj) => {
             const m = obj as THREE.Mesh;
