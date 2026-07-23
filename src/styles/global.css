@@ -11,20 +11,20 @@ html, body {
 }
 
 :root {
-    /* Dark Theme (Default) - Claude.ai Inspired Warm Charcoal */
-    --bg-primary: #1a1915;
-    --bg-secondary: #21201c;
-    --bg-tertiary: #2a2924;
-    --bg-card: #24231f;
-    --bg-card-hover: #2e2d28;
-    --bg-nav: rgba(26, 25, 21, 0.28); /* Soft 28% opacity dark nav */
-    --bg-nav-scrolled: rgba(26, 25, 21, 0.48); /* Soft 48% opacity scrolled */
-    --border-nav: rgba(255, 255, 255, 0.06); /* Softer 6% opacity white border */
-    --shadow-nav: 0 10px 30px rgba(0, 0, 0, 0.25);
+    /* Dark Theme (Default) - Pure OLED Black */
+    --bg-primary: #000000;
+    --bg-secondary: #0c0c0d;
+    --bg-tertiary: #161618;
+    --bg-card: #111113;
+    --bg-card-hover: #1b1b1e;
+    --bg-nav: rgba(0, 0, 0, 0.40); /* Soft 40% opacity OLED nav */
+    --bg-nav-scrolled: rgba(0, 0, 0, 0.65); /* Soft 65% opacity scrolled nav */
+    --border-nav: rgba(255, 255, 255, 0.08); /* Faint white border */
+    --shadow-nav: 0 10px 30px rgba(0, 0, 0, 0.40);
 
-    --text-primary: #faf9f5;
-    --text-secondary: #b0aea5;
-    --text-muted: #706f6a;
+    --text-primary: #ffffff;
+    --text-secondary: #b5b3ad;
+    --text-muted: #75736d;
 
     /* Accent color: Pastel purple requested */
     --accent-primary: #C3B1E1;
@@ -34,15 +34,15 @@ html, body {
     --accent-blue: #C3B1E1;
     --accent-blue-hover: #d2c4eb;
 
-    --border-color: #3a3832;
-    --border-hover: #504e46;
+    --border-color: #222224;
+    --border-hover: #3b3b40;
 
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.2);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.25);
-    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.35);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.6);
 
-    --scrollbar-track: #1a1915;
-    --scrollbar-thumb: #3a3832;
+    --scrollbar-track: #000000;
+    --scrollbar-thumb: #222224;
     --font-heading: 'Itim', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
@@ -1735,6 +1735,7 @@ body.is-loading .mobile-menu-overlay {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
 
 @media (max-width: 640px) {
     .navbar {

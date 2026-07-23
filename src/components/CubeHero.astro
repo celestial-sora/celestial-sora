@@ -122,12 +122,15 @@
 
 /* ── Hero Overlay Layout ──────────────────────────────────────────────── */
 .cube-hero__overlay {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 92px 44px 28px;
     box-sizing: border-box;
-    position: relative;
     overflow: hidden;
 }
 
@@ -139,6 +142,7 @@
     width: 100%;
     z-index: 5;
     pointer-events: none;
+    flex-shrink: 0;
 }
 
 .hero-info-tag {
@@ -166,7 +170,8 @@
 .ios-clock-title {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-weight: 900;
-    font-size: clamp(6rem, 21vw, 17rem);
+    font-size: clamp(4rem, 21vw, 17rem);
+    font-size: clamp(4rem, min(21vw, 18svh), 17rem);
     letter-spacing: -0.05em;
     line-height: 0.9;
     margin: 0;
@@ -207,6 +212,7 @@
     perspective: 1000px;
     z-index: 4;
     padding: 10px 0;
+    min-height: 0; /* Allow flex to shrink card area properly */
 }
 
 /* ── SORA CHARACTER CARD (Exact Match to Reference Image) ─────────────── */
@@ -216,6 +222,8 @@
     align-items: center;
     padding: 20px 24px 22px;
     width: min(92%, 390px);
+    max-width: 50vh; /* Fallback */
+    max-width: 50svh; /* Fluid: card scales to viewport height */
     background: rgba(22, 20, 32, 0.58);
     backdrop-filter: blur(28px) saturate(180%);
     -webkit-backdrop-filter: blur(28px) saturate(180%);
@@ -254,6 +262,7 @@
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.45);
     margin-bottom: 16px;
+    flex-shrink: 0;
     text-align: center;
 }
 
@@ -270,6 +279,8 @@
     margin-bottom: 20px;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
     border: 1px solid rgba(255, 255, 255, 0.08);
+    max-height: 44vh; /* Fallback */
+    max-height: 44svh; /* Fluid: image constrains to viewport height */
 }
 
 .card-character-img {
@@ -291,6 +302,7 @@
     align-items: center;
     width: 100%;
     padding: 0 4px;
+    flex-shrink: 0;
 }
 
 .footer-col {
@@ -366,6 +378,7 @@
     width: 100%;
     z-index: 5;
     pointer-events: none;
+    flex-shrink: 0;
 }
 
 .hero-bottom-left,
@@ -388,7 +401,8 @@
     }
     .sora-character-card {
         padding: 16px 18px 18px;
-        width: min(92%, 330px);
+        width: min(90%, 340px);
+        max-width: 52svh;
         border-radius: 24px;
     }
     .card-header-text {
@@ -399,6 +413,7 @@
     .card-image-box {
         margin-bottom: 14px;
         border-radius: 16px;
+        max-height: 46svh;
     }
     .footer-left {
         font-size: 13px;
@@ -427,6 +442,8 @@
         padding: 8px 16px;
     }
 }
+
+
 </style>
 
 <script>
