@@ -43,7 +43,7 @@ import ScrollToTop from '../components/ScrollToTop.astro';
 	gsap.registerPlugin(ScrollTrigger);
 
 	document.addEventListener('DOMContentLoaded', () => {
-		// Zoom-In Transition on scroll for Who is Sora? (#about)
+		// Zoom-In Transition on scroll for About / Why this website section (#about)
 		gsap.fromTo('#about .section-header, #about .about-text-card',
 			{ scale: 0.65, opacity: 0, y: 60 },
 			{
