@@ -176,31 +176,33 @@
     line-height: 0.9;
     margin: 0;
     text-align: center;
-    color: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.3);
 
-    /* Subtle pastel purple gradient glow */
+    /* Enhanced OLED-friendly gradient glow */
     background: linear-gradient(
         180deg,
-        rgba(255, 255, 255, 0.16) 0%,
-        rgba(195, 177, 225, 0.12) 50%,
-        rgba(142, 200, 216, 0.04) 100%
+        rgba(255, 255, 255, 0.55) 0%,
+        rgba(210, 190, 255, 0.38) 50%,
+        rgba(150, 210, 255, 0.18) 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
 
-    /* Subtle depth drop shadow */
-    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.5));
+    /* OLED Luminous Glow + Depth Drop Shadow */
+    filter: drop-shadow(0 0 30px rgba(180, 150, 255, 0.25)) drop-shadow(0 15px 35px rgba(0, 0, 0, 0.8));
+    transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
 [data-theme="light"] .ios-clock-title {
     background: linear-gradient(
         180deg,
-        rgba(26, 25, 21, 0.14) 0%,
-        rgba(106, 69, 170, 0.10) 100%
+        rgba(30, 25, 50, 0.45) 0%,
+        rgba(110, 60, 200, 0.30) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
+    filter: drop-shadow(0 10px 25px rgba(110, 60, 200, 0.18));
 }
 
 /* ── Card Stage (Center 3D Container) ─────────────────────────────────── */
@@ -426,6 +428,15 @@
     }
     .ios-clock-title {
         font-size: clamp(4rem, 23vw, 7.5rem);
+        background: linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.65) 0%,
+            rgba(215, 195, 255, 0.45) 50%,
+            rgba(150, 210, 255, 0.25) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        filter: drop-shadow(0 0 35px rgba(190, 160, 255, 0.35)) drop-shadow(0 10px 30px rgba(0, 0, 0, 0.85));
     }
     .hero-info-right,
     .hero-bottom-right {
