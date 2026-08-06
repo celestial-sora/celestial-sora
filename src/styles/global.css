@@ -1204,6 +1204,30 @@ body.is-loading .scroll-top {
     border: 1px solid rgba(195, 177, 225, 0.3);
 }
 
+.project-status-badge.major-update {
+    background: linear-gradient(135deg, rgba(255, 75, 145, 0.22) 0%, rgba(142, 45, 226, 0.22) 100%);
+    color: #ff529a;
+    border: 1px solid rgba(255, 75, 145, 0.45);
+    box-shadow: 0 0 12px rgba(255, 75, 145, 0.3);
+    animation: badgePulse 2s infinite alternate;
+}
+
+@keyframes badgePulse {
+    0% {
+        box-shadow: 0 0 8px rgba(255, 75, 145, 0.25);
+    }
+    100% {
+        box-shadow: 0 0 16px rgba(255, 75, 145, 0.5);
+    }
+}
+
+.project-badges {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
 .project-info {
     padding: 32px;
     display: flex;
