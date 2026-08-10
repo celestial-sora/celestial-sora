@@ -1,0 +1,151 @@
+---
+---
+<canvas id="globalStarFragmentsCanvas" class="star-fragments-canvas" aria-hidden="true"></canvas>
+
+<style>
+.star-fragments-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0; /* Placed behind all content and cards */
+    opacity: 0.75;
+    transition: opacity 0.5s ease;
+}
+
+[data-theme="light"] .star-fragments-canvas {
+    opacity: 0.45;
+}
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const canvas = document.getElementById('globalStarFragmentsCanvas') as HTMLCanvasElement | null;
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        let w = (canvas.width = window.innerWidth);
+        let h = (canvas.height = window.innerHeight);
+
+        const isMobile = w < 768;
+        const particleCount = isMobile ? 30 : 60;
+
+        interface DotParticle {
+            x: number;
+            y: number;
+            radius: number;
+            alpha: number;
+            baseAlpha: number;
+            twinkleSpeed: number;
+            twinklePhase: number;
+            vx: number;
+            vy: number;
+        }
+
+        const particles: DotParticle[] = [];
+
+        const getDotColor = () => {
+            const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+            return theme === 'dark' ? '255, 255, 255' : '90, 85, 75';
+        };
+
+        let dotColorRGB = getDotColor();
+
+        const createParticle = (initialY?: number): DotParticle => {
+            const baseAlpha = 0.15 + Math.random() * 0.45;
+            return {
+                x: Math.random() * w,
+                y: initialY !== undefined ? initialY : Math.random() * h,
+                radius: 0.7 + Math.random() * 1.5, // Tiny subtle dots (0.7px - 2.2px)
+                alpha: baseAlpha,
+                baseAlpha,
+                twinkleSpeed: 0.01 + Math.random() * 0.025,
+                twinklePhase: Math.random() * Math.PI * 2,
+                vx: (Math.random() - 0.5) * 0.1,
+                vy: -(0.08 + Math.random() * 0.2), // Slow gentle upward float
+            };
+        };
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(createParticle());
+        }
+
+        // Mouse Parallax
+        let targetMouseX = 0;
+        let targetMouseY = 0;
+        let mouseX = 0;
+        let mouseY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            targetMouseX = (e.clientX / w - 0.5) * 12;
+            targetMouseY = (e.clientY / h - 0.5) * 12;
+        }, { passive: true });
+
+        // Theme Mutation Observer
+        const themeObserver = new MutationObserver(() => {
+            dotColorRGB = getDotColor();
+        });
+        themeObserver.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme'],
+        });
+
+        // Resize Listener
+        window.addEventListener('resize', () => {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = window.innerHeight;
+        }, { passive: true });
+
+        // Animation Loop
+        let animId: number;
+        const render = () => {
+            animId = requestAnimationFrame(render);
+            ctx.clearRect(0, 0, w, h);
+
+            mouseX += (targetMouseX - mouseX) * 0.04;
+            mouseY += (targetMouseY - mouseY) * 0.04;
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+
+                // Soft Twinkle
+                p.twinklePhase += p.twinkleSpeed;
+                p.alpha = p.baseAlpha + Math.sin(p.twinklePhase) * 0.2;
+                p.alpha = Math.max(0.08, Math.min(0.7, p.alpha));
+
+                // Position drift
+                p.x += p.vx + mouseX * 0.015;
+                p.y += p.vy + mouseY * 0.015;
+
+                // Wrap around edges
+                if (p.y < -10) {
+                    p.y = h + 10;
+                    p.x = Math.random() * w;
+                }
+                if (p.x < -10) p.x = w + 10;
+                if (p.x > w + 10) p.x = -10;
+
+                // Draw tiny subtle white dot
+                ctx.save();
+                ctx.fillStyle = `rgba(${dotColorRGB}, ${p.alpha})`;
+                ctx.shadowColor = `rgba(${dotColorRGB}, ${p.alpha * 0.8})`;
+                ctx.shadowBlur = p.radius * 2;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            }
+        };
+
+        render();
+
+        document.addEventListener('astro:before-swap', () => {
+            cancelAnimationFrame(animId);
+            themeObserver.disconnect();
+        }, { once: true });
+    });
+</script>
