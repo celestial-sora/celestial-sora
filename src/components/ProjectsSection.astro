@@ -121,6 +121,7 @@
     border-radius: 12px;
     overflow: hidden;
     user-select: none;
+    touch-action: none;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
 }
 
@@ -160,6 +161,18 @@
     transition: opacity 0.4s ease;
     border-radius: 12px;
 }
+
+@media (max-width: 640px) {
+    .scratch-btn-wrapper {
+        max-width: 100%;
+        height: 44px;
+    }
+    .scratch-underlayer-btn {
+        font-size: 13.5px;
+        padding: 0 12px;
+        gap: 6px;
+    }
+}
 </style>
 
 <script>
@@ -172,14 +185,15 @@
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         if (!ctx) return;
 
-        const rect = wrapper.getBoundingClientRect();
-        const w = (canvas.width = rect.width || 320);
-        const h = (canvas.height = rect.height || 46);
+        let rect = wrapper.getBoundingClientRect();
+        let w = (canvas.width = rect.width || 320);
+        let h = (canvas.height = rect.height || 46);
 
         let isRevealed = false;
 
         // Draw top foil layer showing ORIGINAL button text
         const drawFoilCover = () => {
+            if (isRevealed) return;
             ctx.globalCompositeOperation = 'source-over';
 
             const grad = ctx.createLinearGradient(0, 0, w, h);
@@ -204,9 +218,12 @@
             ctx.lineWidth = 1.5;
             ctx.strokeRect(1, 1, w - 2, h - 2);
 
+            // Responsive font size
+            const fontSize = w < 340 ? '12px' : '13.5px';
+
             // Original text & arrow on cover layer
             ctx.fillStyle = '#ffffff';
-            ctx.font = '600 13.5px "IBM Plex Mono", sans-serif';
+            ctx.font = `600 ${fontSize} "IBM Plex Mono", sans-serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.shadowColor = 'rgba(0,0,0,0.6)';
@@ -215,6 +232,18 @@
         };
 
         drawFoilCover();
+
+        const updateCanvasDimensions = () => {
+            if (isRevealed) return;
+            rect = wrapper.getBoundingClientRect();
+            if (rect.width && rect.height) {
+                w = canvas.width = rect.width;
+                h = canvas.height = rect.height;
+                drawFoilCover();
+            }
+        };
+
+        window.addEventListener('resize', updateCanvasDimensions, { passive: true });
 
         const scratchAt = (x: number, y: number) => {
             if (isRevealed) return;
@@ -260,7 +289,7 @@
             }
         };
 
-        // Hover scratch directly on mousemove (No click/drag required!)
+        // Mouse hover scratch
         canvas.addEventListener('mousemove', (e) => {
             const pos = getCanvasCoords(e);
             scratchAt(pos.x, pos.y);
@@ -271,16 +300,20 @@
             scratchAt(pos.x, pos.y);
         });
 
+        // Mobile touch scratch
+        canvas.addEventListener('touchstart', (e) => {
+            const pos = getCanvasCoords(e);
+            scratchAt(pos.x, pos.y);
+        }, { passive: true });
+
         canvas.addEventListener('touchmove', (e) => {
             const pos = getCanvasCoords(e);
             scratchAt(pos.x, pos.y);
         }, { passive: true });
 
         canvas.addEventListener('click', (e) => {
-            // If user clicks on canvas, scratch a big circle and reveal
             const pos = getCanvasCoords(e);
             scratchAt(pos.x, pos.y);
-            // Open link if clicked
             window.open('https://github.com/celestial-sora', '_blank');
         });
     });
