@@ -41,11 +41,6 @@ import ScrollToTop from '../components/ScrollToTop.astro';
 </Layout>
 
 <script>
-	import { gsap } from 'gsap';
-	import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-	gsap.registerPlugin(ScrollTrigger);
-
 	document.addEventListener('DOMContentLoaded', () => {
 		// Other sections keep standard reveal
 		const otherElements = document.querySelectorAll(

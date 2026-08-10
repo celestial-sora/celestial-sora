@@ -177,6 +177,8 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Wait one frame for CSS layout to settle (fonts, flex sizing)
+      requestAnimationFrame(() => {
         const canvas = document.getElementById('githubScratchCanvas') as HTMLCanvasElement | null;
         const wrapper = document.getElementById('githubScratchWrapper');
 
@@ -258,12 +260,18 @@
 
         const getCanvasCoords = (e: MouseEvent | TouchEvent) => {
             const r = canvas.getBoundingClientRect();
-            const clientX = 'touches' in e ? e.touches[0].clientX : (e as MouseEvent).clientX;
-            const clientY = 'touches' in e ? e.touches[0].clientY : (e as MouseEvent).clientY;
-            return {
-                x: clientX - r.left,
-                y: clientY - r.top
-            };
+            let clientX: number, clientY: number;
+            if ('touches' in e && e.touches.length > 0) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else if ('changedTouches' in e && e.changedTouches.length > 0) {
+                clientX = e.changedTouches[0].clientX;
+                clientY = e.changedTouches[0].clientY;
+            } else {
+                clientX = (e as MouseEvent).clientX;
+                clientY = (e as MouseEvent).clientY;
+            }
+            return { x: clientX - r.left, y: clientY - r.top };
         };
 
         const checkRevealed = () => {
@@ -316,5 +324,6 @@
             scratchAt(pos.x, pos.y);
             window.open('https://github.com/celestial-sora', '_blank');
         });
+      }); // end requestAnimationFrame
     });
 </script>
