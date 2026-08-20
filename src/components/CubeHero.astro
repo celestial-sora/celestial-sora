@@ -478,6 +478,53 @@
             });
         }
 
+        // Loading percentage updater
+        const videoEl = document.getElementById('loadingVideo') as HTMLVideoElement | null;
+        const percentEl = document.getElementById('loadingPercent');
+        if (percentEl) {
+            let currentDisplay = 0;
+            let targetPercent = 0;
+            let isCompleted = false;
+
+            const updatePercentLoop = () => {
+                if (isCompleted) return;
+
+                if (videoEl && !isNaN(videoEl.duration) && videoEl.duration > 0) {
+                    const videoProgress = (videoEl.currentTime / videoEl.duration) * 100;
+                    targetPercent = Math.max(targetPercent, Math.min(100, videoProgress));
+                }
+
+                if (currentDisplay < targetPercent) {
+                    currentDisplay += Math.max(0.5, (targetPercent - currentDisplay) * 0.2);
+                    if (currentDisplay >= targetPercent) currentDisplay = targetPercent;
+                    percentEl.textContent = `${Math.min(100, Math.floor(currentDisplay))}%`;
+                }
+
+                if (currentDisplay < 100) {
+                    requestAnimationFrame(updatePercentLoop);
+                } else {
+                    percentEl.textContent = '100%';
+                }
+            };
+
+            requestAnimationFrame(updatePercentLoop);
+
+            if (videoEl) {
+                videoEl.addEventListener('timeupdate', () => {
+                    if (!isNaN(videoEl.duration) && videoEl.duration > 0) {
+                        targetPercent = Math.min(100, (videoEl.currentTime / videoEl.duration) * 100);
+                    }
+                });
+
+                videoEl.addEventListener('ended', () => {
+                    targetPercent = 100;
+                    currentDisplay = 100;
+                    percentEl.textContent = '100%';
+                    isCompleted = true;
+                });
+            }
+        }
+
         // Live clock
         const timeEl = document.getElementById('live-time');
         const updateTime = () => {

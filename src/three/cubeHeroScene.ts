@@ -20,6 +20,8 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
     let   h = container.clientHeight;
 
     const dismissLoading = () => {
+        const percentEl = document.getElementById('loadingPercent');
+        if (percentEl) percentEl.textContent = '100%';
         document.body.classList.remove('is-loading');
         const loadEl = document.getElementById('cubeLoading');
         if (loadEl) {
@@ -38,6 +40,14 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
             dismissLoading();
         } else {
             videoEl.addEventListener('ended', dismissLoading, { once: true });
+            videoEl.addEventListener('error', dismissLoading, { once: true });
+            // Safety timeout in case video stalls or autoplay fails
+            setTimeout(() => {
+                if (videoEl.paused && !videoEl.ended) {
+                    videoEl.play().catch(() => dismissLoading());
+                }
+            }, 1000);
+            setTimeout(dismissLoading, 6000);
         }
     } else {
         dismissLoading();
