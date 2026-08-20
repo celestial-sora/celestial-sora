@@ -16,17 +16,22 @@
         <div class="about-grid">
             <div class="about-text-col">
                 <div class="about-text-card frosted-glass">
-                    <h3 class="about-greeting">
-                        <span>มีเพื่อเป็นศูนย์รวม </span>
-                        <span class="highlight">Web Portal</span>
-                        <span> & Hub</span>
+                    <h3 class="about-greeting easter-egg-trigger" id="easterEggTitle" role="button" tabindex="0" title="ลองคลิกดูสิ!">
+                        <span class="text-original">
+                            <span>มีเพื่อเป็นศูนย์รวม </span>
+                            <span class="highlight">Web Portal</span>
+                            <span> & Hub</span>
+                        </span>
+                        <span class="text-secret hidden">
+                            <span>เจ้าของเว้บเป็น </span>
+                            <span class="highlight">Femboy</span>
+                        </span>
                     </h3>
                     <p class="about-description">
                         เว็บนี้สร้างไว้เป็น <strong>Web Portal</strong> รวมวาร์ปไปเว็บ แอป โปรเจกต์ต่างๆ ของโซระจัง (และไว้ส่งงานครูเอสด้วยนะ )
                     </p>
                     <p class="about-description">
-                        เชื่อมครบทั้ง <strong>Social Media</strong> และ <strong>GitHub</strong> แวะมาดูผลงานหรือเข้าถึงแอปได้จบในที่เดียว รึป่าว
-                            </p>(อาจจะมีการส่งงานครูคนอื่นด้วยลิ้งนี้ ฮิฮิ)<p>
+                        เชื่อมครบทั้ง <strong>Social Media</strong> และ <strong>GitHub</strong> แวะมาดูผลงานหรือเข้าถึงแอปได้จบในที่เดียว รึป่าว (อาจจะมีการส่งงานครูคนอื่นด้วยลิ้งนี้ ฮิฮิ)
                     </p>
                     <div class="about-stats">
                         <div class="stat-item">
@@ -74,3 +79,45 @@
         </div>
     </div>
 </section>
+
+<style>
+    .easter-egg-trigger {
+        cursor: pointer;
+        user-select: none;
+        display: inline-block;
+        transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease;
+    }
+    .easter-egg-trigger:hover {
+        transform: scale(1.02);
+    }
+    .easter-egg-trigger:active {
+        transform: scale(0.97);
+    }
+    .easter-egg-trigger .hidden {
+        display: none !important;
+    }
+</style>
+
+<script>
+    const easterEgg = document.getElementById('easterEggTitle');
+    if (easterEgg) {
+        const originalText = easterEgg.querySelector('.text-original');
+        const secretText = easterEgg.querySelector('.text-secret');
+
+        const toggleEasterEgg = () => {
+            if (originalText && secretText) {
+                originalText.classList.toggle('hidden');
+                secretText.classList.toggle('hidden');
+            }
+        };
+
+        easterEgg.addEventListener('click', toggleEasterEgg);
+        easterEgg.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleEasterEgg();
+            }
+        });
+    }
+</script>
+
