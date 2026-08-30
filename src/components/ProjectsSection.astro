@@ -16,7 +16,7 @@
         <div class="projects-grid">
 
             <!-- Sora Novel Island Card -->
-            <div class="project-card frosted-glass">
+            <div class="project-card frosted-glass ai-waifu-card" id="aiWaifuCard">
                 <div class="project-info">
                     <div class="project-meta">
                         <span class="project-category">
@@ -60,6 +60,57 @@
                         <a href="https://github.com/celestial-sora/Sora-Novel" target="_blank" rel="noopener noreferrer" class="btn btn-outline project-btn">
                             <span>เข้ามาดูวัตถุดิบของเกมนี้ได้น้าา</span>
                         </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Waifu Card -->
+            <div class="project-card frosted-glass">
+                <div class="project-info">
+                    <div class="project-meta">
+                        <span class="project-category">
+                            <span class="project-cat-icon">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M20 14.5a4.5 4.5 0 0 1-4.5 4.5H8l-4 3v-7.5A4.5 4.5 0 0 1 8.5 10h7A4.5 4.5 0 0 1 20 14.5Z"></path>
+                                    <path d="M8 6.5A4.5 4.5 0 0 1 12.5 2h3A4.5 4.5 0 0 1 20 6.5V10"></path>
+                                </svg>
+                            </span>
+                            <span>AI COMPANION / LIVE2D</span>
+                        </span>
+                        <span class="project-status-badge beta">IN DEVELOPMENT</span>
+                    </div>
+                    <div class="vivian-status-line" aria-live="polite">
+                        <span class="vivian-status-dot"></span>
+                        <span id="vivianStatusText">Vivian is online</span>
+                    </div>
+                    <h3 class="project-name">Vivian — AI Waifu</h3>
+                    <p class="project-desc">
+                        AI companion ชื่อ Vivian ที่คุยภาษาไทยได้ พร้อม Live2D character, speech bubble และระบบความจำสำหรับบทสนทนา
+                    </p>
+                    <div class="project-tech-tags">
+                        <span class="tech-tag frosted-glass">Next.js</span>
+                        <span class="tech-tag frosted-glass">Live2D</span>
+                        <span class="tech-tag frosted-glass">Gemini</span>
+                        <span class="tech-tag frosted-glass">Supabase</span>
+                        <span class="tech-tag frosted-glass">Voice AI</span>
+                    </div>
+                    <div class="project-buttons">
+                        <a href="https://github.com/celestial-sora/ai-waifu" target="_blank" rel="noopener noreferrer" class="btn btn-primary project-btn">
+                            <span>ดูโค้ดโปรเจกต์บน GitHub</span>
+                            <span class="btn-arrow">
+                                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="memory-orb" aria-hidden="true">
+                        <span class="memory-orb-core"></span>
+                        <span class="memory-fragment fragment-one">Thai Speech</span>
+                        <span class="memory-fragment fragment-two">Live2D</span>
+                        <span class="memory-fragment fragment-three">Gemini</span>
+                        <span class="memory-fragment fragment-four">Memory</span>
                     </div>
                 </div>
             </div>
@@ -123,6 +174,99 @@
     user-select: none;
     touch-action: none;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.ai-waifu-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.vivian-status-line {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 10px;
+    color: var(--accent-blue);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.vivian-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #9ee6c2;
+    box-shadow: 0 0 0 0 rgba(158, 230, 194, 0.65);
+    animation: vivian-heartbeat 2s infinite;
+}
+
+.memory-orb {
+    position: absolute;
+    right: 22px;
+    bottom: 22px;
+    width: 72px;
+    height: 72px;
+    pointer-events: none;
+    opacity: 0.55;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.memory-orb-core {
+    position: absolute;
+    inset: 25px;
+    border: 1px solid rgba(195, 177, 225, 0.8);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(195, 177, 225, 0.8), rgba(142, 200, 216, 0.18) 55%, transparent 70%);
+    box-shadow: 0 0 20px rgba(195, 177, 225, 0.55);
+    animation: memory-pulse 2.8s ease-in-out infinite;
+}
+
+.memory-fragment {
+    position: absolute;
+    padding: 3px 6px;
+    border: 1px solid rgba(195, 177, 225, 0.35);
+    border-radius: 999px;
+    background: rgba(18, 18, 22, 0.6);
+    color: var(--text-secondary);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 8px;
+    white-space: nowrap;
+    opacity: 0;
+    transform: scale(0.7);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.fragment-one { top: 0; right: -36px; }
+.fragment-two { top: 28px; left: -54px; }
+.fragment-three { right: -30px; bottom: 2px; }
+.fragment-four { left: -31px; bottom: 5px; }
+
+.ai-waifu-card:hover .memory-orb,
+.ai-waifu-card.is-scanning .memory-orb {
+    opacity: 1;
+    transform: scale(1.08);
+}
+
+.ai-waifu-card:hover .memory-fragment,
+.ai-waifu-card.is-scanning .memory-fragment {
+    opacity: 1;
+    transform: scale(1);
+}
+
+@keyframes vivian-heartbeat {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(158, 230, 194, 0.65); }
+    45% { box-shadow: 0 0 0 6px rgba(158, 230, 194, 0); }
+}
+
+@keyframes memory-pulse {
+    0%, 100% { transform: scale(0.92); filter: brightness(0.9); }
+    50% { transform: scale(1.08); filter: brightness(1.2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .vivian-status-dot, .memory-orb-core { animation: none; }
 }
 
 .scratch-underlayer-btn {
@@ -326,4 +470,39 @@
         });
       }); // end requestAnimationFrame
     });
+</script>
+
+<script>
+    const aiWaifuCard = document.getElementById('aiWaifuCard');
+    const vivianStatusText = document.getElementById('vivianStatusText');
+
+    if (aiWaifuCard && vivianStatusText) {
+        const statuses = ['Vivian is online', 'Scanning memory orb...', 'Memory system ready'];
+        let statusTimer: ReturnType<typeof setInterval> | undefined;
+        let statusIndex = 0;
+
+        const startVivianScan = () => {
+            aiWaifuCard.classList.add('is-scanning');
+            statusIndex = 0;
+            vivianStatusText.textContent = statuses[statusIndex];
+            statusTimer = setInterval(() => {
+                statusIndex = (statusIndex + 1) % statuses.length;
+                vivianStatusText.textContent = statuses[statusIndex];
+            }, 1200);
+        };
+
+        const stopVivianScan = () => {
+            aiWaifuCard.classList.remove('is-scanning');
+            if (statusTimer) clearInterval(statusTimer);
+            statusTimer = undefined;
+            vivianStatusText.textContent = statuses[0];
+        };
+
+        aiWaifuCard.addEventListener('mouseenter', startVivianScan);
+        aiWaifuCard.addEventListener('mouseleave', stopVivianScan);
+        aiWaifuCard.addEventListener('click', (event) => {
+            if ((event.target as HTMLElement).closest('a')) return;
+            aiWaifuCard.classList.toggle('is-scanning');
+        });
+    }
 </script>
