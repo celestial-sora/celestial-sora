@@ -1,6 +1,6 @@
 
 <p align="center">
-  <b>Languages</b>
+  <b>Languages/framework</b>
 </p>
 <p align="center">
   <img src="https://cdn.simpleicons.org/python" width="40" height="40" alt="Python" />
