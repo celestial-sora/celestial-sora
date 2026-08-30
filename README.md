@@ -1,23 +1,3 @@
-<br />
-
-<p align="center">
-  <b>My Website</b>
-</p>
-<p align="center">
-  <a href="https://celestial-sora.github.io/" target="_blank">
-    <img src="assets/icons/sparkle-purple.svg" width="40" height="40" alt="Normal Hero Website" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://celestial-sora.vercel.app/" target="_blank">
-    <img src="assets/icons/sparkle-gemini.svg" width="40" height="40" alt="3D Website" />
-  </a>
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <a href="https://discord.gg/your-invite" target="_blank">
-    <img src="https://cdn.simpleicons.org/discord/5865F2" width="40" height="40" alt="Discord" />
-  </a>
-</p>
-
-<br />
 
 <p align="center">
   <b>Languages</b>
