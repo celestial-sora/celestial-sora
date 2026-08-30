@@ -79,10 +79,6 @@
                         </span>
                         <span class="project-status-badge beta">IN DEVELOPMENT</span>
                     </div>
-                    <div class="vivian-status-line" aria-live="polite">
-                        <span class="vivian-status-dot"></span>
-                        <span id="vivianStatusText">Vivian is online</span>
-                    </div>
                     <h3 class="project-name">Vivian — AI Waifu</h3>
                     <p class="project-desc">
                         AI companion ชื่อ Vivian ที่คุยภาษาไทยได้ พร้อม Live2D character, speech bubble และระบบความจำสำหรับบทสนทนา
@@ -107,6 +103,10 @@
                     </div>
                     <div class="memory-orb" aria-hidden="true">
                         <span class="memory-orb-core"></span>
+                        <span class="vivian-status-line" aria-live="polite">
+                            <span class="vivian-status-dot"></span>
+                            <span id="vivianStatusText">Vivian is online</span>
+                        </span>
                         <span class="memory-fragment fragment-one">Thai Speech</span>
                         <span class="memory-fragment fragment-two">Live2D</span>
                         <span class="memory-fragment fragment-three">Gemini</span>
@@ -182,15 +182,21 @@
 }
 
 .vivian-status-line {
+    position: absolute;
+    inset: -18px;
+    z-index: 3;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 7px;
-    margin-bottom: 10px;
     color: var(--accent-blue);
     font-family: "IBM Plex Mono", monospace;
-    font-size: 11px;
+    font-size: 8px;
     letter-spacing: 0.04em;
     text-transform: uppercase;
+    white-space: nowrap;
+    transform-origin: center;
+    animation: status-orbit 9s linear infinite;
 }
 
 .vivian-status-dot {
@@ -265,8 +271,13 @@
     50% { transform: scale(1.08); filter: brightness(1.2); }
 }
 
+@keyframes status-orbit {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-    .vivian-status-dot, .memory-orb-core { animation: none; }
+    .vivian-status-dot, .memory-orb-core, .vivian-status-line { animation: none; }
 }
 
 .scratch-underlayer-btn {
