@@ -1,11 +1,14 @@
 ---
 ---
-<div class="mobile-menu-overlay" id="mobileMenuOverlay">
-    <div class="mobile-menu">
-        <a href="#home" class="mobile-link" data-section="home">หน้าแรก</a>
-        <a href="#about" class="mobile-link" data-section="about">เกี่ยวกับ</a>
-        <a href="#projects" class="mobile-link" data-section="projects">ผลงาน</a>
-        <a href="#social" class="mobile-link" data-section="social">โซเชียล</a>
+<div 
+    class="fixed inset-0 w-full h-full bg-[var(--bg-primary)] z-[999] flex items-center justify-center opacity-0 invisible transition-all duration-300 [&.active]:opacity-100 [&.active]:visible group" 
+    id="mobileMenuOverlay"
+>
+    <div class="flex flex-col items-center gap-6">
+        <a href="#home" class="mobile-link text-2xl font-bold text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-all duration-200 translate-y-5 opacity-0 group-[.active]:translate-y-0 group-[.active]:opacity-100 delay-100" data-section="home">หน้าแรก</a>
+        <a href="#about" class="mobile-link text-2xl font-bold text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-all duration-200 translate-y-5 opacity-0 group-[.active]:translate-y-0 group-[.active]:opacity-100 delay-150" data-section="about">เกี่ยวกับ</a>
+        <a href="#projects" class="mobile-link text-2xl font-bold text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-all duration-200 translate-y-5 opacity-0 group-[.active]:translate-y-0 group-[.active]:opacity-100 delay-200" data-section="projects">ผลงาน</a>
+        <a href="#social" class="mobile-link text-2xl font-bold text-[var(--text-secondary)] hover:text-[var(--accent-primary)] transition-all duration-200 translate-y-5 opacity-0 group-[.active]:translate-y-0 group-[.active]:opacity-100 delay-250" data-section="social">โซเชียล</a>
     </div>
 </div>
 

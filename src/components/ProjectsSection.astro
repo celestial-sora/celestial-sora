@@ -1,26 +1,32 @@
 ---
 ---
-<section class="section projects-section" id="projects">
-    <div class="section-container">
-        <div class="section-header">
-            <span class="section-tag frosted-glass">
-                <span class="section-tag-icon">
+<section class="projects-section relative py-24 px-6 md:px-10 overflow-hidden" id="projects">
+    <div class="max-w-[1100px] mx-auto">
+        <!-- Section Header -->
+        <div class="section-header text-center mb-12 sm:mb-14 reveal">
+            <span class="frosted-glass inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold text-[var(--accent-primary)] mb-4">
+                <span class="inline-flex w-3 h-3">
                     <svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor">
                         <path d="M12 2L14.85 9.15L22 12L14.85 14.85L12 22L9.15 14.85L2 12L9.15 9.15L12 2Z"></path>
                     </svg>
                 </span>
                 ผลงาน
             </span>
-            <h2 class="section-title">My Creations</h2>
+            <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight text-[var(--text-primary)] font-heading">
+                My Creations
+            </h2>
         </div>
-        <div class="projects-grid">
 
-            <!-- Sora Novel Island Card -->
-            <div class="project-card frosted-glass">
-                <div class="project-info">
-                    <div class="project-meta">
-                        <span class="project-category">
-                            <span class="project-cat-icon">
+        <!-- Projects Grid -->
+        <div class="projects-grid grid grid-cols-1 max-w-[680px] mx-auto gap-8">
+
+            <!-- Card 1: Sora Novel Island Card -->
+            <div class="project-card frosted-glass rounded-3xl p-6 sm:p-8 flex flex-col transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] reveal">
+                <div class="flex flex-col flex-grow">
+                    <!-- Meta -->
+                    <div class="flex items-center justify-between flex-wrap gap-2.5 mb-4">
+                        <span class="text-xs font-semibold text-[var(--text-muted)] tracking-wider uppercase flex items-center gap-1.5">
+                            <span class="inline-flex w-3.5 h-3.5 text-[var(--accent-primary)]">
                                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                                     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
@@ -28,48 +34,55 @@
                             </span>
                             <span>AI VISUAL NOVEL / INTERACTIVE GAME</span>
                         </span>
-                        <div class="project-badges">
-                            <span class="project-status-badge major-update">MAJOR UPDATE</span>
-                            <span class="project-status-badge beta">AI MEMORY SYSTEM</span>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="inline-block px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-gradient-to-r from-pink-500/20 to-purple-600/20 text-[#ff529a] border border-pink-500/45 shadow-[0_0_12px_rgba(255,75,145,0.3)] animate-[badgePulse_2s_infinite_alternate]">MAJOR UPDATE</span>
+                            <span class="inline-block px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-[#c3b1e1]/15 text-[var(--accent-primary)] border border-[#c3b1e1]/30">AI MEMORY SYSTEM</span>
                         </div>
                     </div>
-                    <h3 class="project-name">Sora Novel</h3>
-                    <p class="project-desc">
-                        ชื่อเกมยังคิดไม่ออกเอา sora novel ไปก่อนละกันเป็นเกมแนว NV ที่เกี่ยวกับเด็กใหม่ที่เพิ่งทำงานกับบริษัท Tech
-                       <div> Main features มี AI Memory และ Dynamic Storytelling ที่จะทำให้ตัวเกมมีความหลากหลายและน่าสนใจมากขึ้น</div>
-                       <div>มี sandbox mode ที่คุยได้แต่ จำกัดการใช้งาน (ถ้าอยากใช้เพิ่มจ่ายค่า token มาซ่ะ ที่ช่องโดเนท muhahaha)</div>
-                    </p>
-                    <div class="project-tech-tags">
-                        <span class="tech-tag frosted-glass">🚀 Major Update</span>
-                        <span class="tech-tag frosted-glass">Gemini 3.5 Flash</span>
-                        <span class="tech-tag frosted-glass">AI Memory System</span>
-                        <span class="tech-tag frosted-glass">Dynamic Storytelling</span>
-                        <span class="tech-tag frosted-glass">Vanilla JS</span>
-                        <span class="tech-tag frosted-glass">CSS Grid / Flexbox</span>
+
+                    <!-- Title & Description -->
+                    <h3 class="text-2xl font-extrabold mb-3 text-[var(--text-primary)] font-heading">Sora Novel</h3>
+                    <div class="text-sm sm:text-[15px] leading-relaxed text-[var(--text-secondary)] mb-6 space-y-1.5">
+                        <p>Visual Novel แนว office life — เล่นเป็นเด็กใหม่บริษัท Tech ที่ชีวิตไม่ได้ง่ายเลยซักนิด 😭😭😭</p>
+                        <p>มี <span class="text-[var(--text-primary)] font-semibold">AI Memory</span> + <span class="text-[var(--text-primary)] font-semibold">Dynamic Storytelling</span> ทำให้ทุก run ไม่เหมือนกัน no cap</p>
+                        <p class="text-[var(--text-muted)] text-xs">sandbox mode เล่นฟรีได้ แต่ token จำกัดนะ อยากได้เพิ่มก็ donate มาซ่ะ 😈</p>
                     </div>
-                    <div class="project-buttons">
-                        <a href="https://sora-novel.vercel.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary project-btn">
-                            <span>ลองเล่นดูได้แต่อาจจะ cring</span>
-                            <span class="btn-arrow">
+
+                    <!-- Tech Tags -->
+                    <div class="flex flex-wrap gap-2 mb-7">
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">🚀 Major Update</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Gemini 3.5 Flash</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">AI Memory System</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Dynamic Storytelling</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Vanilla JS</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">CSS Grid / Flexbox</span>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-auto flex flex-wrap gap-2.5">
+                        <a href="https://sora-novel.vercel.app/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent-primary)] text-neutral-950 font-bold text-sm rounded-full transition-all duration-200 hover:bg-[var(--accent-hover)] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(195,177,225,0.3)]">
+                            <span>ลองเล่นได้เลย (อาจ cringe นิดหน่อย)</span>
+                            <span class="inline-flex w-3.5 h-3.5">
                                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                     <polyline points="12 5 19 12 12 19"></polyline>
                                 </svg>
                             </span>
                         </a>
-                        <a href="https://github.com/celestial-sora/Sora-Novel" target="_blank" rel="noopener noreferrer" class="btn btn-outline project-btn">
-                            <span>เข้ามาดูวัตถุดิบของเกมนี้ได้น้าา</span>
+                        <a href="https://github.com/celestial-sora/Sora-Novel" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-transparent text-[var(--text-primary)] border border-[var(--border-color)] hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)] font-bold text-sm rounded-full transition-all duration-200 hover:-translate-y-0.5">
+                            <span>source code →</span>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <!-- AI Waifu Card -->
-            <div class="project-card frosted-glass ai-waifu-card" id="aiWaifuCard">
-                <div class="project-info">
-                    <div class="project-meta">
-                        <span class="project-category">
-                            <span class="project-cat-icon">
+            <!-- Card 2: AI Waifu Card -->
+            <div class="project-card frosted-glass rounded-3xl p-6 sm:p-8 flex flex-col transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] relative overflow-hidden group/waifu reveal" id="aiWaifuCard">
+                <div class="flex flex-col flex-grow relative z-10">
+                    <!-- Meta -->
+                    <div class="flex items-center justify-between flex-wrap gap-2.5 mb-2">
+                        <span class="text-xs font-semibold text-[var(--text-muted)] tracking-wider uppercase flex items-center gap-1.5">
+                            <span class="inline-flex w-3.5 h-3.5 text-[var(--accent-primary)]">
                                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M20 14.5a4.5 4.5 0 0 1-4.5 4.5H8l-4 3v-7.5A4.5 4.5 0 0 1 8.5 10h7A4.5 4.5 0 0 1 20 14.5Z"></path>
                                     <path d="M8 6.5A4.5 4.5 0 0 1 12.5 2h3A4.5 4.5 0 0 1 20 6.5V10"></path>
@@ -77,27 +90,36 @@
                             </span>
                             <span>AI COMPANION / LIVE2D</span>
                         </span>
-                        <span class="project-status-badge beta">IN DEVELOPMENT</span>
+                        <span class="inline-block px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-gradient-to-r from-purple-500/20 via-pink-500/20 to-indigo-500/20 text-[var(--accent-primary)] border border-[var(--accent-primary)]/50 shadow-[0_0_12px_rgba(195,177,225,0.35)] animate-[badgePulse_2s_infinite_alternate]">NEW RELEASE</span>
                     </div>
-                    <div class="vivian-status-line" aria-live="polite">
-                        <span class="vivian-status-dot"></span>
-                        <span id="vivianStatusText">Vivian is online</span>
+
+                    <!-- Live Vivian Status (Typewriter) -->
+                    <div class="flex items-center gap-2 mb-3 text-[var(--accent-blue)] font-mono text-xs tracking-wider uppercase" aria-live="polite">
+                        <span class="vivian-status-dot w-2 h-2 rounded-full bg-[#9ee6c2] shadow-[0_0_0_0_rgba(158,230,194,0.65)] animate-[vivian-heartbeat_2s_infinite]"></span>
+                        <span id="vivianStatusText">Vivian is online</span><span class="inline-block w-[1.5px] h-[1em] bg-[#9ee6c2] ml-0.5 align-middle" style="animation: vivianBlink 0.85s step-end infinite;" id="vivianStatusCursor"></span>
                     </div>
-                    <h3 class="project-name">Vivian — AI Waifu</h3>
-                    <p class="project-desc">
+
+                    <!-- Title & Description -->
+                    <h3 class="text-2xl font-extrabold mb-3 text-[var(--text-primary)] font-heading">Vivian — AI Waifu</h3>
+                    <p class="text-sm sm:text-[15px] leading-relaxed text-[var(--text-secondary)] mb-6">
                         AI companion ชื่อ Vivian ที่คุยภาษาไทยได้ พร้อม Live2D character, speech bubble และระบบความจำสำหรับบทสนทนา
                     </p>
-                    <div class="project-tech-tags">
-                        <span class="tech-tag frosted-glass">Next.js</span>
-                        <span class="tech-tag frosted-glass">Live2D</span>
-                        <span class="tech-tag frosted-glass">Gemini</span>
-                        <span class="tech-tag frosted-glass">Supabase</span>
-                        <span class="tech-tag frosted-glass">Voice AI</span>
+
+                    <!-- Tech Tags -->
+                    <div class="flex flex-wrap gap-2 mb-7">
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Live2D</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Expression</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">GPT-4o-mini</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Memory</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Fish TTS</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Ultra Smooth</span>
                     </div>
-                    <div class="project-buttons">
-                        <a href="https://github.com/celestial-sora/ai-waifu" target="_blank" rel="noopener noreferrer" class="btn btn-primary project-btn">
+
+                    <!-- Action Button -->
+                    <div class="mt-auto flex flex-wrap gap-2.5">
+                        <a href="https://github.com/celestial-sora/ai-waifu" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-[var(--accent-primary)] text-neutral-950 font-bold text-sm rounded-full transition-all duration-200 hover:bg-[var(--accent-hover)] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(195,177,225,0.3)]">
                             <span>ดูโค้ดโปรเจกต์บน GitHub</span>
-                            <span class="btn-arrow">
+                            <span class="inline-flex w-3.5 h-3.5">
                                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                     <polyline points="12 5 19 12 12 19"></polyline>
@@ -105,47 +127,46 @@
                             </span>
                         </a>
                     </div>
-                    <div class="memory-orb" aria-hidden="true">
-                        <span class="memory-orb-core"></span>
-                        <span class="memory-fragment fragment-one">Thai Speech</span>
-                        <span class="memory-fragment fragment-two">Live2D</span>
-                        <span class="memory-fragment fragment-three">Gemini</span>
-                        <span class="memory-fragment fragment-four">Memory</span>
-                    </div>
                 </div>
             </div>
 
-            <!-- GitHub Profile Card -->
-            <div class="project-card frosted-glass">
-                <div class="project-info">
-                    <div class="project-meta">
-                        <span class="project-category">
-                            <span class="project-cat-icon">
+            <!-- Card 3: GitHub Profile Card -->
+            <div class="project-card frosted-glass rounded-3xl p-6 sm:p-8 flex flex-col transition-all duration-300 hover:scale-[1.01] hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)] reveal">
+                <div class="flex flex-col flex-grow">
+                    <!-- Meta -->
+                    <div class="flex items-center justify-between flex-wrap gap-2.5 mb-4">
+                        <span class="text-xs font-semibold text-[var(--text-muted)] tracking-wider uppercase flex items-center gap-1.5">
+                            <span class="inline-flex w-3.5 h-3.5 text-[var(--accent-primary)]">
                                 <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"></path>
                                 </svg>
                             </span>
                             <span>GitHub Profile / Repositories</span>
                         </span>
-                        <span class="project-status-badge beta">Active</span>
+                        <span class="inline-block px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase bg-[#c3b1e1]/15 text-[var(--accent-primary)] border border-[#c3b1e1]/30">Active</span>
                     </div>
-                    <h3 class="project-name">celestial-sora</h3>
-                    <p class="project-desc">
+
+                    <!-- Title & Description -->
+                    <h3 class="text-2xl font-extrabold mb-3 text-[var(--text-primary)] font-heading">celestial-sora</h3>
+                    <p class="text-sm sm:text-[15px] leading-relaxed text-[var(--text-secondary)] mb-6">
                         คลังแสงโค้ดและโปรเจกต์ทั้งหลายที่ sora ได้สร้างเอาไว้
                     </p>
-                    <div class="project-tech-tags">
-                        <span class="tech-tag frosted-glass">Git Repositories</span>
-                        <span class="tech-tag frosted-glass">Open Source</span>
-                        <span class="tech-tag frosted-glass">Astro 7</span>
-                        <span class="tech-tag frosted-glass">Vibe Coding</span>
+
+                    <!-- Tech Tags -->
+                    <div class="flex flex-wrap gap-2 mb-7">
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Git Repositories</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Open Source</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Astro 7</span>
+                        <span class="px-3 py-1.5 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-md text-xs font-medium text-[var(--text-secondary)] frosted-glass">Vibe Coding</span>
                     </div>
-                    <div class="project-buttons">
-                        <!-- Scratch Coin Hover Button -->
-                        <div class="scratch-btn-wrapper" id="githubScratchWrapper">
+
+                    <!-- Action Scratch Foil Button -->
+                    <div class="mt-auto">
+                        <div class="relative w-full max-w-[320px] max-sm:max-w-full h-[46px] max-sm:h-[44px] rounded-xl overflow-hidden select-none touch-none shadow-[0_6px_20px_rgba(0,0,0,0.35)]" id="githubScratchWrapper">
                             <!-- Hidden Revealed Secret Underneath -->
-                            <a href="https://github.com/celestial-sora" target="_blank" rel="noopener noreferrer" class="scratch-underlayer-btn" id="githubScratchLink">
-                                <span class="scratch-secret-text">Let's Begin 🚀</span>
-                                <span class="btn-arrow">
+                            <a href="https://github.com/celestial-sora" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2.5 px-5 max-sm:px-3 w-full h-full bg-gradient-to-r from-[#c3b1e1] via-[#a892d6] to-[#8ec8d8] text-neutral-950 font-extrabold text-[15px] max-sm:text-[13.5px] tracking-wide no-underline rounded-xl transition-all hover:-translate-y-0.5 hover:shadow-[0_10px_25px_rgba(195,177,225,0.45)] hover:brightness-105" id="githubScratchLink">
+                                <span>Let's Begin 🚀</span>
+                                <span class="inline-flex w-3.5 h-3.5">
                                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                         <line x1="5" y1="12" x2="19" y2="12"></line>
                                         <polyline points="12 5 19 12 12 19"></polyline>
@@ -153,7 +174,7 @@
                                 </span>
                             </a>
                             <!-- Top Foil Cover Layer (Scratchable on Hover) -->
-                            <canvas id="githubScratchCanvas" class="scratch-top-canvas"></canvas>
+                            <canvas id="githubScratchCanvas" class="absolute inset-0 w-full h-full cursor-pointer z-10 rounded-xl transition-opacity duration-400"></canvas>
                         </div>
                     </div>
                 </div>
@@ -163,178 +184,8 @@
     </div>
 </section>
 
-<style>
-.scratch-btn-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 320px;
-    height: 46px;
-    border-radius: 12px;
-    overflow: hidden;
-    user-select: none;
-    touch-action: none;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
-}
-
-.ai-waifu-card {
-    position: relative;
-    overflow: hidden;
-}
-
-.vivian-status-line {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    margin-bottom: 10px;
-    color: var(--accent-blue);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-}
-
-.vivian-status-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #9ee6c2;
-    box-shadow: 0 0 0 0 rgba(158, 230, 194, 0.65);
-    animation: vivian-heartbeat 2s infinite;
-}
-
-.memory-orb {
-    position: absolute;
-    right: 22px;
-    bottom: 22px;
-    width: 72px;
-    height: 72px;
-    pointer-events: none;
-    opacity: 0.55;
-    transition: opacity 0.35s ease, transform 0.35s ease;
-}
-
-.memory-orb-core {
-    position: absolute;
-    inset: 25px;
-    border: 1px solid rgba(195, 177, 225, 0.8);
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(195, 177, 225, 0.8), rgba(142, 200, 216, 0.18) 55%, transparent 70%);
-    box-shadow: 0 0 20px rgba(195, 177, 225, 0.55);
-    animation: memory-pulse 2.8s ease-in-out infinite;
-}
-
-.memory-fragment {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    padding: 3px 6px;
-    border: 1px solid rgba(195, 177, 225, 0.35);
-    border-radius: 999px;
-    background: rgba(18, 18, 22, 0.6);
-    color: var(--text-secondary);
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 8px;
-    white-space: nowrap;
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.7);
-    transition: opacity 0.35s ease, transform 0.35s ease;
-    animation: memory-orbit 8s linear infinite;
-}
-
-.fragment-one { --orbit-angle: 0deg; animation-delay: -0.5s; }
-.fragment-two { --orbit-angle: 90deg; animation-delay: -2.5s; }
-.fragment-three { --orbit-angle: 180deg; animation-delay: -4.5s; }
-.fragment-four { --orbit-angle: 270deg; animation-delay: -6.5s; }
-
-.ai-waifu-card:hover .memory-orb,
-.ai-waifu-card.is-scanning .memory-orb {
-    opacity: 1;
-    transform: scale(1.08);
-}
-
-.ai-waifu-card:hover .memory-fragment,
-.ai-waifu-card.is-scanning .memory-fragment {
-    opacity: 1;
-    transform: scale(1);
-}
-
-@keyframes vivian-heartbeat {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(158, 230, 194, 0.65); }
-    45% { box-shadow: 0 0 0 6px rgba(158, 230, 194, 0); }
-}
-
-@keyframes memory-pulse {
-    0%, 100% { transform: scale(0.92); filter: brightness(0.9); }
-    50% { transform: scale(1.08); filter: brightness(1.2); }
-}
-
-@keyframes status-orbit {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-@keyframes memory-orbit {
-    from { transform: translate(-50%, -50%) rotate(var(--orbit-angle)) translateX(42px) rotate(calc(var(--orbit-angle) * -1)); }
-    to { transform: translate(-50%, -50%) rotate(calc(var(--orbit-angle) + 360deg)) translateX(42px) rotate(calc((var(--orbit-angle) + 360deg) * -1)); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .vivian-status-dot, .memory-orb-core, .memory-fragment { animation: none; }
-}
-
-.scratch-underlayer-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #c3b1e1 0%, #a892d6 50%, #8ec8d8 100%);
-    color: #0c0c0d;
-    font-weight: 800;
-    font-size: 15px;
-    letter-spacing: 0.05em;
-    text-decoration: none;
-    border-radius: 12px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
-    box-sizing: border-box;
-    padding: 0 20px;
-}
-
-.scratch-underlayer-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(195, 177, 225, 0.45);
-    filter: brightness(1.08);
-}
-
-.scratch-top-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-    z-index: 2;
-    transition: opacity 0.4s ease;
-    border-radius: 12px;
-}
-
-@media (max-width: 640px) {
-    .scratch-btn-wrapper {
-        max-width: 100%;
-        height: 44px;
-    }
-    .scratch-underlayer-btn {
-        font-size: 13.5px;
-        padding: 0 12px;
-        gap: 6px;
-    }
-}
-</style>
-
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // Wait one frame for CSS layout to settle (fonts, flex sizing)
       requestAnimationFrame(() => {
         const canvas = document.getElementById('githubScratchCanvas') as HTMLCanvasElement | null;
         const wrapper = document.getElementById('githubScratchWrapper');
@@ -350,7 +201,6 @@
 
         let isRevealed = false;
 
-        // Draw top foil layer showing ORIGINAL button text
         const drawFoilCover = () => {
             if (isRevealed) return;
             ctx.globalCompositeOperation = 'source-over';
@@ -377,10 +227,8 @@
             ctx.lineWidth = 1.5;
             ctx.strokeRect(1, 1, w - 2, h - 2);
 
-            // Responsive font size
             const fontSize = w < 340 ? '12px' : '13.5px';
 
-            // Original text & arrow on cover layer
             ctx.fillStyle = '#ffffff';
             ctx.font = `600 ${fontSize} "IBM Plex Mono", sans-serif`;
             ctx.textAlign = 'center';
@@ -444,7 +292,6 @@
 
             const percent = (clearCount / (pixels.length / 16)) * 100;
 
-            // Must scratch off almost completely (78%+) before clearing remaining foil!
             if (percent > 78) {
                 isRevealed = true;
                 canvas.style.opacity = '0';
@@ -454,7 +301,6 @@
             }
         };
 
-        // Mouse hover scratch
         canvas.addEventListener('mousemove', (e) => {
             const pos = getCanvasCoords(e);
             scratchAt(pos.x, pos.y);
@@ -465,7 +311,6 @@
             scratchAt(pos.x, pos.y);
         });
 
-        // Mobile touch scratch
         canvas.addEventListener('touchstart', (e) => {
             const pos = getCanvasCoords(e);
             scratchAt(pos.x, pos.y);
@@ -481,41 +326,68 @@
             scratchAt(pos.x, pos.y);
             window.open('https://github.com/celestial-sora', '_blank');
         });
-      }); // end requestAnimationFrame
+      });
     });
 </script>
 
 <script>
+    // ── Vivian Status Typewriter ─────────────────────────────────────────
     const aiWaifuCard = document.getElementById('aiWaifuCard');
     const vivianStatusText = document.getElementById('vivianStatusText');
 
     if (aiWaifuCard && vivianStatusText) {
-        const statuses = ['Vivian is online', 'Scanning memory orb...', 'Memory system ready'];
-        let statusTimer: ReturnType<typeof setInterval> | undefined;
-        let statusIndex = 0;
+        const statuses = [
+            "Vivian is online",
+            "Scanning neural core...",
+            "Memory system ready",
+            "สวัสดีค่า โซระจัง~ 💜",
+            "Live2D model loaded",
+            "Gemini API connected",
+        ];
 
-        const startVivianScan = () => {
-            aiWaifuCard.classList.add('is-scanning');
-            statusIndex = 0;
-            vivianStatusText.textContent = statuses[statusIndex];
-            statusTimer = setInterval(() => {
-                statusIndex = (statusIndex + 1) % statuses.length;
-                vivianStatusText.textContent = statuses[statusIndex];
-            }, 1200);
+        let sIndex = 0;
+        let charIndex = statuses[0].length; // Start fully typed
+        let isDeleting = false;
+        let isPaused = false;
+
+        const typeStatus = () => {
+            if (isPaused) {
+                setTimeout(typeStatus, 300);
+                return;
+            }
+
+            const current = statuses[sIndex];
+
+            if (!isDeleting) {
+                charIndex++;
+                vivianStatusText.textContent = current.slice(0, charIndex);
+                if (charIndex >= current.length) {
+                    isDeleting = true;
+                    setTimeout(typeStatus, 2800);
+                    return;
+                }
+                setTimeout(typeStatus, 60 + Math.random() * 30);
+            } else {
+                charIndex--;
+                vivianStatusText.textContent = current.slice(0, charIndex);
+                if (charIndex <= 0) {
+                    isDeleting = false;
+                    sIndex = (sIndex + 1) % statuses.length;
+                    setTimeout(typeStatus, 400);
+                    return;
+                }
+                setTimeout(typeStatus, 35);
+            }
         };
 
-        const stopVivianScan = () => {
-            aiWaifuCard.classList.remove('is-scanning');
-            if (statusTimer) clearInterval(statusTimer);
-            statusTimer = undefined;
-            vivianStatusText.textContent = statuses[0];
-        };
+        // Pause on hover so text stays readable
+        aiWaifuCard.addEventListener('mouseenter', () => { isPaused = true; });
+        aiWaifuCard.addEventListener('mouseleave', () => { isPaused = false; });
 
-        aiWaifuCard.addEventListener('mouseenter', startVivianScan);
-        aiWaifuCard.addEventListener('mouseleave', stopVivianScan);
-        aiWaifuCard.addEventListener('click', (event) => {
-            if ((event.target as HTMLElement).closest('a')) return;
-            aiWaifuCard.classList.toggle('is-scanning');
-        });
+        // Begin cycling after the initial status has been read
+        setTimeout(() => {
+            isDeleting = true;
+            typeStatus();
+        }, 3500);
     }
 </script>

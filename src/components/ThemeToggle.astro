@@ -1,12 +1,16 @@
 ---
 ---
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
-    <span class="theme-icon moon">
+<button 
+    class="w-10 h-10 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-color)] hover:border-[var(--border-hover)] hover:bg-[var(--bg-tertiary)] flex items-center justify-center relative cursor-pointer transition-all duration-200 text-[var(--text-primary)]" 
+    id="themeToggle" 
+    aria-label="Toggle theme"
+>
+    <span class="absolute w-5 h-5 flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] opacity-100 rotate-0 scale-100 in-[html[data-theme='light']]:opacity-0 in-[html[data-theme='light']]:rotate-180 in-[html[data-theme='light']]:scale-0">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
         </svg>
     </span>
-    <span class="theme-icon sun">
+    <span class="absolute w-5 h-5 flex items-center justify-center transition-all duration-500 ease-[cubic-bezier(0.68,-0.55,0.265,1.55)] opacity-0 -rotate-180 scale-0 in-[html[data-theme='light']]:opacity-100 in-[html[data-theme='light']]:rotate-0 in-[html[data-theme='light']]:scale-100">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="4"></circle>
             <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>

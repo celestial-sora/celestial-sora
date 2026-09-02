@@ -1,70 +1,76 @@
 ---
 ---
-<section class="cube-hero" id="home">
-    <div class="cube-hero__pin-wrapper">
+<section class="cube-hero relative w-full h-[380vh] overflow-visible" id="home">
+    <div class="cube-hero__pin-wrapper relative w-full h-screen h-[100svh] overflow-hidden">
 
         <!-- WebGL Canvas (Starfield particles + ambient glow) -->
-        <div class="three-canvas-container" id="cubeHeroContainer">
-            <canvas id="cubeHeroCanvas"></canvas>
+        <div class="three-canvas-container absolute inset-0 z-0 pointer-events-auto [transform:translateZ(0)] will-change-transform" id="cubeHeroContainer">
+            <canvas id="cubeHeroCanvas" class="w-full h-full block"></canvas>
         </div>
 
         <!-- Video Loading Screen -->
-        <div class="cube-hero__loading" id="cubeLoading">
+        <div class="cube-hero__loading fixed inset-0 bg-[var(--bg-primary)] flex items-center justify-center z-[999999] [transform:translateZ(999px)]" id="cubeLoading">
             <video
                 id="loadingVideo"
                 src={import.meta.env.BASE_URL + "loading-video.mp4"}
                 autoplay
                 muted
                 playsinline
-                class="loading-video-media"
+                class="absolute inset-0 w-full h-full object-cover z-[1]"
             ></video>
-            <div class="loading-video-badge">
-                <div id="loadingShimmerText" class="loading-shimmer-text">Sora Astralis</div>
-                <div class="loading-progress-subtle" id="loadingPercent">0%</div>
+            <div class="absolute bottom-9 right-9 max-sm:bottom-5 max-sm:left-1/2 max-sm:-translate-x-1/2 max-sm:right-auto z-10 px-5.5 py-2.5 rounded-full flex items-center gap-3.5 bg-[#08091a]/60 backdrop-blur-xl border border-white/12 shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
+                <div id="loadingShimmerText" class="loading-shimmer-text font-heading text-sm tracking-[2px] font-semibold text-[var(--accent-primary)]">Sora Astralis</div>
+                <div class="text-xs font-medium text-[var(--text-muted)] tracking-wider font-mono opacity-70" id="loadingPercent">0%</div>
             </div>
         </div>
 
         <!-- Hero Overlay -->
-        <div class="cube-hero__overlay" id="cubeOverlay">
+        <div class="cube-hero__overlay absolute inset-0 w-full h-full flex flex-col justify-between pt-24 pb-7 px-11 max-sm:px-4 max-sm:pt-20 max-sm:pb-5 overflow-hidden box-border pointer-events-none" id="cubeOverlay">
 
             <!-- Top Info Row -->
-            <div class="hero-info-row">
-                <span class="hero-info-tag">Creator &amp; Vibe Coder</span>
-                <span class="hero-info-tag hero-info-right">Sora Astralis © 2026</span>
+            <div class="hero-info-row flex justify-between items-center w-full z-10 pointer-events-none shrink-0">
+                <span class="hero-info-tag font-mono text-[clamp(0.68rem,1.1vw,0.82rem)] tracking-[0.14em] uppercase text-[var(--text-muted)] animate-[fadeIn_0.7s_ease_forwards_1.6s] opacity-0">Creator &amp; Vibe Coder</span>
+                <span class="hero-info-tag max-sm:hidden font-mono text-[clamp(0.68rem,1.1vw,0.82rem)] tracking-[0.14em] uppercase text-[var(--text-muted)] animate-[fadeIn_0.7s_ease_forwards_1.6s] opacity-0">Sora Astralis © 2026</span>
             </div>
 
-            <!-- ── GIANT STATIC 2D TEXT "Sorachan" (iOS Clock Style Depth Layer) ── -->
-            <div class="ios-clock-depth-layer" aria-hidden="true">
-                <h1 class="ios-clock-title">Sorachan</h1>
+            <!-- ── GIANT STATIC 2D TEXT "Sorachan" (iOS Depth Layer) ── -->
+            <div class="ios-clock-depth-layer absolute inset-0 flex items-center justify-center z-[2] pointer-events-none select-none" aria-hidden="true">
+                <h1 class="ios-clock-title font-black text-[clamp(4rem,min(21vw,18svh),17rem)] tracking-[-0.05em] leading-[0.9] text-center select-none text-white/30 bg-gradient-to-b from-white/55 via-[#d2beff]/40 to-[#96d2ff]/20 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(180,150,255,0.25)] in-[html[data-theme='light']]:from-[#1e1932]/45 in-[html[data-theme='light']]:to-[#6e3cc8]/30 in-[html[data-theme='light']]:drop-shadow-[0_10px_25px_rgba(110,60,200,0.18)]">Sorachan</h1>
             </div>
 
             <!-- ── SINGLE PROFILE CARD (Matches Reference Image) ── -->
-            <div class="hero-card-stage">
-                <div class="sora-character-card frosted-glass" id="profileHeroCard">
-
+            <div class="hero-card-stage flex-1 flex items-center justify-center [perspective:1000px] z-10 py-2.5 min-h-0">
+                <div 
+                    class="sora-character-card frosted-glass flex flex-col items-center p-5 sm:p-6 w-[min(92%,390px)] max-w-[50svh] bg-[#161420]/60 in-[html[data-theme='light']]:bg-[#faf9f5]/70 backdrop-blur-2xl border border-white/12 in-[html[data-theme='light']]:border-black/10 rounded-[28px] shadow-[0_24px_70px_rgba(0,0,0,0.55),0_0_50px_rgba(195,177,225,0.12)] hover:border-[#c3b1e1]/40 hover:shadow-[0_32px_85px_rgba(0,0,0,0.65),0_0_60px_rgba(195,177,225,0.22)] transition-all cursor-pointer select-none [transform-style:preserve-3d] pointer-events-auto will-change-transform group" 
+                    id="profileHeroCard"
+                >
                     <!-- Card Header Tag -->
-                    <div class="card-header-text">SORA CHARACTER</div>
+                    <div class="font-mono text-[10px] sm:text-[11px] font-semibold tracking-[0.24em] uppercase text-white/45 in-[html[data-theme='light']]:text-black/45 mb-3 sm:mb-4 shrink-0 text-center">
+                        SORA CHARACTER
+                    </div>
 
-                    <!-- Main Character Image Box -->
-                    <div class="card-image-box">
+                    <!-- Main Character Image Box (New Profile Catgirl Image) -->
+                    <div class="w-full aspect-square rounded-[20px] overflow-hidden mb-3.5 sm:mb-5 shadow-2xl border border-white/10 max-h-[44svh] max-sm:max-h-[46svh]">
                         <img
                             src={import.meta.env.BASE_URL + "sora-profile.jpg"}
                             alt="Sora Character"
-                            class="card-character-img"
+                            class="w-full h-full object-cover block group-hover:scale-105 transition-transform duration-500"
                         />
                     </div>
 
                     <!-- Card Footer Row -->
-                    <div class="card-footer-row">
-                        <div class="footer-col footer-left">SORA</div>
+                    <div class="flex justify-between items-center w-full px-1 shrink-0 font-sans text-sm">
+                        <div class="font-mono font-extrabold tracking-[0.16em] text-sm sm:text-[15px] text-white/90 in-[html[data-theme='light']]:text-neutral-900">
+                            SORA
+                        </div>
                         
-                        <a href="#about" class="footer-col footer-center" aria-label="Scroll down">
-                            <span class="scroll-prompt-text">เลื่อนลงโลดดดด</span>
-                            <span class="scroll-prompt-arrow">↓</span>
+                        <a href="#about" class="flex flex-col items-center no-underline text-[#d8b4e2] hover:opacity-85 hover:translate-y-0.5 transition-all" aria-label="Scroll down">
+                            <span class="text-[11px] sm:text-[13px] font-medium tracking-wide">เลื่อนลงโลดดดด</span>
+                            <span class="text-sm font-bold text-[#d8b4e2] -mt-0.5 animate-[bounceDown_1.8s_infinite_ease-in-out]">↓</span>
                         </a>
 
-                        <div class="footer-col footer-right">
-                            <span class="star-icon">✦</span>
+                        <div class="flex items-center gap-1 text-xs sm:text-sm font-medium text-[#cbb8e8]">
+                            <span class="text-xs text-[var(--accent-primary)]">✦</span>
                             <span>Astralis</span>
                         </div>
                     </div>
@@ -73,389 +79,15 @@
             </div>
 
             <!-- Bottom Info Bar -->
-            <div class="hero-bottom-bar">
-                <span class="hero-bottom-left">GMT+7 TH · <span id="live-time">--:--</span></span>
-                <span class="hero-bottom-right" id="mouse-coords">0000 X · 0000 Y</span>
+            <div class="hero-bottom-bar flex justify-between items-center w-full z-10 pointer-events-none shrink-0 max-sm:justify-center">
+                <span class="font-mono text-[clamp(0.58rem,1vw,0.72rem)] tracking-wider uppercase text-[var(--text-muted)] animate-[fadeIn_0.7s_ease_forwards_2.0s] opacity-0">GMT+7 TH · <span id="live-time">--:--</span></span>
+                <span class="max-sm:hidden font-mono text-[clamp(0.58rem,1vw,0.72rem)] tracking-wider uppercase text-[var(--text-muted)] animate-[fadeIn_0.7s_ease_forwards_2.0s] opacity-0" id="mouse-coords">0000 X · 0000 Y</span>
             </div>
 
         </div>
 
     </div>
 </section>
-
-<style>
-/* ── Video Loading Screen ────────────────────────────────────────────── */
-.loading-video-media {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 1;
-}
-
-.loading-video-badge {
-    position: absolute;
-    bottom: 36px;
-    right: 36px;
-    z-index: 2;
-    padding: 10px 22px;
-    border-radius: 999px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    background: rgba(8, 9, 26, 0.60);
-    backdrop-filter: blur(16px) saturate(180%);
-    -webkit-backdrop-filter: blur(16px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-}
-
-.loading-video-badge .loading-shimmer-text {
-    font-size: 14px;
-    letter-spacing: 2px;
-}
-
-.loading-video-badge .loading-progress-subtle {
-    margin-top: 0;
-}
-
-/* ── Hero Overlay Layout ──────────────────────────────────────────────── */
-.cube-hero__overlay {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 92px 44px 28px;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-/* ── Top Info Row ─────────────────────────────────────────────────────── */
-.hero-info-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    z-index: 5;
-    pointer-events: none;
-    flex-shrink: 0;
-}
-
-.hero-info-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: clamp(0.68rem, 1.1vw, 0.82rem);
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    opacity: 0;
-    animation: fadeIn 0.7s ease forwards 1.6s;
-}
-
-/* ── GIANT STATIC 2D TEXT "Sorachan" (iOS 26 Clock Style Depth Layer) ──── */
-.ios-clock-depth-layer {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2;
-    pointer-events: none;
-    user-select: none;
-}
-
-.ios-clock-title {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    font-weight: 900;
-    font-size: clamp(4rem, 21vw, 17rem);
-    font-size: clamp(4rem, min(21vw, 18svh), 17rem);
-    letter-spacing: -0.05em;
-    line-height: 0.9;
-    margin: 0;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.3);
-
-    /* Enhanced OLED-friendly gradient glow */
-    background: linear-gradient(
-        180deg,
-        rgba(255, 255, 255, 0.55) 0%,
-        rgba(210, 190, 255, 0.38) 50%,
-        rgba(150, 210, 255, 0.18) 100%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-
-    /* OLED Luminous Glow + Depth Drop Shadow */
-    filter: drop-shadow(0 0 30px rgba(180, 150, 255, 0.25)) drop-shadow(0 15px 35px rgba(0, 0, 0, 0.8));
-    transition: filter 0.3s ease, opacity 0.3s ease;
-}
-
-[data-theme="light"] .ios-clock-title {
-    background: linear-gradient(
-        180deg,
-        rgba(30, 25, 50, 0.45) 0%,
-        rgba(110, 60, 200, 0.30) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    filter: drop-shadow(0 10px 25px rgba(110, 60, 200, 0.18));
-}
-
-/* ── Card Stage (Center 3D Container) ─────────────────────────────────── */
-.hero-card-stage {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    perspective: 1000px;
-    z-index: 4;
-    padding: 10px 0;
-    min-height: 0; /* Allow flex to shrink card area properly */
-}
-
-/* ── SORA CHARACTER CARD (Exact Match to Reference Image) ─────────────── */
-.sora-character-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px 24px 22px;
-    width: min(92%, 390px);
-    max-width: 50vh; /* Fallback */
-    max-width: 50svh; /* Fluid: card scales to viewport height */
-    background: rgba(22, 20, 32, 0.58);
-    backdrop-filter: blur(28px) saturate(180%);
-    -webkit-backdrop-filter: blur(28px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 28px;
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.15),
-        0 24px 70px rgba(0, 0, 0, 0.55),
-        0 0 50px rgba(195, 177, 225, 0.12);
-    transform-style: preserve-3d;
-    will-change: transform;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    pointer-events: auto;
-    cursor: pointer;
-}
-
-.sora-character-card:hover {
-    border-color: rgba(195, 177, 225, 0.35);
-    box-shadow:
-        inset 0 1px 0 rgba(255, 255, 255, 0.22),
-        0 32px 85px rgba(0, 0, 0, 0.65),
-        0 0 60px rgba(195, 177, 225, 0.22);
-}
-
-[data-theme="light"] .sora-character-card {
-    background: rgba(250, 249, 245, 0.70);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-/* Card Header Text */
-.card-header-text {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.45);
-    margin-bottom: 16px;
-    flex-shrink: 0;
-    text-align: center;
-}
-
-[data-theme="light"] .card-header-text {
-    color: rgba(0, 0, 0, 0.45);
-}
-
-/* Card Image Box */
-.card-image-box {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: 20px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    max-height: 44vh; /* Fallback */
-    max-height: 44svh; /* Fluid: image constrains to viewport height */
-}
-
-.card-character-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.4s ease;
-}
-
-.sora-character-card:hover .card-character-img {
-    transform: scale(1.03);
-}
-
-/* Card Footer Row */
-.card-footer-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 0 4px;
-    flex-shrink: 0;
-}
-
-.footer-col {
-    font-family: 'Inter', -apple-system, sans-serif;
-    font-size: 14px;
-}
-
-.footer-left {
-    font-family: 'IBM Plex Mono', monospace;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.90);
-}
-
-[data-theme="light"] .footer-left {
-    color: rgba(26, 25, 21, 0.90);
-}
-
-.footer-center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: var(--accent-primary);
-    transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.footer-center:hover {
-    opacity: 0.85;
-    transform: translateY(2px);
-}
-
-.scroll-prompt-text {
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: #d8b4e2; /* Soft pink-purple Thai prompt color */
-}
-
-.arrow-down {
-    font-size: 14px;
-    font-weight: 700;
-    color: #d8b4e2;
-    margin-top: -2px;
-    animation: bounceDown 1.8s infinite ease-in-out;
-}
-
-@keyframes bounceDown {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(4px); }
-}
-
-.footer-right {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #cbb8e8;
-}
-
-.star-icon {
-    font-size: 12px;
-    color: var(--accent-primary);
-}
-
-/* ── Bottom Info Bar ──────────────────────────────────────────────────── */
-.hero-bottom-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    z-index: 5;
-    pointer-events: none;
-    flex-shrink: 0;
-}
-
-.hero-bottom-left,
-.hero-bottom-right {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: clamp(0.58rem, 1vw, 0.72rem);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    opacity: 0;
-    animation: fadeIn 0.7s ease forwards 2.0s;
-}
-
-@keyframes fadeIn { to { opacity: 1; } }
-
-/* ── Mobile Responsiveness ────────────────────────────────────────────── */
-@media (max-width: 640px) {
-    .cube-hero__overlay {
-        padding: 72px 16px 20px;
-    }
-    .sora-character-card {
-        padding: 16px 18px 18px;
-        width: min(90%, 340px);
-        max-width: 52svh;
-        border-radius: 24px;
-    }
-    .card-header-text {
-        font-size: 10px;
-        letter-spacing: 0.20em;
-        margin-bottom: 12px;
-    }
-    .card-image-box {
-        margin-bottom: 14px;
-        border-radius: 16px;
-        max-height: 46svh;
-    }
-    .footer-left {
-        font-size: 13px;
-    }
-    .scroll-prompt-text {
-        font-size: 11px;
-    }
-    .footer-right {
-        font-size: 12px;
-    }
-    .ios-clock-title {
-        font-size: clamp(4rem, 23vw, 7.5rem);
-        background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.65) 0%,
-            rgba(215, 195, 255, 0.45) 50%,
-            rgba(150, 210, 255, 0.25) 100%
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        filter: drop-shadow(0 0 35px rgba(190, 160, 255, 0.35)) drop-shadow(0 10px 30px rgba(0, 0, 0, 0.85));
-    }
-    .hero-info-right,
-    .hero-bottom-right {
-        display: none;
-    }
-    .hero-bottom-bar {
-        justify-content: center;
-    }
-    .loading-video-badge {
-        bottom: 20px;
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-        padding: 8px 16px;
-    }
-}
-
-
-</style>
 
 <script>
     import { initCubeHeroScene } from '../three/cubeHeroScene';
