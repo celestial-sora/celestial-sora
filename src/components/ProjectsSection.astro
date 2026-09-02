@@ -346,48 +346,64 @@
         ];
 
         let sIndex = 0;
-        let charIndex = statuses[0].length; // Start fully typed
-        let isDeleting = false;
         let isPaused = false;
+        let started = false;
 
-        const typeStatus = () => {
-            if (isPaused) {
-                setTimeout(typeStatus, 300);
-                return;
-            }
-
-            const current = statuses[sIndex];
-
-            if (!isDeleting) {
-                charIndex++;
-                vivianStatusText.textContent = current.slice(0, charIndex);
-                if (charIndex >= current.length) {
-                    isDeleting = true;
-                    setTimeout(typeStatus, 2800);
-                    return;
-                }
-                setTimeout(typeStatus, 60 + Math.random() * 30);
-            } else {
-                charIndex--;
-                vivianStatusText.textContent = current.slice(0, charIndex);
-                if (charIndex <= 0) {
-                    isDeleting = false;
-                    sIndex = (sIndex + 1) % statuses.length;
-                    setTimeout(typeStatus, 400);
-                    return;
-                }
-                setTimeout(typeStatus, 35);
-            }
+        const charDelay = (ch: string) => {
+            if (".…~!?".includes(ch)) return 140 + Math.random() * 60;
+            if (ch === " ") return 70 + Math.random() * 30;
+            return 28 + Math.random() * 22;
         };
 
-        // Pause on hover so text stays readable
+        const typeText = (text: string, onDone: () => void) => {
+            let i = 0;
+            const step = () => {
+                if (isPaused) { setTimeout(step, 200); return; }
+                i++;
+                vivianStatusText.textContent = text.slice(0, i);
+                if (i >= text.length) { onDone(); return; }
+                setTimeout(step, charDelay(text[i - 1]));
+            };
+            step();
+        };
+
+        const fadeOut = (onDone: () => void) => {
+            vivianStatusText.style.transition = "opacity 0.35s ease";
+            vivianStatusText.style.opacity = "0";
+            setTimeout(() => {
+                vivianStatusText.textContent = "";
+                vivianStatusText.style.transition = "none";
+                vivianStatusText.style.opacity = "1";
+                onDone();
+            }, 380);
+        };
+
+        const cycle = () => {
+            if (isPaused) { setTimeout(cycle, 300); return; }
+            sIndex = (sIndex + 1) % statuses.length;
+            typeText(statuses[sIndex], () => {
+                setTimeout(() => {
+                    if (isPaused) { setTimeout(cycle, 300); return; }
+                    fadeOut(cycle);
+                }, 2600);
+            });
+        };
+
+        // Pause on hover
         aiWaifuCard.addEventListener('mouseenter', () => { isPaused = true; });
         aiWaifuCard.addEventListener('mouseleave', () => { isPaused = false; });
 
-        // Begin cycling after the initial status has been read
-        setTimeout(() => {
-            isDeleting = true;
-            typeStatus();
-        }, 3500);
+        // Only start when the card is actually visible on screen
+        const startObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !started) {
+                    started = true;
+                    startObserver.disconnect();
+                    setTimeout(() => fadeOut(cycle), 3500);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        startObserver.observe(aiWaifuCard);
     }
 </script>
