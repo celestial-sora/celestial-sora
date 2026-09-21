@@ -406,7 +406,7 @@ h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Inter',
 .project-banner::after { content: ''; position: absolute; inset: 22% -10% -25% 34%; border-radius: 50%; background: rgba(255,255,255,.17); filter: blur(1px); transform: rotate(-18deg); }
 .project-banner--pink { background: radial-gradient(circle at 75% 25%, rgba(255, 210, 222, .38), transparent 28%), linear-gradient(135deg, #3d1f35, #9a4165 55%, #eab6b0); }
 .project-banner--cyan { background: radial-gradient(circle at 78% 22%, rgba(221, 255, 255, .42), transparent 30%), linear-gradient(135deg, #1e3c44, #397b87 54%, #b2d9d2); }
-.project-banner--image { aspect-ratio: 1536 / 725; min-height: 0; padding: 0; background: #241d26; overflow: hidden; }
+.project-banner--image { aspect-ratio: 551 / 260; min-height: 0; padding: 0; background: #241d26; overflow: hidden; }
 .project-banner--image::after { display: none; }
 .project-banner__image { display: block; width: 100%; height: 100%; object-fit: contain; object-position: center; }
 .project-banner__index { position: relative; z-index: 1; font: .68rem 'IBM Plex Mono', monospace; letter-spacing: .14em; opacity: .78; }
