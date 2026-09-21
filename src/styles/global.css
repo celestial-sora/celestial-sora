@@ -42,6 +42,8 @@ html, body {
 
   --accent-primary: #d97757;
   --accent-hover: #c6613f;
+  --accent-clay: #d97757;
+  --accent-olive: #788c5d;
   --accent-blue: #6a9bcc;
   --accent-pink: #d14f73;
   --highlight: #d14f73;
@@ -81,6 +83,8 @@ html, body {
 
   --accent-primary: #d97757;
   --accent-hover: #c6613f;
+  --accent-clay: #d97757;
+  --accent-olive: #788c5d;
   --accent-blue: #6a9bcc;
   --accent-pink: #d14f73;
   --highlight: #d14f73;
@@ -429,6 +433,12 @@ h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Inter',
 .social-link { display: flex; align-items: center; gap: 17px; padding: 21px 23px; border-radius: 18px; text-decoration: none; transition: transform 180ms ease, border-color 180ms ease; }
 .social-link:hover { transform: translateY(-2px); border-color: var(--accent-blue); }
 .social-link strong, .social-link small { display: block; }
+.social-link__icon { display: grid; place-items: center; width: 36px; height: 36px; flex: 0 0 36px; color: var(--accent-pink); border: 1px solid color-mix(in srgb, var(--accent-pink) 32%, transparent); border-radius: 12px; background: color-mix(in srgb, var(--accent-pink) 8%, transparent); }
+.social-link__icon svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.social-link__icon-dot { fill: currentColor; stroke: none; }
+.social-link__icon--tiktok { color: var(--accent-blue); border-color: color-mix(in srgb, var(--accent-blue) 32%, transparent); background: color-mix(in srgb, var(--accent-blue) 8%, transparent); }
+.social-link__icon--youtube { color: var(--accent-clay); border-color: color-mix(in srgb, var(--accent-clay) 32%, transparent); background: color-mix(in srgb, var(--accent-clay) 8%, transparent); }
+.social-link__icon--discord { color: var(--accent-olive); border-color: color-mix(in srgb, var(--accent-olive) 32%, transparent); background: color-mix(in srgb, var(--accent-olive) 8%, transparent); }
 .social-link strong { color: var(--text-primary); font-size: 1rem; }
 .social-link small { margin-top: 3px; color: var(--text-muted); font-size: .75rem; }
 .social-link__arrow { margin-left: auto; color: var(--accent-pink); font-size: 1.2rem; }
