@@ -1,7 +1,7 @@
 ---
 const projects = [
     { number: '01', type: 'AI VISUAL NOVEL', title: 'Sora Novel', description: 'An office-life visual novel powered by AI memory and dynamic storytelling, making every run feel a little different.', tags: ['Gemini', 'AI Memory', 'Dynamic Storytelling'], primary: 'Open project', href: 'https://sora-novel.vercel.app/', accent: 'project-banner--pink' },
-    { number: '02', type: 'AI COMPANION', title: 'Vivian', description: 'An AI companion with a Live2D character, speech bubbles, and memory for conversations that grow over time.', tags: ['Live2D', 'Memory', 'TTS / STT'], primary: 'View project', href: 'https://github.com/celestial-sora/ai-waifu', accent: 'project-banner--cyan' },
+    { number: '02', type: 'AI COMPANION', title: 'Vivian', description: 'A cozy AI companion with Live2D, memory, voice, and vision — built to stay by your side.', tags: ['Live2D', 'Memory', 'Voice + Vision'], primary: 'View project', href: 'https://github.com/celestial-sora/ai-waifu', image: 'vivian-banner.jpg' },
 ];
 ---
 <section class="section-shell projects-section" id="projects">
@@ -9,7 +9,9 @@ const projects = [
     <div class="project-grid">
         {projects.map((project) => (
             <article class="project-card material-card">
-                <div class={`project-banner ${project.accent}`}><span class="project-banner__index">{project.number} / PROJECT</span><svg class="project-banner__mark" viewBox="0 0 16 16" aria-hidden="true"><path d="m8 1 1.2 5.8L15 8l-5.8 1.2L8 15 6.8 9.2 1 8l5.8-1.2L8 1Z" /></svg><strong>{project.title}</strong></div>
+                <div class={`project-banner ${project.image ? 'project-banner--image' : project.accent}`}>
+                    {project.image ? <img class="project-banner__image" src={import.meta.env.BASE_URL + project.image} alt={`${project.title} project banner`} /> : <><span class="project-banner__index">{project.number} / PROJECT</span><svg class="project-banner__mark" viewBox="0 0 16 16" aria-hidden="true"><path d="m8 1 1.2 5.8L15 8l-5.8 1.2L8 15 6.8 9.2 1 8l5.8-1.2L8 1Z" /></svg><strong>{project.title}</strong></>}
+                </div>
                 <div class="project-card__body"><span class="card-kicker">{project.type}</span><h3>{project.title}</h3><p>{project.description}</p><div class="tag-list">{project.tags.map((tag) => <span>{tag}</span>)}</div><a class="button button--primary" href={project.href} target="_blank" rel="noopener noreferrer">{project.primary} <svg class="icon-inline" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M5 3h8v8" /></svg></a></div>
             </article>
         ))}
