@@ -2,105 +2,107 @@
 
 ## Project
 
-- Repository: `https://github.com/celestial-sora/celestial-sora`
+- Repository: https://github.com/celestial-sora/celestial-sora
 - Stack: Astro static site with Astro components and global CSS
-- Hosting: Vercel, connected to the `main` branch
-- Current production domain: `https://celestial-sora.vercel.app`
-- Working directory: `/workspace/scratch/3653820ba324/celestial-sora`
+- Hosting: Vercel, connected to the main branch
+- Production: https://celestial-sora.vercel.app
+- Scope: portfolio website for Sora
 
 ## Current state
 
-The portfolio has been redesigned into an English, Claude-inspired interface with a warm ivory/charcoal palette, frosted glass surfaces, and raspberry-pink highlights.
+The portfolio uses an English file-explorer-inspired interface with warm ivory/charcoal surfaces, pink accents, restrained glass effects, local SVG icons, and subtle spring motion.
 
-The latest social section includes six cards:
+Completed UI work:
 
-- Instagram
-- TikTok
-- YouTube
-- Discord
-- Telegram — `https://t.me/sorastra`
-- Roblox — the Profile Share URL supplied by Sora
+- File-explorer navbar: /home / sora / work / social
+- Light/dark theme toggle with local sun and moon SVG icons
+- Animated hamburger menu that morphs into a close icon
+- Social cards using local brand SVG assets
+- Telegram and Roblox social links
+- Vivian project card with the uploaded banner image
+- Vivian project metadata updated for Live2D, memory, voice, and vision
 
-Social cards use inline SVG icons. Do not replace them with emoji or unnecessary image assets.
+Latest Git version:
 
-Latest GitHub commit:
+- 6e59bb0 — fix: use one banner ratio across devices
+- Previous banner asset refresh: b285ff9
 
-- `f1c5dfd` — `feat: add Telegram and Roblox social links`
+## Project banner standard
+
+All project banners must use the same canvas specification on desktop and mobile:
+
+- Canvas: 551 × 260 px
+- Aspect ratio: 551:260, approximately 2.12:1
+- Use the same composition; do not create a separate mobile crop
+- Keep important text, logos, and faces inside a 22px safe area
+- Larger source files are allowed only when they preserve the same ratio
+
+The CSS keeps the ratio with:
+
+`aspect-ratio: 551 / 260`
+
+Current Vivian asset:
+
+- `public/vivian-banner-v2.jpg`
+- Displayed through `ProjectsSection.astro`
+- Full artwork is preserved with responsive scaling
+
+The detailed banner rule is also documented in `agents.md`.
 
 ## Design direction
 
 - English UI throughout.
-- Claude-like palette:
-  - Light background: `#FAF9F5`
-  - Light surface: `#F0EEE6`
-  - Dark background: warm charcoal
-  - Primary text: near-black in light mode, ivory in dark mode
-  - Clay accent: `#D97757`
-  - Raspberry highlight: `#D14F73`
-  - Sky accent: `#6A9BCC`
-  - Olive accent: `#788C5D`
-- Use refined glassmorphism with restrained blur and soft borders.
-- No loading animations.
-- No hero entrance animations.
-- No emoji. Use inline SVG icons instead.
-- Keep motion subtle and spring-like for buttons, theme toggle, and navigation interactions.
-- Prefer accessibility-friendly semantic links, buttons, labels, and visible focus states.
+- Warm ivory light mode and charcoal dark mode.
+- Raspberry pink highlight, clay accent, sky blue accent, and olive accent.
+- Refined glass surfaces with restrained blur and soft borders.
+- No emoji for interface icons; use local or inline SVG.
+- Keep motion subtle and spring-like.
+- Preserve semantic links, buttons, labels, and visible focus states.
+- Avoid unrelated redesigns when making scoped fixes.
 
 ## Navigation
 
-The navbar intentionally uses a file-explorer style rather than a conventional navigation menu:
-
-`/home / sora / work / social`
-
-These path segments are clickable section navigation links. Do not add a second conventional nav row unless Sora explicitly requests it. The navbar is frosted glass and should remain compact.
+The navbar intentionally uses a file-explorer style. The path segments are clickable section navigation links. Do not add a second conventional navigation row unless explicitly requested.
 
 ## Main files
 
 - `src/pages/index.astro` — page composition
-- `src/layouts/Layout.astro` — document shell, metadata, global imports
-- `src/components/Navbar.astro` — file-explorer navbar and section navigation
+- `src/layouts/Layout.astro` — document shell and metadata
+- `src/components/Navbar.astro` — file-explorer navbar
 - `src/components/MobileMenu.astro` — mobile navigation drawer
-- `src/components/ThemeToggle.astro` — light/dark mode toggle
-- `src/components/AboutSection.astro` — profile/about section and GitHub link
-- `src/components/ProjectsSection.astro` — project cards
-- `src/components/SocialSection.astro` — donations and six social cards
-- `src/components/Footer.astro` — footer
-- `src/components/ScrollToTop.astro` — scroll-to-top control
-- `src/styles/global.css` — palette, layout, cards, responsive rules, motion
-- `public/sora-profile.jpg` — profile image
+- `src/components/ThemeToggle.astro` — theme toggle
+- `src/components/ProjectsSection.astro` — project cards and Vivian banner
+- `src/components/SocialSection.astro` — social cards
+- `src/styles/global.css` — layout, responsive rules, banner ratio, and motion
+- `public/icons/` — local SVG icons
+- `public/vivian-banner-v2.jpg` — current Vivian banner
+- `agents.md` — persistent project rules and banner standard
 
-## Development
+## Development and verification
 
 ```bash
 npm install
 npm run dev
 npm run build
-```
-
-Run before handoff or push:
-
-```bash
-npm run build
 git diff --check
 ```
 
+Run the build and whitespace check before delivery. Verify the directly affected feature when possible.
+
 ## Git and deployment workflow
 
-Push changes to GitHub `main`. Vercel is connected to the repository and deploys automatically. Avoid repeated manual Vercel deployments because the account can hit deployment limits.
+- Work on the existing branch unless a new branch is explicitly requested.
+- Make the smallest scoped change possible.
+- Do not commit secrets, credentials, environment files, debug files, or unrelated changes.
+- Push the completed work to GitHub.
+- Vercel deploys automatically from `main`.
+- If deployment is required, wait until Vercel reports `Ready` before declaring the task complete.
+- Report the Git version and deployment status in plain language.
 
-Before changing files:
+## Important notes
 
-1. Check the current `main` commit on GitHub.
-2. Preserve unrelated user changes.
-3. Make the smallest scoped change possible.
-4. Run the build and whitespace check.
-5. Push to GitHub and report the commit URL.
-
-## Important notes for the next agent
-
-- The user prefers concise Thai communication and should be addressed as “คุณหนู”.
-- The user wants implementation without unnecessary clarification unless there is a critical security issue.
+- Address the user as “คุณหนู” and keep communication concise.
 - Do not reintroduce deleted 3D assets, loading video, hero animation, or unused background assets.
 - Do not change the navbar concept or add emoji.
-- If adding social channels, use inline SVG icons and preserve the two-column desktop / one-column mobile grid.
-- The local workspace may contain a stale untracked `src/components/CubeHero.astro` left over from an older version. The current `main` branch does not use it; do not re-add it.
+- Preserve the two-column desktop and one-column mobile project/social layout unless explicitly requested.
+- The old `src/components/CubeHero.astro` may exist only in stale local workspaces; it is not part of the current main flow and should not be re-added.
