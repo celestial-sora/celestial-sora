@@ -12,7 +12,7 @@ const {
 } = Astro.props;
 ---
 <!doctype html>
-<html lang="th" data-theme="dark" class="scroll-smooth">
+<html lang="th" data-theme="light" class="scroll-smooth">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -24,11 +24,11 @@ const {
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@600&family=Inter:wght@300;400;500;600;700;800;900&family=Itim&family=Noto+Sans+Thai:wght@300;400;500;600;700;800;900&family=Pacifico&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
 		<script is:inline>
-			const savedTheme = localStorage.getItem('sora-theme') || 'dark';
+			const savedTheme = localStorage.getItem('sora-theme') || 'light';
 			document.documentElement.setAttribute('data-theme', savedTheme);
 		</script>
 	</head>
-	<body class="is-loading bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen font-heading antialiased transition-colors duration-300">
+	<body class="bg-[var(--bg-primary)] text-[var(--text-primary)] min-h-screen font-heading antialiased transition-colors duration-300">
 		<slot />
 	</body>
 </html>

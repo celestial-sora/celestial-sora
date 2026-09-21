@@ -1,237 +1,63 @@
 ---
 ---
-<section class="cube-hero relative w-full h-[380vh] overflow-visible" id="home">
-    <div class="cube-hero__pin-wrapper relative w-full h-screen h-[100svh] overflow-hidden">
+<section class="hero-static relative w-full min-h-screen overflow-hidden" id="home">
+    <div class="hero-static__wash absolute inset-0 pointer-events-none" aria-hidden="true"></div>
 
-        <!-- WebGL Canvas (Starfield particles + ambient glow) -->
-        <div class="three-canvas-container absolute inset-0 z-0 pointer-events-auto [transform:translateZ(0)] will-change-transform" id="cubeHeroContainer">
-            <canvas id="cubeHeroCanvas" class="w-full h-full block"></canvas>
+    <div class="relative z-10 min-h-screen flex flex-col justify-between pt-28 pb-8 px-6 sm:px-10">
+        <div class="flex justify-between items-center w-full">
+            <span class="font-mono text-[clamp(0.68rem,1.1vw,0.82rem)] tracking-[0.14em] uppercase text-[var(--text-muted)]">
+                Creator &amp; Vibe Coder
+            </span>
+            <span class="hidden sm:inline font-mono text-[clamp(0.68rem,1.1vw,0.82rem)] tracking-[0.14em] uppercase text-[var(--text-muted)]">
+                Sora Astralis © 2026
+            </span>
         </div>
 
-        <!-- Video Loading Screen -->
-        <div class="cube-hero__loading fixed inset-0 bg-[var(--bg-primary)] flex items-center justify-center z-[999999] [transform:translateZ(999px)]" id="cubeLoading">
-            <video
-                id="loadingVideo"
-                src={import.meta.env.BASE_URL + "loading-video.mp4"}
-                autoplay
-                muted
-                playsinline
-                class="absolute inset-0 w-full h-full object-cover z-[1]"
-            ></video>
-            <div class="absolute bottom-9 right-9 max-sm:bottom-5 max-sm:left-1/2 max-sm:-translate-x-1/2 max-sm:right-auto z-10 px-5.5 py-2.5 rounded-full flex items-center gap-3.5 bg-[#08091a]/60 backdrop-blur-xl border border-white/12 shadow-[0_10px_30px_rgba(0,0,0,0.35)]">
-                <div id="loadingShimmerText" class="loading-shimmer-text font-heading text-sm tracking-[2px] font-semibold text-[var(--accent-primary)]">Sora Astralis</div>
-                <div class="text-xs font-medium text-[var(--text-muted)] tracking-wider font-mono opacity-70" id="loadingPercent">0%</div>
-            </div>
-        </div>
-
-        <!-- Hero Overlay -->
-        <div class="cube-hero__overlay absolute inset-0 w-full h-full flex flex-col justify-between pt-24 pb-7 px-11 max-sm:px-4 max-sm:pt-20 max-sm:pb-5 overflow-hidden box-border pointer-events-none" id="cubeOverlay">
-
-            <!-- Top Info Row -->
-            <div class="hero-info-row flex justify-between items-center w-full z-10 pointer-events-none shrink-0">
-                <span class="hero-info-tag font-mono text-[clamp(0.68rem,1.1vw,0.82rem)] tracking-[0.14em] uppercase text-[var(--text-muted)] animate-[fadeIn_0.7s_ease_forwards_1.6s] opacity-0">Creator &amp; Vibe Coder</span>
-                <span class="hero-info-tag max-sm:hidden font-mono text-[clamp(0.68rem,1.1vw,0.82rem)] tracking-[0.14em] uppercase text-[var(--text-muted)] animate-[fadeIn_0.7s_ease_forwards_1.6s] opacity-0">Sora Astralis © 2026</span>
-            </div>
-
-            <!-- ── GIANT STATIC 2D TEXT "Sorachan" (iOS Depth Layer) ── -->
-            <div class="ios-clock-depth-layer absolute inset-0 flex items-center justify-center z-[2] pointer-events-none select-none" aria-hidden="true">
-                <h1 class="ios-clock-title font-black text-[clamp(4rem,min(21vw,18svh),17rem)] tracking-[-0.05em] leading-[0.9] text-center select-none text-white/30 bg-gradient-to-b from-white/55 via-[#d2beff]/40 to-[#96d2ff]/20 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(180,150,255,0.25)] in-[html[data-theme='light']]:from-[#1e1932]/45 in-[html[data-theme='light']]:to-[#6e3cc8]/30 in-[html[data-theme='light']]:drop-shadow-[0_10px_25px_rgba(110,60,200,0.18)]">Sorachan</h1>
-            </div>
-
-            <!-- ── SINGLE PROFILE CARD (Matches Reference Image) ── -->
-            <div class="hero-card-stage flex-1 flex items-center justify-center [perspective:1000px] z-10 py-2.5 min-h-0">
-                <div 
-                    class="sora-character-card frosted-glass flex flex-col items-center p-5 sm:p-6 w-[min(92%,390px)] max-w-[50svh] bg-[#161420]/60 in-[html[data-theme='light']]:bg-[#faf9f5]/70 backdrop-blur-2xl border border-white/12 in-[html[data-theme='light']]:border-black/10 rounded-[28px] shadow-[0_24px_70px_rgba(0,0,0,0.55),0_0_50px_rgba(195,177,225,0.12)] hover:border-[#c3b1e1]/40 hover:shadow-[0_32px_85px_rgba(0,0,0,0.65),0_0_60px_rgba(195,177,225,0.22)] transition-all cursor-pointer select-none [transform-style:preserve-3d] pointer-events-auto will-change-transform group" 
-                    id="profileHeroCard"
-                >
-                    <!-- Card Header Tag -->
-                    <div class="font-mono text-[10px] sm:text-[11px] font-semibold tracking-[0.24em] uppercase text-white/45 in-[html[data-theme='light']]:text-black/45 mb-3 sm:mb-4 shrink-0 text-center">
+        <div class="flex-1 flex items-center justify-center py-12 sm:py-16">
+            <div class="hero-profile-card frosted-glass flex flex-col items-center p-4 sm:p-6 w-[min(94vw,470px)] bg-[var(--glass-beige)] border border-[var(--glass-border)] rounded-[30px] shadow-[0_24px_70px_var(--glass-shadow)]">
+                <div class="w-full flex items-center justify-between px-1 mb-4">
+                    <span class="font-mono text-[10px] sm:text-[11px] font-semibold tracking-[0.24em] uppercase text-[var(--text-muted)]">
                         SORA CHARACTER
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 text-[10px] font-mono tracking-wider text-[var(--accent-pink)] uppercase">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-pink)]"></span>
+                        Online
+                    </span>
+                </div>
+
+                <div class="w-full rounded-[22px] overflow-hidden border border-[var(--image-border)] bg-[var(--image-surface)]">
+                    <img
+                        src={import.meta.env.BASE_URL + "sora-profile.jpg"}
+                        alt="Sora Character"
+                        class="w-full h-auto max-h-[68svh] object-contain block"
+                    />
+                </div>
+
+                <div class="flex justify-between items-center w-full px-1 pt-4 font-sans text-sm">
+                    <div class="font-mono font-extrabold tracking-[0.16em] text-sm sm:text-[15px] text-[var(--text-primary)]">
+                        SORA
                     </div>
 
-                    <!-- Main Character Image Box (New Profile Catgirl Image) -->
-                    <div class="w-full aspect-square rounded-[20px] overflow-hidden mb-3.5 sm:mb-5 shadow-2xl border border-white/10 max-h-[44svh] max-sm:max-h-[46svh]">
-                        <img
-                            src={import.meta.env.BASE_URL + "sora-profile.jpg"}
-                            alt="Sora Character"
-                            class="w-full h-full object-cover block group-hover:scale-105 transition-transform duration-500"
-                        />
+                    <a href="#about" class="flex flex-col items-center no-underline text-[var(--accent-pink)] hover:text-[var(--accent-blue)] transition-colors" aria-label="Scroll down">
+                        <span class="text-[11px] sm:text-[13px] font-medium tracking-wide">เลื่อนลงโลดดดด</span>
+                        <span class="text-sm font-bold -mt-0.5">↓</span>
+                    </a>
+
+                    <div class="flex items-center gap-1 text-xs sm:text-sm font-medium text-[var(--accent-blue)]">
+                        <span class="text-xs">✦</span>
+                        <span>Astralis</span>
                     </div>
-
-                    <!-- Card Footer Row -->
-                    <div class="flex justify-between items-center w-full px-1 shrink-0 font-sans text-sm">
-                        <div class="font-mono font-extrabold tracking-[0.16em] text-sm sm:text-[15px] text-white/90 in-[html[data-theme='light']]:text-neutral-900">
-                            SORA
-                        </div>
-                        
-                        <a href="#about" class="flex flex-col items-center no-underline text-[#d8b4e2] hover:opacity-85 hover:translate-y-0.5 transition-all" aria-label="Scroll down">
-                            <span class="text-[11px] sm:text-[13px] font-medium tracking-wide">เลื่อนลงโลดดดด</span>
-                            <span class="text-sm font-bold text-[#d8b4e2] -mt-0.5 animate-[bounceDown_1.8s_infinite_ease-in-out]">↓</span>
-                        </a>
-
-                        <div class="flex items-center gap-1 text-xs sm:text-sm font-medium text-[#cbb8e8]">
-                            <span class="text-xs text-[var(--accent-primary)]">✦</span>
-                            <span>Astralis</span>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-
-            <!-- Bottom Info Bar -->
-            <div class="hero-bottom-bar flex justify-between items-center w-full z-10 pointer-events-none shrink-0 max-sm:justify-center">
-                <span class="font-mono text-[clamp(0.58rem,1vw,0.72rem)] tracking-wider uppercase text-[var(--text-muted)] animate-[fadeIn_0.7s_ease_forwards_2.0s] opacity-0">GMT+7 TH · <span id="live-time">--:--</span></span>
-                <span class="max-sm:hidden font-mono text-[clamp(0.58rem,1vw,0.72rem)] tracking-wider uppercase text-[var(--text-muted)] animate-[fadeIn_0.7s_ease_forwards_2.0s] opacity-0" id="mouse-coords">0000 X · 0000 Y</span>
-            </div>
-
         </div>
 
+        <div class="flex justify-between items-center w-full">
+            <span class="font-mono text-[clamp(0.58rem,1vw,0.72rem)] tracking-wider uppercase text-[var(--text-muted)]">
+                GMT+7 TH
+            </span>
+            <span class="hidden sm:inline font-mono text-[clamp(0.58rem,1vw,0.72rem)] tracking-wider uppercase text-[var(--text-muted)]">
+                Silver / Cyan / Pink
+            </span>
+        </div>
     </div>
 </section>
-
-<script>
-    import { initCubeHeroScene } from '../three/cubeHeroScene';
-
-    document.addEventListener('DOMContentLoaded', () => {
-        // Loading shimmer wave
-        const shimmerEl = document.getElementById('loadingShimmerText');
-        if (shimmerEl) {
-            const text = shimmerEl.textContent || '';
-            shimmerEl.innerHTML = '';
-            const activeDur  = 1.0;
-            const totalDur   = activeDur + text.length * 0.05;
-            text.split('').forEach((char, i) => {
-                const s = document.createElement('span');
-                s.textContent = char === ' ' ? '\u00A0' : char;
-                s.className = 'shimmer-char';
-                s.style.animationDelay    = `${(i * activeDur) / text.length}s`;
-                s.style.animationDuration = `${totalDur}s`;
-                shimmerEl.appendChild(s);
-            });
-        }
-
-        // Loading percentage updater
-        const videoEl = document.getElementById('loadingVideo') as HTMLVideoElement | null;
-        const percentEl = document.getElementById('loadingPercent');
-        if (percentEl) {
-            let currentDisplay = 0;
-            let targetPercent = 0;
-            let isCompleted = false;
-
-            const updatePercentLoop = () => {
-                if (isCompleted) return;
-
-                if (videoEl && !isNaN(videoEl.duration) && videoEl.duration > 0) {
-                    const videoProgress = (videoEl.currentTime / videoEl.duration) * 100;
-                    targetPercent = Math.max(targetPercent, Math.min(100, videoProgress));
-                }
-
-                if (currentDisplay < targetPercent) {
-                    currentDisplay += Math.max(0.5, (targetPercent - currentDisplay) * 0.2);
-                    if (currentDisplay >= targetPercent) currentDisplay = targetPercent;
-                    percentEl.textContent = `${Math.min(100, Math.floor(currentDisplay))}%`;
-                }
-
-                if (currentDisplay < 100) {
-                    requestAnimationFrame(updatePercentLoop);
-                } else {
-                    percentEl.textContent = '100%';
-                }
-            };
-
-            requestAnimationFrame(updatePercentLoop);
-
-            if (videoEl) {
-                videoEl.addEventListener('timeupdate', () => {
-                    if (!isNaN(videoEl.duration) && videoEl.duration > 0) {
-                        targetPercent = Math.min(100, (videoEl.currentTime / videoEl.duration) * 100);
-                    }
-                });
-
-                videoEl.addEventListener('ended', () => {
-                    targetPercent = 100;
-                    currentDisplay = 100;
-                    percentEl.textContent = '100%';
-                    isCompleted = true;
-                });
-            }
-        }
-
-        // Live clock
-        const timeEl = document.getElementById('live-time');
-        const updateTime = () => {
-            if (!timeEl) return;
-            const now = new Date();
-            timeEl.textContent =
-                String(now.getHours()).padStart(2, '0') + ':' +
-                String(now.getMinutes()).padStart(2, '0');
-        };
-        updateTime();
-        setInterval(updateTime, 30_000);
-
-        // Mouse coordinates display
-        const coordEl = document.getElementById('mouse-coords');
-        window.addEventListener('mousemove', (e) => {
-            if (!coordEl) return;
-            const x = String(e.clientX).padStart(4, '0');
-            const y = String(e.clientY).padStart(4, '0');
-            coordEl.textContent = `${x} X · ${y} Y`;
-        }, { passive: true });
-
-        // ── 3D PARALLAX TILT ON SORA CHARACTER CARD (Mouse & Touch Drag) ─────────
-        const card = document.getElementById('profileHeroCard');
-        if (card) {
-            let reqId: number | null = null;
-            const targetRot  = { x: 0, y: 0 };
-            const currentRot = { x: 0, y: 0 };
-
-            // 1. Mouse Tilt (Desktop)
-            const onMouseMove = (e: MouseEvent) => {
-                const rect = card.getBoundingClientRect();
-                const cardCenterX = rect.left + rect.width / 2;
-                const cardCenterY = rect.top + rect.height / 2;
-
-                targetRot.y =  ((e.clientX - cardCenterX) / (window.innerWidth / 2)) * 18;
-                targetRot.x = -((e.clientY - cardCenterY) / (window.innerHeight / 2)) * 18;
-            };
-
-            // 2. Touch Drag Tilt (Mobile Touchscreen)
-            const onTouchMove = (e: TouchEvent) => {
-                if (!e.touches[0]) return;
-                const t = e.touches[0];
-                const rect = card.getBoundingClientRect();
-                const cardCenterX = rect.left + rect.width / 2;
-                const cardCenterY = rect.top + rect.height / 2;
-
-                targetRot.y =  ((t.clientX - cardCenterX) / (window.innerWidth / 2)) * 18;
-                targetRot.x = -((t.clientY - cardCenterY) / (window.innerHeight / 2)) * 18;
-            };
-
-            const resetTilt = () => {
-                targetRot.x = 0;
-                targetRot.y = 0;
-            };
-
-            window.addEventListener('mousemove',  onMouseMove, { passive: true });
-            window.addEventListener('touchmove',  onTouchMove, { passive: true });
-            window.addEventListener('mouseleave', resetTilt);
-            window.addEventListener('touchend',   resetTilt,   { passive: true });
-
-            const animateCard = () => {
-                reqId = requestAnimationFrame(animateCard);
-                currentRot.x += (targetRot.x - currentRot.x) * 0.08;
-                currentRot.y += (targetRot.y - currentRot.y) * 0.08;
-
-                card.style.transform = `perspective(1000px) rotateX(${currentRot.x}deg) rotateY(${currentRot.y}deg)`;
-            };
-            animateCard();
-        }
-
-        // Init WebGL Background
-        const container = document.getElementById('cubeHeroContainer');
-        const canvas    = document.getElementById('cubeHeroCanvas') as HTMLCanvasElement;
-        if (container && canvas) {
-            initCubeHeroScene(container, canvas);
-        }
-    });
-</script>
