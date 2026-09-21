@@ -20,12 +20,16 @@
         menu?.classList.remove('is-open');
         menu?.setAttribute('aria-hidden', 'true');
         openButton?.setAttribute('aria-expanded', 'false');
+        openButton?.setAttribute('aria-label', 'Open navigation menu');
+        openButton?.classList.remove('is-open');
         document.body.style.overflow = '';
     };
     openButton?.addEventListener('click', () => {
         menu?.classList.add('is-open');
         menu?.setAttribute('aria-hidden', 'false');
         openButton?.setAttribute('aria-expanded', 'true');
+        openButton?.setAttribute('aria-label', 'Close navigation menu');
+        openButton?.classList.add('is-open');
         document.body.style.overflow = 'hidden';
     });
     closeButton?.addEventListener('click', closeMenu);
