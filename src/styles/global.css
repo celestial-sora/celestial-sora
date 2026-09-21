@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --font-heading: 'Itim', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-mono: 'IBM Plex Mono', 'JetBrains Mono', monospace;
   --color-accent: #c9bfdc;
   --color-accent-hover: #e4d9f2;
@@ -40,10 +40,11 @@ html, body {
   --text-secondary: #c9c5bc;
   --text-muted: #9d988d;
 
-  --accent-primary: #d8896d;
-  --accent-hover: #e3a087;
-  --accent-blue: #9bbec0;
-  --accent-pink: #d8896d;
+  --accent-primary: #d97757;
+  --accent-hover: #c6613f;
+  --accent-blue: #6a9bcc;
+  --accent-pink: #d14f73;
+  --highlight: #d14f73;
   --glass-beige: rgba(53, 51, 47, 0.62);
   --glass-border: rgba(239, 237, 231, 0.18);
   --glass-shadow: rgba(25, 24, 22, 0.24);
@@ -59,14 +60,14 @@ html, body {
 
   --scrollbar-track: #262522;
   --scrollbar-thumb: #514e47;
-  --font-heading: 'Itim', 'Noto Sans Thai', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 [data-theme="light"] {
   /* Light Theme - pale parchment, low-contrast and warm */
-  --bg-primary: #f5f3ef;
-  --bg-secondary: #efede8;
-  --bg-tertiary: #e8e5de;
+  --bg-primary: #faf9f5;
+  --bg-secondary: #f0eee6;
+  --bg-tertiary: #e8e6dc;
   --bg-card: #fbfaf7;
   --bg-card-hover: #fffefa;
   --bg-nav: rgba(250, 249, 246, 0.78);
@@ -74,22 +75,23 @@ html, body {
   --border-nav: rgba(72, 69, 63, 0.12);
   --shadow-nav: 0 10px 30px rgba(72, 69, 63, 0.10);
 
-  --text-primary: #343330;
-  --text-secondary: #706d66;
-  --text-muted: #9a968d;
+  --text-primary: #141413;
+  --text-secondary: #3d3d3a;
+  --text-muted: #77766f;
 
-  --accent-primary: #bf6d52;
-  --accent-hover: #a85b43;
-  --accent-blue: #6f9b9d;
-  --accent-pink: #bf6d52;
+  --accent-primary: #d97757;
+  --accent-hover: #c6613f;
+  --accent-blue: #6a9bcc;
+  --accent-pink: #d14f73;
+  --highlight: #d14f73;
   --glass-beige: rgba(251, 250, 247, 0.72);
   --glass-border: rgba(72, 69, 63, 0.12);
   --glass-shadow: rgba(72, 69, 63, 0.12);
   --image-surface: #e8e3da;
   --image-border: rgba(72, 69, 63, 0.12);
 
-  --border-color: #dedbd4;
-  --border-hover: #c5c0b6;
+  --border-color: #e8e6dc;
+  --border-hover: #d6d3c9;
 
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
@@ -125,7 +127,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-primary);
+  background: var(--highlight);
 }
 
 /* Selection */
@@ -305,14 +307,14 @@ body {
 :root {
   --page-width: 1120px;
   --hairline: rgba(72, 69, 63, 0.12);
-  --surface: rgba(251, 250, 247, 0.72);
-  --surface-strong: rgba(251, 250, 247, 0.90);
+  --surface: rgba(250, 249, 245, 0.74);
+  --surface-strong: rgba(250, 249, 245, 0.94);
 }
 
 [data-theme="dark"] {
   --hairline: rgba(239, 237, 231, 0.14);
-  --surface: rgba(48, 47, 43, 0.76);
-  --surface-strong: rgba(42, 41, 38, 0.92);
+  --surface: rgba(61, 61, 58, 0.76);
+  --surface-strong: rgba(20, 20, 19, 0.92);
 }
 
 .hero-static {
@@ -337,8 +339,8 @@ body {
 .hero-scroll-link svg, .icon-inline, .project-banner__mark, .social-link__arrow { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
 .icon-inline { display: inline-block; vertical-align: middle; }
 
-body { font-family: 'Noto Sans Thai', system-ui, sans-serif; }
-h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Itim', 'Noto Sans Thai', sans-serif; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 
 .site-nav {
   position: fixed; z-index: 1000; top: 18px; left: 50%; transform: translateX(-50%);
@@ -370,7 +372,7 @@ h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Itim', 
 .eyebrow, .card-kicker { display: block; color: var(--accent-pink); font-size: .68rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
 .eyebrow { margin-bottom: 16px; }
 .section-heading h2 { margin: 0; color: var(--text-primary); font-size: clamp(2.5rem, 6vw, 5.4rem); font-weight: 700; line-height: .98; letter-spacing: -.045em; }
-.section-heading h2 em { color: var(--accent-primary); font-style: normal; }
+.section-heading h2 em { color: var(--highlight); font-style: normal; }
 .section-heading > p { max-width: 520px; margin: 23px 0 0; color: var(--text-secondary); font-size: 1rem; line-height: 1.8; }
 .material-card { border: 1px solid var(--glass-border); background: var(--surface); box-shadow: 0 20px 60px rgba(111,75,77,.10), inset 0 1px 0 rgba(255,255,255,.52); backdrop-filter: blur(22px) saturate(135%); }
 
