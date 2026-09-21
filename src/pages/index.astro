@@ -35,36 +35,3 @@ import ScrollToTop from '../components/ScrollToTop.astro';
 	<!-- Back to Top Button -->
 	<ScrollToTop />
 </Layout>
-
-<script>
-	document.addEventListener('DOMContentLoaded', () => {
-		// Other sections keep standard reveal
-		const otherElements = document.querySelectorAll(
-			'#about .section-header, #about .about-text-card, .project-card, .social-card, .projects-section .section-header, .social-section .section-header, .donation-hub-container'
-		);
-		otherElements.forEach(el => el.classList.add('reveal'));
-
-		const revealObserver = new IntersectionObserver((entries) => {
-			entries.forEach(entry => {
-				if (entry.isIntersecting) {
-					entry.target.classList.add('visible');
-					revealObserver.unobserve(entry.target);
-				}
-			});
-		}, {
-			threshold: 0.12,
-			rootMargin: '0px 0px -40px 0px'
-		});
-
-		document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-		// Staggered Reveal for Grids (Projects & Socials)
-		const gridContainers = document.querySelectorAll('.projects-grid, .social-grid');
-		gridContainers.forEach(grid => {
-			const children = grid.children;
-			Array.from(children).forEach((child, index) => {
-				(child as HTMLElement).style.transitionDelay = `${index * 0.08}s`;
-			});
-		});
-	});
-</script>
