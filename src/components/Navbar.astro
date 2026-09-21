@@ -1,48 +1,42 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 ---
-<nav
-    class="fixed top-4 left-1/2 -translate-x-1/2 z-[1000] flex items-center justify-between px-5 py-2 w-[min(calc(100%-32px),980px)] max-w-[980px] box-border rounded-full backdrop-blur-xl bg-[var(--bg-nav)] border border-white/20 shadow-[0_8px_24px_rgba(0,0,0,0.24)] transition-all duration-300 [&.scrolled]:top-2 [&.scrolled]:py-1.5 [&.scrolled]:bg-[var(--bg-nav-scrolled)] [&.scrolled]:border-white/30 [&.scrolled]:shadow-[0_10px_32px_rgba(0,0,0,0.2)]"
-    id="navbar"
->
-    <div class="flex items-center gap-2 cursor-pointer group select-none" id="navLogo">
-        <span class="flex items-center justify-center w-5 h-5">
-            <img
-                src={import.meta.env.BASE_URL + "sora-logo.png"}
-                alt="Sora Logo"
-                class="w-5 h-5 object-contain drop-shadow-[0_0_5px_rgba(195,177,225,0.45)] transition-transform duration-300 group-hover:scale-125 group-hover:-rotate-6"
-            />
-        </span>
-        <span class="text-base font-black tracking-[2.5px] text-[var(--text-primary)]">SORA</span>
-    </div>
-
-    <div class="hidden md:flex items-center gap-0.5" id="navLinks">
-        <a href="#home" class="nav-link px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] rounded-lg transition-all duration-200 hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] [&.active]:text-[var(--accent-primary)] [&.active]:font-bold" data-section="home">Home</a>
-        <a href="#about" class="nav-link px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] rounded-lg transition-all duration-200 hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] [&.active]:text-[var(--accent-primary)] [&.active]:font-bold" data-section="about">About</a>
-        <a href="#projects" class="nav-link px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] rounded-lg transition-all duration-200 hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] [&.active]:text-[var(--accent-primary)] [&.active]:font-bold" data-section="projects">Work</a>
-        <a href="#social" class="nav-link px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] rounded-lg transition-all duration-200 hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)] [&.active]:text-[var(--accent-primary)] [&.active]:font-bold" data-section="social">Social</a>
-    </div>
-
-    <div class="flex items-center gap-1.5">
-        <ThemeToggle />
-        <button
-            class="md:hidden flex flex-col justify-center gap-1 p-1.5 bg-transparent border-0 cursor-pointer z-[1002] group"
-            id="hamburger"
-            aria-label="Toggle menu"
-        >
-            <span class="block w-5 h-0.5 bg-[var(--text-primary)] rounded-full transition-all duration-300 group-[.active]:rotate-45 group-[.active]:translate-y-[6px]"></span>
-            <span class="block w-5 h-0.5 bg-[var(--text-primary)] rounded-full transition-all duration-300 group-[.active]:opacity-0"></span>
-            <span class="block w-5 h-0.5 bg-[var(--text-primary)] rounded-full transition-all duration-300 group-[.active]:-rotate-45 group-[.active]:-translate-y-[6px]"></span>
+<nav class="file-nav" id="navbar" aria-label="Primary navigation">
+    <div class="file-nav__titlebar">
+        <div class="file-nav__traffic" aria-hidden="true"><span></span><span></span><span></span></div>
+        <button class="file-nav__brand" id="navLogo" type="button" aria-label="Go to top">
+            <img src={import.meta.env.BASE_URL + "sora-logo.png"} alt="Sora Logo" />
+            <span>SORA</span>
         </button>
+        <span class="file-nav__window-title">Sora Astralis</span>
+        <div class="file-nav__title-space" aria-hidden="true"></div>
+    </div>
+    <div class="file-nav__toolbar">
+        <div class="file-nav__controls" aria-hidden="true">
+            <svg viewBox="0 0 16 16"><path d="m10 3-5 5 5 5" /></svg>
+            <svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" /></svg>
+            <svg viewBox="0 0 16 16"><path d="M3 7.5 8 3l5 4.5M4.5 7v5.5h7V7" /></svg>
+        </div>
+        <div class="file-nav__path" aria-label="Current location">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4.5h4l1.2 1.4h5.8v6.6h-11Z" /></svg>
+            <span>/home</span><b>/</b><span>sora</span><b>/</b><span>work</span><b>/</b><strong>social</strong>
+        </div>
+        <div class="file-nav__actions">
+            <div class="file-nav__links" id="navLinks">
+                <a class="nav-link" href="#about" data-section="about">About</a>
+                <a class="nav-link" href="#projects" data-section="projects">Work</a>
+                <a class="nav-link" href="#social" data-section="social">Social</a>
+            </div>
+            <ThemeToggle />
+            <button class="file-nav__menu" id="hamburger" type="button" aria-label="Open navigation menu"><span></span><span></span></button>
+        </div>
     </div>
 </nav>
 
 <script>
     const navbar = document.getElementById('navbar');
     const updateActiveSection = () => {
-        if (window.scrollY > 50) navbar?.classList.add('scrolled');
-        else navbar?.classList.remove('scrolled');
-
+        navbar?.classList.toggle('is-scrolled', window.scrollY > 30);
         const scrollPosition = window.scrollY + 200;
         document.querySelectorAll('.nav-link').forEach(link => {
             const section = document.getElementById(link.getAttribute('data-section') || '');
@@ -51,22 +45,10 @@ import ThemeToggle from './ThemeToggle.astro';
     };
     window.addEventListener('scroll', updateActiveSection, { passive: true });
     updateActiveSection();
-
-    document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = document.getElementById(link.getAttribute('href')?.slice(1) || '');
-            if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 70, behavior: 'smooth' });
-        });
-    });
-
+    document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const target = document.getElementById(link.getAttribute('href')?.slice(1) || '');
+        if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 92, behavior: 'smooth' });
+    }));
     document.getElementById('navLogo')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-
-    const hamburger = document.getElementById('hamburger');
-    const mobileOverlay = document.getElementById('mobileMenuOverlay');
-    hamburger?.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        mobileOverlay?.classList.toggle('active');
-        document.body.style.overflow = mobileOverlay?.classList.contains('active') ? 'hidden' : '';
-    });
 </script>
