@@ -19,14 +19,9 @@ import ThemeToggle from './ThemeToggle.astro';
         </div>
         <div class="file-nav__path" aria-label="Current location">
             <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4.5h4l1.2 1.4h5.8v6.6h-11Z" /></svg>
-            <span>/home</span><b>/</b><span>sora</span><b>/</b><span>work</span><b>/</b><strong>social</strong>
+            <a class="file-path-link" href="#home" data-section="home">/home</a><b>/</b><a class="file-path-link" href="#about" data-section="about">sora</a><b>/</b><a class="file-path-link" href="#projects" data-section="projects">work</a><b>/</b><a class="file-path-link" href="#social" data-section="social">social</a>
         </div>
         <div class="file-nav__actions">
-            <div class="file-nav__links" id="navLinks">
-                <a class="nav-link" href="#about" data-section="about">About</a>
-                <a class="nav-link" href="#projects" data-section="projects">Work</a>
-                <a class="nav-link" href="#social" data-section="social">Social</a>
-            </div>
             <ThemeToggle />
             <button class="file-nav__menu" id="hamburger" type="button" aria-label="Open navigation menu"><span></span><span></span></button>
         </div>
@@ -38,17 +33,19 @@ import ThemeToggle from './ThemeToggle.astro';
     const updateActiveSection = () => {
         navbar?.classList.toggle('is-scrolled', window.scrollY > 30);
         const scrollPosition = window.scrollY + 200;
-        document.querySelectorAll('.nav-link').forEach(link => {
+        document.querySelectorAll('.file-path-link').forEach(link => {
             const section = document.getElementById(link.getAttribute('data-section') || '');
-            link.classList.toggle('active', !!section && scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight);
+            const isHome = link.getAttribute('data-section') === 'home' && window.scrollY < 180;
+            link.classList.toggle('active', isHome || (!!section && scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight));
         });
     };
     window.addEventListener('scroll', updateActiveSection, { passive: true });
     updateActiveSection();
-    document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', (event) => {
+    document.querySelectorAll('.file-path-link').forEach(link => link.addEventListener('click', (event) => {
         event.preventDefault();
         const target = document.getElementById(link.getAttribute('href')?.slice(1) || '');
         if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 92, behavior: 'smooth' });
+        else if (link.getAttribute('data-section') === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
     }));
     document.getElementById('navLogo')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 </script>
