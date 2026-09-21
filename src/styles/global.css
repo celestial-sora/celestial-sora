@@ -439,6 +439,8 @@ h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Inter',
 .social-link__icon--tiktok { color: var(--accent-blue); border-color: color-mix(in srgb, var(--accent-blue) 32%, transparent); background: color-mix(in srgb, var(--accent-blue) 8%, transparent); }
 .social-link__icon--youtube { color: var(--accent-clay); border-color: color-mix(in srgb, var(--accent-clay) 32%, transparent); background: color-mix(in srgb, var(--accent-clay) 8%, transparent); }
 .social-link__icon--discord { color: var(--accent-olive); border-color: color-mix(in srgb, var(--accent-olive) 32%, transparent); background: color-mix(in srgb, var(--accent-olive) 8%, transparent); }
+.social-link__icon--telegram { color: var(--accent-blue); border-color: color-mix(in srgb, var(--accent-blue) 32%, transparent); background: color-mix(in srgb, var(--accent-blue) 8%, transparent); }
+.social-link__icon--roblox { color: var(--accent-pink); border-color: color-mix(in srgb, var(--accent-pink) 32%, transparent); background: color-mix(in srgb, var(--accent-pink) 8%, transparent); }
 .social-link strong { color: var(--text-primary); font-size: 1rem; }
 .social-link small { margin-top: 3px; color: var(--text-muted); font-size: .75rem; }
 .social-link__arrow { margin-left: auto; color: var(--accent-pink); font-size: 1.2rem; }
