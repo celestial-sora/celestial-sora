@@ -68,8 +68,8 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
     const scene = new THREE.Scene();
     activeScene = scene;
 
-    const baseBgColorDark  = 0x000000; // Pure OLED Black
-    const baseBgColorLight = 0xfaf9f5; // Claude.ai Sand / Warm Cream
+    const baseBgColorDark  = 0x100d1b; // Lavender night
+    const baseBgColorLight = 0xf5eff5; // Warm lavender cream
 
     const getTheme = () => document.documentElement.getAttribute('data-theme') || 'dark';
     const initialTheme = getTheme();
@@ -94,13 +94,13 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
     const keyLight = new THREE.DirectionalLight(0xffffff, 1.8);
     keyLight.position.set(4, 6, 8); scene.add(keyLight);
 
-    const fillLight = new THREE.DirectionalLight(0xC3B1E1, 1.5);
+    const fillLight = new THREE.DirectionalLight(0xc9bfdc, 1.5);
     fillLight.position.set(-5, -3, 4); scene.add(fillLight);
 
-    const rimLight = new THREE.DirectionalLight(0x8EC8D8, 1.2);
+    const rimLight = new THREE.DirectionalLight(0x72deed, 1.2);
     rimLight.position.set(0, 2, -8); scene.add(rimLight);
 
-    const glowLight = new THREE.PointLight(0xC3B1E1, 4.0, 24);
+    const glowLight = new THREE.PointLight(0x72deed, 4.0, 24);
     glowLight.position.set(0, 0, 2); scene.add(glowLight);
 
     // Starfield Dust Particles
@@ -109,7 +109,7 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
     for (let i = 0; i < pCount * 3; i++) pPos[i] = (Math.random() - 0.5) * 32;
     const pGeo = new THREE.BufferGeometry();
     pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-    const initialPColor = initialTheme === 'dark' ? 0xC3B1E1 : 0x8f79b5;
+    const initialPColor = initialTheme === 'dark' ? 0xc9bfdc : 0x9c82b5;
     const pMat = new THREE.PointsMaterial({
         color: initialPColor, size: isMobile ? 0.05 : 0.07,
         transparent: true, opacity: 0.65, depthWrite: false,
@@ -126,7 +126,7 @@ export function initCubeHeroScene(container: HTMLElement, canvas: HTMLCanvasElem
             (scene.fog as THREE.FogExp2).color.setHex(bgHex);
         }
         ambientLight.intensity = t === 'dark' ? 0.30 : 0.60;
-        pMat.color.setHex(t === 'dark' ? 0xC3B1E1 : 0x8f79b5);
+        pMat.color.setHex(t === 'dark' ? 0xc9bfdc : 0x9c82b5);
     });
     themeObserverInstance.observe(document.documentElement, {
         attributes: true,
