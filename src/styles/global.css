@@ -331,6 +331,14 @@ body {
 }
 .hero-profile-card { box-shadow: 0 24px 70px rgba(111, 75, 77, .18), inset 0 1px 0 rgba(255,255,255,.65); }
 .hero-profile-card img { image-rendering: auto; }
+.hero-card__intro { width: 100%; }
+.hero-card__intro h1 { margin: 18px 0 14px; color: var(--text-primary); font-size: clamp(2.2rem, 7vw, 4.6rem); line-height: .94; letter-spacing: -.055em; }
+.hero-card__intro h1 em { color: var(--accent-pink); font-style: normal; }
+.hero-card__intro p { max-width: 330px; margin: 0; color: var(--text-secondary); line-height: 1.8; }
+.hero-scroll-link { display: inline-flex; align-items: center; gap: 8px; color: var(--accent-pink); text-decoration: none; transition: color 150ms ease; }
+.hero-scroll-link:hover { color: var(--accent-blue); }
+.hero-scroll-link svg, .icon-inline, .project-banner__mark, .social-link__arrow { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.icon-inline { display: inline-block; vertical-align: middle; }
 
 body { font-family: 'Noto Sans Thai', system-ui, sans-serif; }
 h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Itim', 'Noto Sans Thai', sans-serif; }
@@ -369,11 +377,16 @@ h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Itim', 
 .material-card { border: 1px solid var(--glass-border); background: var(--surface); box-shadow: 0 20px 60px rgba(111,75,77,.10), inset 0 1px 0 rgba(255,255,255,.52); backdrop-filter: blur(22px) saturate(135%); }
 
 .about-layout { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(250px, .75fr); gap: 20px; }
-.about-intro { padding: clamp(28px, 5vw, 58px); border-radius: 30px; }
+.about-intro { display: grid; grid-template-columns: minmax(160px, .72fr) minmax(0, 1.28fr); gap: clamp(24px, 4vw, 52px); padding: clamp(20px, 3vw, 34px); border-radius: 30px; overflow: hidden; }
+.about-intro__image { min-height: 360px; border-radius: 22px; overflow: hidden; background: var(--image-surface); }
+.about-intro__image img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+.about-intro__content { align-self: center; padding: 14px 12px 14px 0; }
+.about-intro__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 18px; margin-top: 30px; }
 .about-intro h3, .support-panel h3 { margin: 22px 0 14px; color: var(--text-primary); font-size: clamp(1.8rem, 3.4vw, 3.25rem); line-height: 1; letter-spacing: -.035em; }
 .about-intro p, .support-panel p { max-width: 570px; color: var(--text-secondary); font-size: 1rem; line-height: 1.9; }
 .text-button { margin-top: 30px; padding: 0 0 6px; border: 0; border-bottom: 1px solid var(--accent-pink); color: var(--text-primary); background: transparent; cursor: pointer; font: inherit; }
 .text-button span { color: var(--accent-pink); margin-left: 8px; }
+.text-button .icon-inline { margin-left: 8px; }
 .about-secret { margin-top: 20px; color: var(--accent-pink) !important; font-size: .9rem !important; }
 .about-stats { display: grid; grid-template-rows: repeat(3, 1fr); gap: 12px; }
 .stat-card { display: flex; flex-direction: column; justify-content: center; min-height: 130px; padding: 24px; border: 1px solid var(--hairline); border-radius: 22px; background: rgba(255,255,255,.20); }
@@ -381,7 +394,19 @@ h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Itim', 
 .stat-card strong { margin-top: 14px; color: var(--text-primary); font-size: 1.05rem; }
 .stat-card small { margin-top: 3px; color: var(--text-muted); font-size: .78rem; }
 
-.project-list { border-top: 1px solid var(--hairline); }
+.project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.project-card { overflow: hidden; border-radius: 26px; }
+.project-banner { position: relative; min-height: 260px; padding: 22px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; color: #fffaf4; background: #392b36; }
+.project-banner::after { content: ''; position: absolute; inset: 22% -10% -25% 34%; border-radius: 50%; background: rgba(255,255,255,.17); filter: blur(1px); transform: rotate(-18deg); }
+.project-banner--pink { background: radial-gradient(circle at 75% 25%, rgba(255, 210, 222, .38), transparent 28%), linear-gradient(135deg, #3d1f35, #9a4165 55%, #eab6b0); }
+.project-banner--cyan { background: radial-gradient(circle at 78% 22%, rgba(221, 255, 255, .42), transparent 30%), linear-gradient(135deg, #1e3c44, #397b87 54%, #b2d9d2); }
+.project-banner__index { position: relative; z-index: 1; font: .68rem 'IBM Plex Mono', monospace; letter-spacing: .14em; opacity: .78; }
+.project-banner__mark { position: relative; z-index: 1; align-self: flex-end; width: 38px; height: 38px; stroke-width: .9; opacity: .85; }
+.project-banner strong { position: relative; z-index: 1; font-size: clamp(2rem, 5vw, 4.3rem); line-height: .86; letter-spacing: -.06em; }
+.project-card__body { padding: 26px; }
+.project-card__body h3 { margin: 9px 0 10px; color: var(--text-primary); font-size: clamp(1.7rem, 3vw, 2.7rem); line-height: 1; letter-spacing: -.04em; }
+.project-card__body p { min-height: 92px; margin: 0; color: var(--text-secondary); line-height: 1.75; }
+.project-card__body .button { margin-top: 24px; }
 .project-row { display: grid; grid-template-columns: 58px minmax(0, 1fr) auto; gap: 28px; align-items: center; padding: 34px 0; border-bottom: 1px solid var(--hairline); }
 .project-row__body h3 { margin: 8px 0 9px; color: var(--text-primary); font-size: clamp(1.7rem, 3vw, 2.7rem); line-height: 1; letter-spacing: -.04em; }
 .project-row__body p { max-width: 610px; margin: 0; color: var(--text-secondary); line-height: 1.75; }
@@ -432,11 +457,14 @@ h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Itim', 
   .section-heading--row, .support-panel { display: block; }
   .section-heading--row > p { margin-top: 22px; }
   .about-layout { grid-template-columns: 1fr; }
+  .about-intro { grid-template-columns: 1fr; }
+  .about-intro__image { min-height: 300px; max-height: 52svh; }
+  .about-intro__content { padding: 0 4px 8px; }
   .about-stats { grid-template-rows: none; grid-template-columns: repeat(3, 1fr); }
   .stat-card { min-height: 120px; padding: 15px; }
   .stat-card strong { font-size: .9rem; }
   .stat-card small { font-size: .65rem; }
-  .project-row { grid-template-columns: 34px 1fr; gap: 12px; }
+  .project-grid { grid-template-columns: 1fr; }
   .project-row__actions { grid-column: 2; min-width: 0; flex-direction: row; flex-wrap: wrap; }
   .button { flex: 1; }
   .support-panel__actions { margin-top: 24px; }

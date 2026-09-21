@@ -15,15 +15,15 @@ const socials = [
     <div class="support-panel material-card">
         <div><span class="card-kicker">SUPPORT THE WORK</span><h3>ช่วยเติมพลังให้โปรเจกต์ต่อไป</h3><p>ถ้าชอบสิ่งที่ Sora สร้าง สามารถสนับสนุนผ่านช่องทางด้านล่างได้เลย</p></div>
         <div class="support-panel__actions">
-            <a class="button button--primary" href="https://happydonate.app/sora" target="_blank" rel="noopener noreferrer"><img src={import.meta.env.BASE_URL + "happydonate-logo.png"} alt="" />Happy Donate ↗</a>
-            <a class="button button--quiet" href="https://easydonate.app/sorapurr" target="_blank" rel="noopener noreferrer"><img src={import.meta.env.BASE_URL + "easydonate-logo.ico"} alt="" />EasyDonate ↗</a>
+            <a class="button button--primary" href="https://happydonate.app/sora" target="_blank" rel="noopener noreferrer"><img src={import.meta.env.BASE_URL + "happydonate-logo.png"} alt="" />Happy Donate <svg class="icon-inline" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M5 3h8v8" /></svg></a>
+            <a class="button button--quiet" href="https://easydonate.app/sorapurr" target="_blank" rel="noopener noreferrer"><img src={import.meta.env.BASE_URL + "easydonate-logo.ico"} alt="" />EasyDonate <svg class="icon-inline" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M5 3h8v8" /></svg></a>
         </div>
     </div>
 
     <div class="social-grid">
         {socials.map((social, index) => (
             <a class="social-link material-card" href={social.href} target="_blank" rel="noopener noreferrer">
-                <span class="social-link__index">0{index + 1}</span><span><strong>{social.name}</strong><small>{social.handle}</small></span><span class="social-link__arrow">↗</span>
+                <span class="social-link__index">0{index + 1}</span><span><strong>{social.name}</strong><small>{social.handle}</small></span><svg class="social-link__arrow" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M5 3h8v8" /></svg>
             </a>
         ))}
     </div>
