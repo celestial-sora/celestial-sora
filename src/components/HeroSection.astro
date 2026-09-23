@@ -16,19 +16,18 @@
                     <div class="showcase-hero__tablet-screen">
                         <div class="showcase-hero__tablet-app">
                             <div class="showcase-hero__desktop-nav">
-                                <div class="showcase-hero__app-mark">V<span>.</span></div>
-                                <span class="showcase-hero__nav-current">● &nbsp; Home</span>
-                                <span>◌ &nbsp; Memories</span>
-                                <span>◌ &nbsp; Our story</span>
-                                <div class="showcase-hero__nav-bottom"><i></i> Always here</div>
+                                <div class="showcase-hero__app-mark">vivian<span>.</span></div>
+                                <span class="showcase-hero__nav-current"><i></i> Home</span>
+                                <span class="showcase-hero__nav-link">Moments</span>
+                                <div class="showcase-hero__nav-bottom"><i></i> Here for you</div>
                             </div>
                             <div class="showcase-hero__desktop-content">
-                                <div class="showcase-hero__desktop-top"><span>vivian / home</span><span>✦ &nbsp; 01</span></div>
+                                <div class="showcase-hero__desktop-top"><span>YOUR LITTLE CORNER</span><span>✦</span></div>
                                 <div class="showcase-hero__desktop-message">
-                                    <span class="showcase-hero__small-label">YOUR SPACE, TOGETHER</span>
-                                    <strong>It's nice to<br />see you again.</strong>
-                                    <span>How was your day? I want to hear everything.</span>
-                                    <div class="showcase-hero__desktop-reply">Come say hi <b>↗</b></div>
+                                    <span class="showcase-hero__small-label">A LITTLE SPACE FOR YOU</span>
+                                    <strong>Hi, I'm<br />Vivian.</strong>
+                                    <span>I'm happy you're here.<br />How was your day?</span>
+                                    <div class="showcase-hero__desktop-reply">Tell me about it <b>↗</b></div>
                                 </div>
                                 <img src={import.meta.env.BASE_URL + "vivian-character.webp"} alt="" fetchpriority="high" decoding="async" />
                             </div>
@@ -41,7 +40,7 @@
                         <div class="showcase-hero__camera"></div>
                         <div class="showcase-hero__phone-header"><span>‹</span><strong>Vivian</strong><i></i></div>
                         <div class="showcase-hero__phone-portrait"><img src={import.meta.env.BASE_URL + "vivian-character.webp"} alt="" decoding="async" /></div>
-                        <div class="showcase-hero__phone-chat"><span>Vivian · just now</span><p>You're here! I was hoping we'd get to talk today ♡</p></div>
+                        <div class="showcase-hero__phone-chat"><span>VIVIAN · JUST NOW</span><p>You're here! Tell me about your day ♡</p></div>
                         <div class="showcase-hero__phone-input"><span>Say something...</span><b>↗</b></div>
                         <div class="showcase-hero__phone-home"></div>
                     </div>
@@ -56,8 +55,8 @@
     .showcase-hero {
         --hero-surface: #302e2e; --hero-ink: #faf8f7; --hero-soft-ink: #c6c0bf; --hero-line: #53504f;
         --hero-screen: #27232a; --hero-nav: #302a31; --hero-ui-ink: #f8edf3; --hero-ui-muted: #b9a9b4;
-        --hero-ui-accent: #e5a8c1; --hero-ui-wash: radial-gradient(circle at 70% 63%, #5d4357 0%, #403342 42%, #2c2832 85%);
-        --hero-reply: #52404f; --hero-phone-wash: linear-gradient(#392f3b, #574052 64%, #3b303e);
+        --hero-ui-accent: #e5a8c1; --hero-ui-wash: linear-gradient(115deg, #302a32 0%, #423440 100%);
+        --hero-reply: #594352; --hero-phone-wash: linear-gradient(155deg, #342c35, #594150);
         --hero-chat: rgba(52,40,53,.92); --hero-chat-border: rgba(244,211,229,.2);
         --hero-input: #403440; --hero-input-line: #765c70; --hero-home: #f2e5ee;
         width: min(calc(100% - 48px), var(--page-width)); margin: 0 auto; padding: 132px 0 50px; color: var(--hero-ink);
@@ -65,8 +64,8 @@
     :global(html[data-theme="light"]) .showcase-hero {
         --hero-surface: #fbfaf9; --hero-ink: #18171a; --hero-soft-ink: #625e61; --hero-line: #eae7e6;
         --hero-screen: #f9f5f2; --hero-nav: #fdfaf8; --hero-ui-ink: #473843; --hero-ui-muted: #9f9299;
-        --hero-ui-accent: #ad7a90; --hero-ui-wash: radial-gradient(circle at 70% 63%, #efcdda 0%, #f6e5e9 30%, #f8f2f0 75%);
-        --hero-reply: #fff9f8; --hero-phone-wash: linear-gradient(#f8eff2, #efdce6 64%, #f7edf0);
+        --hero-ui-accent: #a86c86; --hero-ui-wash: linear-gradient(115deg, #fbf7f5 0%, #f4e7ec 100%);
+        --hero-reply: #fffaf9; --hero-phone-wash: linear-gradient(155deg, #faf2f4, #eedde6);
         --hero-chat: rgba(255,253,252,.84); --hero-chat-border: rgba(255,255,255,.7);
         --hero-input: #fffaf9; --hero-input-line: #e8d8df; --hero-home: #352f35;
     }
@@ -95,36 +94,38 @@
     .showcase-hero__button--soon, .showcase-hero__button--soon:hover { transform: none; background: #222027; box-shadow: none; cursor: default; }
     .showcase-hero__button--soon:active { transform: none; }
     .showcase-hero__preview { width: min(100%, 900px); margin: 42px auto 0; }
-    .showcase-hero__stage { position: relative; width: 100%; height: clamp(270px, 46vw, 525px); }
+    .showcase-hero__stage { position: relative; width: 100%; aspect-ratio: 1.68; }
     .showcase-hero__tablet {
-        position: absolute; top: 0; left: 3%; width: 81%; aspect-ratio: 1.58; padding: 13px;
-        border: 2px solid #373539; border-radius: 26px; background: #151416;
-        box-shadow: 0 22px 36px rgba(31,27,32,.18), 0 4px 0 #4d4a4e;
+        position: absolute; top: 0; left: 2%; width: 75%; aspect-ratio: 4 / 3; padding: 10px;
+        border: 1px solid #4a464b; border-radius: 25px; background: #19171a;
+        box-shadow: 0 20px 36px rgba(31,27,32,.18), 0 3px 0 #4d4a4e;
     }
     .showcase-hero__tablet-screen { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 13px; background: var(--hero-screen); }
     .showcase-hero__tablet-app { display: flex; width: 100%; height: 100%; }
-    .showcase-hero__tablet-home { position: absolute; z-index: 3; bottom: 1%; left: 50%; width: 12%; height: 2px; transform: translateX(-50%); border-radius: 999px; background: var(--hero-home); }
+    .showcase-hero__tablet-home { position: absolute; z-index: 3; bottom: 1%; left: 50%; width: 10%; height: 2px; transform: translateX(-50%); border-radius: 999px; background: var(--hero-home); }
     .showcase-hero__desktop-nav {
-        position: relative; display: flex; flex: 0 0 22%; flex-direction: column; align-items: flex-start;
-        gap: 16px; padding: 6% 3%; color: var(--hero-ui-muted); background: var(--hero-nav);
-        font-size: clamp(.43rem, .8vw, .7rem); white-space: nowrap;
+        position: relative; display: flex; flex: 0 0 23%; flex-direction: column; align-items: flex-start;
+        gap: 18px; padding: 7% 3%; border-right: 1px solid var(--hero-chat-border); color: var(--hero-ui-muted); background: var(--hero-nav);
+        font-size: clamp(.43rem, .8vw, .72rem); white-space: nowrap;
     }
-    .showcase-hero__app-mark { margin-bottom: 32%; color: var(--hero-ui-ink); font-size: clamp(1rem, 2vw, 1.75rem); font-weight: 800; line-height: 1; }
+    .showcase-hero__app-mark { margin-bottom: 32%; color: var(--hero-ui-ink); font-size: clamp(.85rem, 1.7vw, 1.5rem); font-weight: 700; letter-spacing: -.06em; line-height: 1; }
     .showcase-hero__app-mark span { color: #c884a3; }
-    .showcase-hero__nav-current { color: var(--hero-ui-ink); font-weight: 700; }
+    .showcase-hero__nav-current { display: flex; align-items: center; gap: 7px; color: var(--hero-ui-ink); font-weight: 600; }
+    .showcase-hero__nav-current i { width: 6px; height: 6px; border-radius: 50%; background: var(--hero-ui-accent); }
+    .showcase-hero__nav-link { padding-left: 13px; }
     .showcase-hero__nav-bottom { position: absolute; bottom: 8%; display: flex; align-items: center; gap: 5px; color: var(--hero-ui-muted); }
     .showcase-hero__nav-bottom i { width: 6px; height: 6px; border-radius: 50%; background: #a8bb9e; }
     .showcase-hero__desktop-content { position: relative; flex: 1; overflow: hidden; background: var(--hero-ui-wash); }
-    .showcase-hero__desktop-top { position: absolute; z-index: 2; top: 7%; right: 6%; left: 6%; display: flex; justify-content: space-between; color: var(--hero-ui-muted); font: 500 clamp(.42rem, .65vw, .59rem) 'IBM Plex Mono', monospace; letter-spacing: .05em; }
-    .showcase-hero__desktop-message { position: absolute; z-index: 2; top: 34%; left: 7%; display: flex; flex-direction: column; align-items: flex-start; width: 43%; color: var(--hero-ui-ink); }
-    .showcase-hero__small-label { color: var(--hero-ui-accent); font: 600 clamp(.37rem, .65vw, .56rem) 'IBM Plex Mono', monospace; letter-spacing: .13em; }
-    .showcase-hero__desktop-message strong { margin: 9% 0 6%; font-size: clamp(1rem, 3vw, 2.5rem); line-height: 1.08; letter-spacing: -.06em; }
-    .showcase-hero__desktop-message > span:last-of-type { font-size: clamp(.5rem, .9vw, .79rem); line-height: 1.5; }
-    .showcase-hero__desktop-reply { display: flex; align-items: center; justify-content: space-between; width: 82%; margin-top: 15%; padding: 7% 9%; border-radius: 999px; background: var(--hero-reply); box-shadow: 0 5px 18px rgba(91,55,77,.07); font-size: clamp(.43rem, .8vw, .69rem); }
+    .showcase-hero__desktop-top { position: absolute; z-index: 2; top: 7%; right: 6%; left: 7%; display: flex; justify-content: space-between; color: var(--hero-ui-muted); font: 500 clamp(.42rem, .65vw, .59rem) 'IBM Plex Mono', monospace; letter-spacing: .1em; }
+    .showcase-hero__desktop-message { position: absolute; z-index: 2; top: 32%; left: 7%; display: flex; flex-direction: column; align-items: flex-start; width: 48%; color: var(--hero-ui-ink); }
+    .showcase-hero__small-label { color: var(--hero-ui-accent); font: 600 clamp(.37rem, .65vw, .56rem) 'IBM Plex Mono', monospace; letter-spacing: .1em; }
+    .showcase-hero__desktop-message strong { margin: 8% 0 6%; font-size: clamp(1rem, 3vw, 2.55rem); line-height: 1.08; letter-spacing: -.06em; }
+    .showcase-hero__desktop-message > span:last-of-type { color: var(--hero-ui-muted); font-size: clamp(.5rem, .9vw, .79rem); line-height: 1.55; }
+    .showcase-hero__desktop-reply { display: flex; align-items: center; justify-content: space-between; width: 88%; margin-top: 13%; padding: 6% 9%; border: 1px solid var(--hero-chat-border); border-radius: 999px; background: var(--hero-reply); font-size: clamp(.43rem, .8vw, .69rem); }
     .showcase-hero__desktop-reply b { color: #bf6d91; }
-    .showcase-hero__desktop-content img { position: absolute; right: -2%; bottom: -1%; width: 61%; height: 91%; object-fit: contain; object-position: right bottom; filter: drop-shadow(0 12px 16px rgba(83,56,78,.18)); }
+    .showcase-hero__desktop-content img { position: absolute; right: -3%; bottom: -1%; width: 61%; height: 88%; object-fit: contain; object-position: right bottom; filter: drop-shadow(0 12px 16px rgba(83,56,78,.18)); }
     .showcase-hero__phone {
-        position: absolute; z-index: 3; right: 5%; bottom: 6%; width: 23%; aspect-ratio: .48; padding: 4px;
+        position: absolute; z-index: 3; right: 2%; bottom: 2%; width: 22%; aspect-ratio: .48; padding: 4px;
         border: 2px solid #565158; border-radius: 32px; background: #171518;
         box-shadow: 0 19px 35px rgba(24,20,25,.29), inset 0 0 0 1px #868087;
     }
@@ -151,17 +152,17 @@
         .showcase-hero__actions { gap: 8px; margin-top: 24px; }
         .showcase-hero__button { min-height: 42px; padding: 8px 15px; font-size: .76rem; }
         .showcase-hero__preview { margin-top: 43px; }
-        .showcase-hero__stage { height: clamp(230px, 74vw, 405px); }
-        .showcase-hero__tablet { top: 0; left: 0; width: 94%; padding: 6px; border-radius: 15px; }
+        .showcase-hero__stage { height: auto; aspect-ratio: 1.4; }
+        .showcase-hero__tablet { top: 0; left: 0; width: 84%; padding: 6px; border-radius: 15px; }
         .showcase-hero__tablet-screen { border-radius: 8px; }
-        .showcase-hero__desktop-nav { gap: 9px; padding: 6% 2%; font-size: .36rem; }
-        .showcase-hero__app-mark { font-size: .9rem; }
+        .showcase-hero__desktop-nav { gap: 9px; padding: 7% 3%; font-size: .36rem; }
+        .showcase-hero__app-mark { font-size: .72rem; }
         .showcase-hero__desktop-top { font-size: .34rem; }
-        .showcase-hero__desktop-message { top: 33%; }
+        .showcase-hero__desktop-message { top: 34%; }
         .showcase-hero__desktop-message strong { font-size: clamp(.82rem, 3.7vw, 1.3rem); }
         .showcase-hero__desktop-message > span:last-of-type { font-size: .43rem; }
         .showcase-hero__desktop-reply { font-size: .4rem; }
-        .showcase-hero__phone { right: 0; bottom: 8%; width: 33%; padding: 3px; border-radius: 20px; }
+        .showcase-hero__phone { right: 0; bottom: 4%; width: 29%; padding: 3px; border-radius: 20px; }
         .showcase-hero__phone-screen { border-radius: 15px; }
         .showcase-hero__phone-header { font-size: .52rem; }
         .showcase-hero__phone-chat { border-radius: 7px; }
