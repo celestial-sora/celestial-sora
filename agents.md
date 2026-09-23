@@ -29,3 +29,8 @@ When replacing a banner, export the artwork at exactly `551 × 260 px` or at a l
 
 - Introduce Sora in the first person with cute, casual, slightly shy wording. Convey the playful femboy vibe through tone and kaomoji without explicitly labeling Sora as a femboy in visible copy; keep it readable on mobile.
 - Use a small mix of expressive kaomoji and classic text faces such as `(˶>⩊<˶)`, `>///<`, `>~<`, `^^`, and `:3` to suit each line's mood. Keep long faces together when wrapping and escape angle brackets in HTML.
+
+## Social links
+
+- The Social section uses eight simple link cards: Instagram, TikTok, YouTube, Discord, Telegram, Roblox, Spotify, and X. Keep their shared card layout on desktop and mobile.
+- Spotify links to the public profile at `https://open.spotify.com/user/313t4w53kejr4fj7f3i5kysvwx7u`; X links to `https://x.com/Sorachan67`. These are outbound links, with no player or account integration.
