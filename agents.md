@@ -23,6 +23,7 @@ When replacing a banner, export the artwork at exactly `551 × 260 px` or at a l
 - Keep the surrounding layout minimal so the character remains the focus.
 - Present the homepage hero as a centered headline and actions above a responsive wide-screen Vivian preview with an overlapping Galaxy S24 Ultra phone preview. Model the S24 Ultra with a thin flat frame and centered hole-punch camera; keep both screens readable and fully contained on mobile.
 - Keep the previews as illustrative Vivian UI mockups. Use clean device frames and app navigation; omit OS status bars and the device caption below the mockups.
+- Keep the iPad frame in a landscape 4:3 aspect ratio at every breakpoint. Use spare, legible app UI in both light and dark themes, with the phone overlapping only a small part of the tablet.
 - Vivian's live URL is private. Never link to or display it on the public portfolio; keep the hero CTA as non-interactive `Coming soon` until the user explicitly releases it.
 
 ## About Sora voice
