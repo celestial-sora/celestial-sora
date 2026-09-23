@@ -447,11 +447,15 @@ h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Inter',
 .social-link__icon--discord .social-link__brand-mark { -webkit-mask-image: url('/icons/discord.svg'); mask-image: url('/icons/discord.svg'); }
 .social-link__icon--telegram .social-link__brand-mark { -webkit-mask-image: url('/icons/telegram.svg'); mask-image: url('/icons/telegram.svg'); }
 .social-link__icon--roblox .social-link__brand-mark { -webkit-mask-image: url('/icons/roblox.svg'); mask-image: url('/icons/roblox.svg'); }
+.social-link__icon--spotify .social-link__brand-mark { -webkit-mask-image: url('/icons/spotify.svg'); mask-image: url('/icons/spotify.svg'); }
+.social-link__icon--x .social-link__brand-mark { -webkit-mask-image: url('/icons/x.svg'); mask-image: url('/icons/x.svg'); }
 .social-link__icon--tiktok { color: var(--accent-blue); border-color: color-mix(in srgb, var(--accent-blue) 32%, transparent); background: color-mix(in srgb, var(--accent-blue) 8%, transparent); }
 .social-link__icon--youtube { color: var(--accent-clay); border-color: color-mix(in srgb, var(--accent-clay) 32%, transparent); background: color-mix(in srgb, var(--accent-clay) 8%, transparent); }
 .social-link__icon--discord { color: var(--accent-olive); border-color: color-mix(in srgb, var(--accent-olive) 32%, transparent); background: color-mix(in srgb, var(--accent-olive) 8%, transparent); }
 .social-link__icon--telegram { color: var(--accent-blue); border-color: color-mix(in srgb, var(--accent-blue) 32%, transparent); background: color-mix(in srgb, var(--accent-blue) 8%, transparent); }
 .social-link__icon--roblox { color: var(--accent-pink); border-color: color-mix(in srgb, var(--accent-pink) 32%, transparent); background: color-mix(in srgb, var(--accent-pink) 8%, transparent); }
+.social-link__icon--spotify { color: var(--accent-olive); border-color: color-mix(in srgb, var(--accent-olive) 32%, transparent); background: color-mix(in srgb, var(--accent-olive) 8%, transparent); }
+.social-link__icon--x { color: var(--text-secondary); border-color: color-mix(in srgb, var(--text-secondary) 32%, transparent); background: color-mix(in srgb, var(--text-secondary) 8%, transparent); }
 .social-link strong { color: var(--text-primary); font-size: 1rem; }
 .social-link small { margin-top: 3px; color: var(--text-muted); font-size: .75rem; }
 .social-link__arrow { margin-left: auto; color: var(--accent-pink); font-size: 1.2rem; }
