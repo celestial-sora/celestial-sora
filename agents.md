@@ -21,3 +21,8 @@ When replacing a banner, export the artwork at exactly `551 × 260 px` or at a l
 - Use the established Vivian design: long pastel-pink hair, violet-blue eyes, and a navy-and-white maid outfit with a headpiece.
 - Use the current full-body portrait asset in `public/vivian-character.webp`; preserve its proportions with `object-fit: contain` and do not crop or stretch the character.
 - Keep the surrounding layout minimal so the character remains the focus.
+
+## About Sora voice
+
+- Introduce Sora in the first person with a playful, slightly shy femboy voice, while keeping the layout clean and readable on mobile.
+- Use text symbols such as `//`, `///`, `~`, and `>_<` sparingly to express that personality; escape angle brackets in HTML.
