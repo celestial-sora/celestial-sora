@@ -13,7 +13,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 80px;
+  scroll-padding-top: 92px;
 }
 
 html, body {
@@ -293,6 +293,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
   .cube-hero {
     height: 100vh !important;
     height: 100svh !important;
