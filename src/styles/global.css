@@ -463,7 +463,7 @@ h1, h2, h3, .brand-mark, .button, .eyebrow, .card-kicker { font-family: 'Inter',
 .site-footer { width: min(calc(100% - 48px), var(--page-width)); margin: 0 auto; padding: 28px 0 42px; border-top: 1px solid var(--hairline); display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: .78rem; }
 .site-footer div { display: flex; align-items: center; gap: 9px; color: var(--text-primary); letter-spacing: .12em; }
 .site-footer img { width: 22px; height: 22px; object-fit: contain; }
-.scroll-top { position: fixed; z-index: 50; right: 24px; bottom: 24px; width: 42px; height: 42px; border: 1px solid var(--glass-border); border-radius: 14px; color: var(--text-primary); background: var(--surface-strong); box-shadow: 0 10px 30px rgba(111,75,77,.15); opacity: 0; visibility: hidden; cursor: pointer; transition: opacity 180ms ease, visibility 180ms ease, transform 180ms ease; }
+.scroll-top { display: grid; place-items: center; padding: 0; position: fixed; z-index: 50; right: 24px; bottom: 24px; width: 42px; height: 42px; border: 1px solid var(--glass-border); border-radius: 14px; color: var(--text-primary); background: var(--surface-strong); box-shadow: 0 10px 30px rgba(111,75,77,.15); opacity: 0; visibility: hidden; cursor: pointer; transition: opacity 180ms ease, visibility 180ms ease, transform 180ms ease; }
 .scroll-top.is-visible { opacity: 1; visibility: visible; }
 .scroll-top:hover { transform: translateY(-3px); }
 .scroll-top svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
