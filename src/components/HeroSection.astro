@@ -5,38 +5,45 @@
             <h1 id="hero-title">A little world<br />with <em>Vivian.</em></h1>
             <p class="showcase-hero__summary">A companion who remembers the little things. Talk, laugh, and make every day a story of your own.</p>
             <div class="showcase-hero__actions">
-                <a class="showcase-hero__button showcase-hero__button--primary" href="https://vivianlabs.vercel.app" target="_blank" rel="noopener noreferrer">Meet Vivian <span aria-hidden="true">↗</span></a>
+                <span class="showcase-hero__button showcase-hero__button--primary showcase-hero__button--soon" aria-label="Vivian is coming soon">Coming soon <span aria-hidden="true">✦</span></span>
                 <a class="showcase-hero__button showcase-hero__button--secondary" href="https://github.com/celestial-sora/ai-waifu" target="_blank" rel="noopener noreferrer">Explore the project</a>
             </div>
         </div>
 
         <figure class="showcase-hero__preview">
-            <div class="showcase-hero__stage" role="img" aria-label="Vivian companion preview on a wide screen and a Samsung Galaxy S24 Ultra">
+            <div class="showcase-hero__stage" role="img" aria-label="Vivian interface mockups on an iPad and a Samsung Galaxy S24 Ultra">
                 <div class="showcase-hero__tablet" aria-hidden="true">
                     <div class="showcase-hero__tablet-screen">
-                        <div class="showcase-hero__desktop-nav">
-                            <div class="showcase-hero__app-mark">V<span>.</span></div>
-                            <span class="showcase-hero__nav-current">● &nbsp; Home</span>
-                            <span>◌ &nbsp; Memories</span>
-                            <span>◌ &nbsp; Our story</span>
-                            <div class="showcase-hero__nav-bottom"><i></i> Always here</div>
+                        <div class="showcase-hero__tablet-status">
+                            <span>12:36 &nbsp; Wed 23 Sep</span>
+                            <svg viewBox="0 0 47 13" aria-hidden="true"><path d="M1 12V9m4 3V6m4 6V3m4 9V1M21 5c4-4 10-4 14 0m-11 3c2-2 6-2 8 0m-4 3h.1" /><rect x="38" y="3" width="8" height="8" rx="2" /></svg>
                         </div>
-                        <div class="showcase-hero__desktop-content">
-                            <div class="showcase-hero__desktop-top"><span>vivian / home</span><span>✦ &nbsp; 01</span></div>
-                            <div class="showcase-hero__desktop-message">
-                                <span class="showcase-hero__small-label">YOUR SPACE, TOGETHER</span>
-                                <strong>It's nice to<br />see you again.</strong>
-                                <span>How was your day? I want to hear everything.</span>
-                                <div class="showcase-hero__desktop-reply">Come say hi <b>↗</b></div>
+                        <div class="showcase-hero__tablet-app">
+                            <div class="showcase-hero__desktop-nav">
+                                <div class="showcase-hero__app-mark">V<span>.</span></div>
+                                <span class="showcase-hero__nav-current">● &nbsp; Home</span>
+                                <span>◌ &nbsp; Memories</span>
+                                <span>◌ &nbsp; Our story</span>
+                                <div class="showcase-hero__nav-bottom"><i></i> Always here</div>
                             </div>
-                            <img src={import.meta.env.BASE_URL + "vivian-character.webp"} alt="" fetchpriority="high" decoding="async" />
+                            <div class="showcase-hero__desktop-content">
+                                <div class="showcase-hero__desktop-top"><span>vivian / home</span><span>✦ &nbsp; 01</span></div>
+                                <div class="showcase-hero__desktop-message">
+                                    <span class="showcase-hero__small-label">YOUR SPACE, TOGETHER</span>
+                                    <strong>It's nice to<br />see you again.</strong>
+                                    <span>How was your day? I want to hear everything.</span>
+                                    <div class="showcase-hero__desktop-reply">Come say hi <b>↗</b></div>
+                                </div>
+                                <img src={import.meta.env.BASE_URL + "vivian-character.webp"} alt="" fetchpriority="high" decoding="async" />
+                            </div>
                         </div>
+                        <div class="showcase-hero__tablet-home"></div>
                     </div>
                 </div>
                 <div class="showcase-hero__phone" aria-hidden="true">
                     <div class="showcase-hero__phone-screen">
                         <div class="showcase-hero__camera"></div>
-                        <div class="showcase-hero__phone-status"><span>9:41</span><span>▴ ▰</span></div>
+                        <div class="showcase-hero__phone-status"><span>9:41</span><svg viewBox="0 0 47 13" aria-hidden="true"><path d="M1 12V9m4 3V6m4 6V3m4 9V1M21 5c4-4 10-4 14 0m-11 3c2-2 6-2 8 0m-4 3h.1" /><rect x="38" y="3" width="8" height="8" rx="2" /></svg></div>
                         <div class="showcase-hero__phone-header"><span>‹</span><strong>Vivian</strong><i></i></div>
                         <div class="showcase-hero__phone-portrait"><img src={import.meta.env.BASE_URL + "vivian-character.webp"} alt="" decoding="async" /></div>
                         <div class="showcase-hero__phone-chat"><span>Vivian · just now</span><p>You're here! I was hoping we'd get to talk today ♡</p></div>
@@ -45,7 +52,7 @@
                     </div>
                 </div>
             </div>
-            <figcaption>VIVIAN LABS <span aria-hidden="true">·</span> DESKTOP + GALAXY S24 ULTRA</figcaption>
+            <figcaption>VIVIAN <span aria-hidden="true">·</span> IPADOS + GALAXY S24 ULTRA</figcaption>
         </figure>
     </div>
     <a class="showcase-hero__scroll" href="#about">Scroll to explore <span aria-hidden="true">↓</span></a>
@@ -80,6 +87,8 @@
     .showcase-hero__button:active { transform: scale(.97); }
     .showcase-hero__button--primary { border-color: #222027; color: #fff; background: #222027; }
     .showcase-hero__button--primary:hover { background: #453645; }
+    .showcase-hero__button--soon, .showcase-hero__button--soon:hover { transform: none; background: #222027; box-shadow: none; cursor: default; }
+    .showcase-hero__button--soon:active { transform: none; }
     .showcase-hero__preview { width: min(100%, 900px); margin: 42px auto 0; }
     .showcase-hero__stage { position: relative; width: 100%; height: clamp(270px, 46vw, 525px); }
     .showcase-hero__tablet {
@@ -87,7 +96,16 @@
         border: 2px solid #373539; border-radius: 26px; background: #151416;
         box-shadow: 0 22px 36px rgba(31,27,32,.18), 0 4px 0 #4d4a4e;
     }
-    .showcase-hero__tablet-screen { display: flex; width: 100%; height: 100%; overflow: hidden; border-radius: 13px; background: #f9f5f2; }
+    .showcase-hero__tablet-screen { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 13px; background: #f9f5f2; }
+    .showcase-hero__tablet-status {
+        display: flex; align-items: center; justify-content: space-between; height: 7%; padding: 0 3%;
+        color: #fff; background: #201c26; font: 600 clamp(.4rem, .75vw, .7rem) -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .showcase-hero__tablet-status svg, .showcase-hero__phone-status svg {
+        display: block; width: 47px; height: 13px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .showcase-hero__tablet-app { display: flex; width: 100%; height: 93%; }
+    .showcase-hero__tablet-home { position: absolute; z-index: 3; bottom: 1%; left: 50%; width: 12%; height: 2px; transform: translateX(-50%); border-radius: 999px; background: rgba(48,37,49,.5); }
     .showcase-hero__desktop-nav {
         position: relative; display: flex; flex: 0 0 22%; flex-direction: column; align-items: flex-start;
         gap: 16px; padding: 6% 3%; color: #9f9299; background: #fdfaf8;
@@ -114,7 +132,8 @@
     }
     .showcase-hero__phone-screen { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: 26px; background: linear-gradient(#f8eff2, #efdce6 64%, #f7edf0); }
     .showcase-hero__camera { position: absolute; z-index: 5; top: 2.1%; left: 50%; width: 5px; height: 5px; transform: translateX(-50%); border-radius: 50%; background: #141316; box-shadow: 0 0 0 2px rgba(27,25,29,.24); }
-    .showcase-hero__phone-status { position: absolute; z-index: 4; top: 2.3%; right: 8%; left: 8%; display: flex; justify-content: space-between; color: #302932; font: 700 clamp(.37rem, .65vw, .59rem) Arial, sans-serif; }
+    .showcase-hero__phone-status { position: absolute; z-index: 4; top: 2.3%; right: 8%; left: 8%; display: flex; justify-content: space-between; align-items: center; color: #302932; font: 700 clamp(.37rem, .65vw, .59rem) -apple-system, BlinkMacSystemFont, sans-serif; }
+    .showcase-hero__phone-status svg { width: 36px; height: 10px; }
     .showcase-hero__phone-header { position: absolute; z-index: 3; top: 8%; right: 7%; left: 7%; display: flex; align-items: center; justify-content: space-between; color: #392c38; font-size: clamp(.55rem, 1.1vw, .98rem); }
     .showcase-hero__phone-header > span { font-size: 1.5em; line-height: 1; }
     .showcase-hero__phone-header i { width: 6px; height: 6px; border-radius: 50%; background: #8cac9c; }
@@ -140,6 +159,8 @@
         .showcase-hero__stage { height: clamp(230px, 74vw, 405px); }
         .showcase-hero__tablet { top: 0; left: 0; width: 94%; padding: 6px; border-radius: 15px; }
         .showcase-hero__tablet-screen { border-radius: 8px; }
+        .showcase-hero__tablet-status { font-size: .32rem; }
+        .showcase-hero__tablet-status svg { width: 27px; height: 8px; }
         .showcase-hero__desktop-nav { gap: 9px; padding: 6% 2%; font-size: .36rem; }
         .showcase-hero__app-mark { font-size: .9rem; }
         .showcase-hero__desktop-top { font-size: .34rem; }
@@ -150,6 +171,7 @@
         .showcase-hero__phone { right: 0; bottom: 8%; width: 33%; padding: 3px; border-radius: 20px; }
         .showcase-hero__phone-screen { border-radius: 15px; }
         .showcase-hero__phone-status { font-size: .33rem; }
+        .showcase-hero__phone-status svg { width: 24px; height: 7px; }
         .showcase-hero__phone-header { font-size: .52rem; }
         .showcase-hero__phone-chat { border-radius: 7px; }
         .showcase-hero__phone-chat span { font-size: .3rem; }
