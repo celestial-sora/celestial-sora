@@ -21,6 +21,7 @@ When replacing a banner, export the artwork at exactly `551 × 260 px` or at a l
 - Use the established Vivian design: long pastel-pink hair, violet-blue eyes, and a navy-and-white maid outfit with a headpiece.
 - Use the current full-body portrait asset in `public/vivian-character.webp`; preserve its proportions with `object-fit: contain` and do not crop or stretch the character.
 - Keep the surrounding layout minimal so the character remains the focus.
+- Present the homepage hero as a centered headline and actions above a responsive wide-screen Vivian preview with an overlapping Galaxy S24 Ultra phone preview. Model the S24 Ultra with a thin flat frame and centered hole-punch camera; keep both screens readable and fully contained on mobile.
 
 ## About Sora voice
 
