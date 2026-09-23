@@ -25,4 +25,4 @@ When replacing a banner, export the artwork at exactly `551 × 260 px` or at a l
 ## About Sora voice
 
 - Introduce Sora in the first person with a playful, slightly shy femboy voice, while keeping the layout clean and readable on mobile.
-- Use text symbols such as `//`, `///`, `~`, and `>_<` sparingly to express that personality; escape angle brackets in HTML.
+- Use a small mix of expressive kaomoji and classic text faces such as `(˶>⩊<˶)`, `>///<`, `>~<`, `^^`, and `:3` to suit each line's mood. Keep long faces together when wrapping and escape angle brackets in HTML.
