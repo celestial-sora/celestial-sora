@@ -35,3 +35,8 @@ When replacing a banner, export the artwork at exactly `551 × 260 px` or at a l
 
 - The Social section uses eight simple link cards: Instagram, TikTok, YouTube, Discord, Telegram, Roblox, Spotify, and X. Keep their shared card layout on desktop and mobile.
 - Spotify links to the public profile at `https://open.spotify.com/user/313t4w53kejr4fj7f3i5kysvwx7u`; X links to `https://x.com/Sorachan67`. These are outbound links, with no player or account integration.
+
+## Selected work
+
+- The first Work card presents **Oonchai** (development codename **Sekaira**) as an AI roleplay platform, linking to `https://oonchai.vercel.app/`. Keep the card and banner in the shared `551:260` layout.
+- The second Work card presents Vivian, linking to the public GitHub project. Vivian's private live URL must stay off the portfolio.
