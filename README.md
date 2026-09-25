@@ -1,3 +1,14 @@
+# Hi, I'm Sora
+
+I build AI companions and story worlds, with a soft spot for thoughtful interfaces.
+
+### Featured projects
+
+- [Oonchai / Sekaira](https://oonchai.vercel.app/) — an AI roleplay platform for creating characters and exploring stories. [Source](https://github.com/celestial-sora/sekaira)
+- [Vivian](https://github.com/celestial-sora/ai-waifu) — an AI companion with Live2D, memory, voice, and vision.
+- [Portfolio](https://celestial-sora.vercel.app/) — more of my work and ways to find me.
+
+---
 
 <p align="center">
   <b>Languages/framework</b>
