@@ -38,5 +38,5 @@ When replacing a banner, export the artwork at exactly `551 × 260 px` or at a l
 
 ## Selected work
 
-- The first Work card presents **Oonchai** (development codename **Sekaira**) as an AI roleplay platform, linking to `https://oonchai.vercel.app/`. Keep the card and banner in the shared `551:260` layout.
+- The first Work card presents **Oonchai** (development codename **Sekaira**) as an AI roleplay platform, linking to `https://oonchai.vercel.app/`. Its banner is `public/oonchai-banner.svg`, drawn at `551 × 260` and used at the shared `551:260` ratio on desktop and mobile.
 - The second Work card presents Vivian, linking to the public GitHub project. Vivian's private live URL must stay off the portfolio.
