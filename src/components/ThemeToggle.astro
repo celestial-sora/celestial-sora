@@ -1,0 +1,11 @@
+---
+---
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle theme"><span class="theme-toggle__icon theme-toggle__icon--sun" aria-hidden="true"></span><span class="theme-toggle__icon theme-toggle__icon--moon" aria-hidden="true"></span></button>
+<script>
+    const themeToggle = document.getElementById('themeToggle');
+    themeToggle?.addEventListener('click', () => {
+        const next = document.documentElement.dataset.theme === 'light' ? 'dark' : 'light';
+        document.documentElement.dataset.theme = next;
+        localStorage.setItem('sora-theme', next);
+    });
+</script>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="551" height="260" viewBox="0 0 551 260" role="img" aria-labelledby="title desc">
+  <title id="title">Oonchai — Your story begins here</title>
+  <desc id="desc">Oonchai AI roleplay banner with a warm pink glow and a small character conversation preview.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#242025"/>
+      <stop offset=".6" stop-color="#31242d"/>
+      <stop offset="1" stop-color="#6d3c55"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#f4a9c2" stop-opacity=".48"/>
+      <stop offset="1" stop-color="#f4a9c2" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#493641"/>
+      <stop offset="1" stop-color="#342931"/>
+    </linearGradient>
+    <linearGradient id="avatar" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#f8bfd0"/>
+      <stop offset="1" stop-color="#bc678d"/>
+    </linearGradient>
+    <clipPath id="bounds"><rect width="551" height="260" rx="0"/></clipPath>
+  </defs>
+  <g clip-path="url(#bounds)">
+    <rect width="551" height="260" fill="url(#background)"/>
+    <ellipse cx="426" cy="110" rx="225" ry="205" fill="url(#glow)"/>
+    <path d="M304-22c45 52 36 96 11 145-25 49-22 98 27 160M371-27c42 58 38 109 9 164-25 47-19 88 18 145" fill="none" stroke="#f4b5c9" stroke-opacity=".12" stroke-width="1"/>
+    <circle cx="506" cy="32" r="83" fill="none" stroke="#f7bfd1" stroke-opacity=".17"/>
+    <circle cx="506" cy="32" r="115" fill="none" stroke="#f7bfd1" stroke-opacity=".09"/>
+
+    <g fill="none" stroke="#f4a9c2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M26 28h8c3 0 5 2 5 5v6c0 3-2 5-5 5h-3l-4 4v-4h-1c-3 0-5-2-5-5v-6c0-3 2-5 5-5z" stroke-width="1.4"/>
+      <path d="M27 36h6" stroke-width="1.4"/>
+    </g>
+    <text x="49" y="40" fill="#f6c1d0" font-family="Arial, Helvetica, sans-serif" font-size="9" font-weight="700" letter-spacing="1.8">SEKAIRA / AI ROLEPLAY</text>
+    <text x="25" y="133" fill="#fff6f5" font-family="Arial, Helvetica, sans-serif" font-size="53" font-weight="700" letter-spacing="-3.6">Oonchai</text>
+    <text x="27" y="158" fill="#eccbd4" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" letter-spacing=".2">Your story begins here.</text>
+    <path d="M27 180h198" stroke="#f8c8d6" stroke-opacity=".25"/>
+    <text x="27" y="205" fill="#f2dce2" font-family="Arial, Helvetica, sans-serif" font-size="10" letter-spacing=".3">Meet a character. Create a scenario.</text>
+    <text x="27" y="221" fill="#f2dce2" font-family="Arial, Helvetica, sans-serif" font-size="10" letter-spacing=".3">Become anyone.</text>
+
+    <g transform="translate(289 35)">
+      <rect width="229" height="191" rx="18" fill="url(#card)" stroke="#f7d3df" stroke-opacity=".32"/>
+      <path d="M1 51h227" stroke="#f7d3df" stroke-opacity=".12"/>
+      <circle cx="26" cy="26" r="14" fill="url(#avatar)"/>
+      <path d="M19 33c1-8 13-8 14 0M23 23a3 3 0 1 0 6 0 3 3 0 0 0-6 0" fill="#533244"/>
+      <text x="51" y="26" fill="#fff3f5" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700">A new story</text>
+      <text x="51" y="40" fill="#d9b8c4" font-family="Arial, Helvetica, sans-serif" font-size="8">A world you can step into</text>
+      <circle cx="204" cy="26" r="2" fill="#eed2db"/>
+      <circle cx="211" cy="26" r="2" fill="#eed2db"/>
+      <circle cx="218" cy="26" r="2" fill="#eed2db"/>
+
+      <rect x="14" y="65" width="166" height="46" rx="11" fill="#6c4b5d" stroke="#ffcfdd" stroke-opacity=".14"/>
+      <text x="26" y="84" fill="#fff1f5" font-family="Arial, Helvetica, sans-serif" font-size="10">Where should our story</text>
+      <text x="26" y="99" fill="#fff1f5" font-family="Arial, Helvetica, sans-serif" font-size="10">begin?</text>
+      <rect x="63" y="122" width="151" height="32" rx="11" fill="#e7a9bf"/>
+      <text x="77" y="142" fill="#3d2834" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="700">Somewhere new.</text>
+      <rect x="14" y="168" width="201" height="1" fill="#f7d3df" opacity=".13"/>
+      <circle cx="27" cy="180" r="2" fill="#f5bfd1"/>
+      <circle cx="35" cy="180" r="2" fill="#f5bfd1" opacity=".65"/>
+      <circle cx="43" cy="180" r="2" fill="#f5bfd1" opacity=".35"/>
+      <text x="140" y="184" fill="#e9c7d3" font-family="Arial, Helvetica, sans-serif" font-size="8" letter-spacing=".4">MAKE IT YOURS</text>
+    </g>
+  </g>
+</svg>

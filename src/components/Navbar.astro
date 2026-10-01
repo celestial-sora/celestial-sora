@@ -1,0 +1,51 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+---
+<nav class="file-nav" id="navbar" aria-label="Primary navigation">
+    <div class="file-nav__titlebar">
+        <div class="file-nav__traffic" aria-hidden="true"><span></span><span></span><span></span></div>
+        <button class="file-nav__brand" id="navLogo" type="button" aria-label="Go to top">
+            <img src={import.meta.env.BASE_URL + "sora-logo.png"} alt="Sora Logo" />
+            <span>SORA</span>
+        </button>
+        <span class="file-nav__window-title">Sora Astral</span>
+        <div class="file-nav__title-space" aria-hidden="true"></div>
+    </div>
+    <div class="file-nav__toolbar">
+        <div class="file-nav__controls" aria-hidden="true">
+            <svg viewBox="0 0 16 16"><path d="m10 3-5 5 5 5" /></svg>
+            <svg viewBox="0 0 16 16"><path d="m6 3 5 5-5 5" /></svg>
+            <svg viewBox="0 0 16 16"><path d="M3 7.5 8 3l5 4.5M4.5 7v5.5h7V7" /></svg>
+        </div>
+        <div class="file-nav__path" aria-label="Current location">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2.5 4.5h4l1.2 1.4h5.8v6.6h-11Z" /></svg>
+            <a class="file-path-link" href="#home" data-section="home">/home</a><b>/</b><a class="file-path-link" href="#about" data-section="about">sora</a><b>/</b><a class="file-path-link" href="#projects" data-section="projects">work</a><b>/</b><a class="file-path-link" href="#social" data-section="social">social</a>
+        </div>
+        <div class="file-nav__actions">
+            <ThemeToggle />
+            <button class="file-nav__menu" id="hamburger" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobileMenuOverlay"><span></span><span></span></button>
+        </div>
+    </div>
+</nav>
+
+<script>
+    const navbar = document.getElementById('navbar');
+    const updateActiveSection = () => {
+        navbar?.classList.toggle('is-scrolled', window.scrollY > 30);
+        const scrollPosition = window.scrollY + 200;
+        document.querySelectorAll('.file-path-link').forEach(link => {
+            const section = document.getElementById(link.getAttribute('data-section') || '');
+            const isHome = link.getAttribute('data-section') === 'home' && window.scrollY < 180;
+            link.classList.toggle('active', isHome || (!!section && scrollPosition >= section.offsetTop && scrollPosition < section.offsetTop + section.offsetHeight));
+        });
+    };
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    updateActiveSection();
+    document.querySelectorAll('.file-path-link').forEach(link => link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const target = document.getElementById(link.getAttribute('href')?.slice(1) || '');
+        if (target) window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - 92, behavior: 'smooth' });
+        else if (link.getAttribute('data-section') === 'home') window.scrollTo({ top: 0, behavior: 'smooth' });
+    }));
+    document.getElementById('navLogo')?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+</script>

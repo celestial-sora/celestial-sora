@@ -1,0 +1,486 @@
+---
+import "../styles/galaxy.css";
+import { projects } from "../galaxy/projects.js";
+import GalaxySocials from "../components/GalaxySocials.astro";
+const sora = projects.find((project) => project.social);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#07080c" />
+    <meta
+      name="description"
+      content="A small universe of AI companions, stories, and digital experiments. Explore the work of Sora Astral."
+    />
+    <link rel="icon" href="/favicon.png" />
+    <link
+      rel="preload"
+      href="/fonts/instrument-serif-regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <title>Sora Astral — A small universe</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#index-toggle">
+      Skip to projects
+    </a>
+    <div
+      class="loading"
+      id="loading"
+      aria-label="Preparing your universe"
+      hidden
+    >
+      <div class="loading-mark">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16 0 19 12 32 16 19 19 16 32 12 19 0 16 12 12Z" />
+        </svg>
+      </div>
+      <span class="eyebrow">A LITTLE SPACE FOR CURIOSITY</span>
+      <p>Gathering the stars…</p>
+      <div
+        class="loading-track"
+        id="loading-progress"
+        role="progressbar"
+        aria-label="Preparing the galaxy"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+      >
+        <i id="loading-bar"></i>
+      </div>
+      <span class="loading-number" id="loading-number">
+        00 / 100
+      </span>
+    </div>
+    <header class="masthead">
+      <a href="/" class="wordmark" aria-label="Sora Astral home">
+        <svg viewBox="0 0 32 32" aria-hidden="true">
+          <path d="M16 0 19 12 32 16 19 19 16 32 12 19 0 16 12 12Z" />
+          <circle cx="16" cy="16" r="10" />
+        </svg>
+        <span>
+          SORA<span class="wordmark-light"> ASTRAL</span>
+          <small>INDEPENDENT CREATOR & EXPLORER</small>
+        </span>
+      </a>
+      <nav aria-label="Main navigation">
+        <button class="nav-link active" id="universe-nav">
+          The universe <span>05</span>
+        </button>
+        <button class="nav-link" id="about-nav">
+          The human
+        </button>
+        <a class="contact-link" href="#signal" id="connect-nav">
+          Let's connect{" "}
+          <span>
+            <svg
+              class="arrow-icon"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M3 13 13 3M3 3h10v10" />
+            </svg>
+          </span>
+        </a>
+      </nav>
+    </header>
+    <main id="main">
+      <section class="universe" aria-label="Interactive project galaxy">
+        <div class="hero-copy" id="journey-copy">
+          <div class="eyebrow" id="journey-eyebrow">
+            00 — ORIGIN · A PERSONAL UNIVERSE
+          </div>
+          <h1 id="journey-title">
+            A little curiosity.
+            <br />
+            <em>Entire worlds.</em>
+          </h1>
+          <p id="journey-description">
+            I’m Sora. I build companions, tell stories, and turn small ideas
+            into places worth exploring.
+          </p>
+          <button class="journey-cta" id="journey-cta" hidden>
+            Discover this world{" "}
+            <svg
+              class="arrow-icon"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M3 13 13 3M3 3h10v10" />
+            </svg>
+          </button>
+          <a
+            class="journey-contact"
+            id="journey-contact"
+            href="https://github.com/celestial-sora"
+            target="_blank"
+            rel="noopener noreferrer"
+            hidden
+          >
+            Find me on GitHub
+            <svg class="arrow-icon" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+              <path d="M3 13 13 3M3 3h10v10" />
+            </svg>
+          </a>
+        </div>
+        <div class="coordinate top-coordinate" aria-hidden="true">
+          RA <span id="coordinate-ra">00h 00m</span>
+          <br />
+          DEC <span id="coordinate-dec">+00° 00′</span>
+        </div>
+        <div id="galaxy-stage" class="galaxy-stage">
+          <div class="fallback-worlds" aria-hidden="true">
+            {projects.map((project, i) => (
+              <div
+                class={`fallback-planet p${i}`}
+                style={`--planet-color:${project.color}`}
+              />
+            ))}
+          </div>
+          <canvas
+            id="galaxy-canvas"
+            aria-label="Five project planets. Use the project buttons to explore."
+            role="img"
+          ></canvas>
+          <div class="planet-labels" id="planet-labels">
+            {projects.map((project, i) => (
+              <button
+                class={`planet-label label-${i}`}
+                data-planet={i}
+                style={`--planet-color:${project.color}`}
+                aria-label={`Explore ${project.name}`}
+              >
+                <span class="label-dot"></span>
+                <span class="planet-label-copy">
+                  <small>
+                    0{i + 1} / {project.category}
+                  </small>
+                  <strong class:list={{ "meme-title": project.titleFont === "meme", "sora-title": project.titleFont === "sweetbliss" }}>
+                    {project.name}{" "}
+                    <span>
+                      <svg
+                        class="arrow-icon"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <path d="M3 13 13 3M3 3h10v10" />
+                      </svg>
+                    </span>
+                  </strong>
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div class="scene-caption">
+          <span class="crosshair">+</span>
+          <span>
+            AN EVER-EXPANDING COLLECTION
+            <br />
+            <b>OF THINGS MADE WITH CURIOSITY</b>
+          </span>
+        </div>
+        <button
+          class="view-toggle"
+          id="index-toggle"
+          aria-expanded="false"
+          aria-controls="catalog"
+        >
+          <svg
+            class="grid-icon"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path d="M2 2h4v4H2zM10 2h4v4h-4zM2 10h4v4H2zM10 10h4v4h-4z" />
+          </svg>{" "}
+          Project index <span class="key-hint">I</span>
+        </button>
+        <div class="explore-hint" id="explore-hint">
+          <span class="mouse-icon"></span>
+          <span>
+            <span class="desktop-hint">SCROLL TO TRAVEL</span>
+            <span class="mobile-hint">SWIPE TO TRAVEL</span> <b>·</b> CHOOSE A
+            WORLD
+          </span>
+        </div>
+        <p class="fallback-notice" id="fallback-notice" role="status" hidden>
+          The stars are taking a rest. Choose a world below to explore.
+        </p>
+      </section>
+      <nav class="orbit-rail" aria-label="Travel through the universe">
+        <button
+          class="rail-stop active"
+          data-stop="0"
+          aria-label="Travel to origin"
+          aria-current="step"
+        >
+          <span>Origin</span>
+          <small>00</small>
+          <i></i>
+        </button>
+        {projects.map((p, i) => (
+          <button
+            class="rail-stop"
+            data-stop={i + 1}
+            aria-label={`Travel to ${p.name}`}
+          >
+            <span class:list={{ "meme-title": p.titleFont === "meme", "sora-title": p.titleFont === "sweetbliss" }}>{p.name}</span>
+            <small>0{i + 1}</small>
+            <i></i>
+          </button>
+        ))}
+        <button class="rail-stop" data-stop="6" aria-label="Travel to signal">
+          <span>Signal</span>
+          <small>06</small>
+          <i></i>
+        </button>
+      </nav>
+    </main>
+    <footer class="footer">
+      <span>
+        © 2026 SORA ASTRAL<span class="footer-divider">/</span> BUILT WITH
+        WONDER
+      </span>
+      <span class="footer-center">
+        <i class="status-dot"></i> SOMEWHERE BETWEEN CODE & DAYDREAMS
+      </span>
+      <button
+        id="sound-toggle"
+        aria-pressed="false"
+        aria-label="Enable interaction sound"
+      >
+        <span class="sound-bars" aria-hidden="true">
+          <i></i>
+          <i></i>
+          <i></i>
+          <i></i>
+        </span>
+        <span id="sound-label">SOUND OFF</span>
+      </button>
+    </footer>
+    <dialog
+      id="project-dialog"
+      class="project-dialog"
+      aria-labelledby="detail-title"
+    >
+      <button
+        class="close-button"
+        id="close-project"
+        aria-label="Return to the universe"
+      >
+        ×
+      </button>
+      <span class="eyebrow" id="detail-number"></span>
+      <div class="detail-rule"></div>
+      <p class="detail-category" id="detail-category"></p>
+      <h2 id="detail-title"></h2>
+      <p class="detail-tagline" id="detail-tagline"></p>
+      <p class="detail-description" id="detail-description"></p>
+      <dl class="detail-meta">
+        <div>
+          <dt>FIELD</dt>
+          <dd id="detail-field"></dd>
+        </div>
+        <div>
+          <dt>STATUS</dt>
+          <dd id="detail-status"></dd>
+        </div>
+      </dl>
+      <div class="detail-tags" id="detail-tags"></div>
+      <a
+        class="project-cta"
+        id="detail-link"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span id="detail-link-label">Explore the project</span>{" "}
+        <span>
+          <svg
+            class="arrow-icon"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path d="M3 13 13 3M3 3h10v10" />
+          </svg>
+        </span>
+      </a>
+      <div id="detail-links" class="detail-links"></div>
+      <div id="detail-socials" hidden>
+        <GalaxySocials />
+      </div>
+      <div class="detail-navigation">
+        <button id="previous-project" aria-label="Previous project">
+          ←
+        </button>
+        <span id="detail-count"></span>
+        <button id="next-project" aria-label="Next project">
+          →
+        </button>
+      </div>
+    </dialog>
+    <dialog id="about-dialog" class="text-dialog" aria-labelledby="about-title">
+      <button
+        class="close-button"
+        data-close="about-dialog"
+        aria-label="Close about"
+      >
+        ×
+      </button>
+      <span class="eyebrow">{sora.category}</span>
+      <h2 id="about-title" class="sora-title">
+        Sora
+      </h2>
+      <p>{sora.tagline}</p>
+      {sora.description.split("\n\n").map((paragraph) => <p>{paragraph}</p>)}
+      <a
+        class="project-cta"
+        href="https://github.com/celestial-sora"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {sora.linkLabel}{" "}
+        <span>
+          <svg
+            class="arrow-icon"
+            viewBox="0 0 16 16"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path d="M3 13 13 3M3 3h10v10" />
+          </svg>
+        </span>
+      </a>
+      <a
+        class="secondary-profile-link"
+        href="https://huggingface.co/celestial-sora"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {sora.links[0].label}
+      </a>
+      <GalaxySocials />
+    </dialog>
+    <dialog
+      id="catalog"
+      class="text-dialog catalog"
+      aria-labelledby="catalog-title"
+    >
+      <button
+        class="close-button"
+        data-close="catalog"
+        aria-label="Close project index"
+      >
+        ×
+      </button>
+      <span class="eyebrow">A MAP OF THIS LITTLE UNIVERSE</span>
+      <h2 id="catalog-title">
+        All worlds<span>.</span>
+      </h2>
+      {projects.map((p, i) => (
+        <button
+          data-catalog-project={i}
+          class="catalog-item"
+          style={`--planet-color:${p.color}`}
+        >
+          <span>0{i + 1}</span>
+          <i class={`planet-thumb thumb-${i}`}></i>
+          <span>
+            <strong class:list={{ "meme-title": p.titleFont === "meme", "sora-title": p.titleFont === "sweetbliss" }}>{p.name}</strong>
+            <small>
+              {p.category} · {p.status}
+            </small>
+          </span>
+          <span>
+            <svg
+              class="arrow-icon"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path d="M3 13 13 3M3 3h10v10" />
+            </svg>
+          </span>
+        </button>
+      ))}
+    </dialog>
+    <div class="custom-cursor" id="custom-cursor" aria-hidden="true">
+      <span>
+        EXPLORE{" "}
+        <svg
+          class="arrow-icon"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path d="M3 13 13 3M3 3h10v10" />
+        </svg>
+      </span>
+    </div>
+    <div
+      class="sr-only"
+      role="status"
+      aria-live="polite"
+      id="announcement"
+    ></div>
+    <noscript>
+      <style>
+        html,
+        body {
+          overflow: auto !important;
+        }
+        .planet-label,
+        .orbit-rail,
+        .hero-copy,
+        .footer,
+        .view-toggle,
+        .explore-hint {
+          display: none !important;
+        }
+        .universe {
+          height: 380px !important;
+        }
+        .noscript-projects {
+          position: relative;
+          z-index: 5;
+        }
+      </style>
+      <section class="noscript-projects">
+        <h2>Explore the projects</h2>
+        {projects.map((p) => (
+          <article>
+            <h3 class:list={{ "meme-title": p.titleFont === "meme", "sora-title": p.titleFont === "sweetbliss" }}>{p.name}</h3>
+            <p>{p.description}</p>
+            {p.href ? (
+              <a href={p.href}>
+                View project{" "}
+                <svg
+                  class="arrow-icon"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path d="M3 13 13 3M3 3h10v10" />
+                </svg>
+              </a>
+            ) : (
+              <p>Concept project</p>
+            )}
+          </article>
+        ))}
+      </section>
+    </noscript>
+    <script>
+      import "../galaxy/app.js";
+    </script>
+  </body>
+</html>
