@@ -120,7 +120,7 @@ export class GalaxyScene {
   layoutPlanets() {
     const mobile = this.stage.clientWidth < 700;
     this.planets.forEach((planet) => {
-      planet.group.position.fromArray(orbitPosition(planet.project.orbitAngle, mobile));
+      planet.group.position.fromArray(orbitPosition(planet.project.orbitAngle, mobile, planet.project.orbitScale));
       planet.baseY = planet.group.position.y;
     });
     if (this.orbitLine) {
@@ -182,6 +182,9 @@ export class GalaxyScene {
     const header = document.querySelector(".masthead");
     const copy = document.getElementById("journey-copy");
     const dialog = document.getElementById("project-dialog");
+    this.labelTop = mobile && this.rig.stop === 0
+      ? copy.offsetTop + copy.offsetHeight + 8
+      : 80;
     const bounds = {
       left: inset,
       right: w - inset,
@@ -197,8 +200,8 @@ export class GalaxyScene {
       }
     } else if (this.rig.stop === 0) {
       if (mobile) {
-        bounds.top = copy.offsetTop + copy.offsetHeight + 40;
-        bounds.bottom = h - 156;
+        bounds.top = copy.offsetTop + copy.offsetHeight + (h <= 650 ? 20 : 40);
+        bounds.bottom = h - (h <= 650 ? 100 : 156);
       }
       else {
         bounds.left = w * 0.3;
@@ -283,7 +286,7 @@ export class GalaxyScene {
       label.style.left = "0";
       label.style.top = "0";
       const labelY = p.project.labelBelow ? y + (p.project.labelGap || 8) : y - this.labelHeights[i] - 8;
-      label.style.transform = `translate3d(${Math.min(this.stage.clientWidth - labelWidth - 8, Math.max(8, x - labelWidth * 0.5))}px,${Math.max(80, labelY)}px,0)`;
+      label.style.transform = `translate3d(${Math.min(this.stage.clientWidth - labelWidth - 8, Math.max(8, x - labelWidth * 0.5))}px,${Math.max(this.labelTop, labelY)}px,0)`;
       const visible =
         this.projection.z < 1 &&
         Math.abs(this.projection.x) < 0.97 &&

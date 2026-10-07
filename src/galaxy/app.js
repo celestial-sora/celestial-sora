@@ -161,9 +161,9 @@ function travel(next) {
   title.classList.toggle("meme-title", projects[stop - 1]?.titleFont === "meme");
   title.classList.toggle("sora-title", projects[stop - 1]?.titleFont === "sweetbliss");
   if (stop === 0) {
-    title.innerHTML = "A little curiosity.<br /><em>Entire worlds.</em>";
+    title.innerHTML = "Sora Astral builds<br /><em>small universes</em><br />for the web.";
     description.textContent =
-      "I’m Sora. I build companions, tell stories, and turn small ideas into places worth exploring.";
+      "I build AI companions, story worlds, and experiments for the web. Every world in this system is a project — travel between them, or land on one to read its story.";
     eyebrow.textContent = "00 — ORIGIN · A PERSONAL UNIVERSE";
   } else if (stop === 6) {
     title.innerHTML = "The next world<br /><em>starts with hello.</em>";
@@ -354,6 +354,8 @@ async function init() {
     );
     if (!galaxy) return;
     document.body.classList.add("webgl-ready");
+    // The rendered view replaces full fallback names with compact code labels.
+    galaxy.resize(true);
     if (stop > 0) galaxy.travel(stop);
     if (selected >= 0) galaxy.select(selected);
     gsap.to($("loading"), {

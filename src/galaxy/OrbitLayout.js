@@ -4,10 +4,10 @@ const layouts = {
   mobile: { center: [0, -0.6, -1], width: 2.65, depth: 3.2, tilt: 0.62, roll: -0.12 },
 };
 
-export function orbitPosition(angle, mobile = false) {
+export function orbitPosition(angle, mobile = false, scale = 1) {
   const layout = layouts[mobile ? "mobile" : "desktop"];
-  const x = Math.cos(angle) * layout.width;
-  const depth = Math.sin(angle) * layout.depth;
+  const x = Math.cos(angle) * layout.width * scale;
+  const depth = Math.sin(angle) * layout.depth * scale;
   const y = -depth * Math.sin(layout.tilt);
   const cos = Math.cos(layout.roll), sin = Math.sin(layout.roll);
   return [
