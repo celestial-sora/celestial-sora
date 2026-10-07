@@ -2407,3 +2407,13 @@ body:not(.webgl-ready) .label-3 {
     height: 40%;
   }
 }
+
+.fallback-notice {
+  pointer-events: none;
+}
+@media (max-width: 700px) {
+  .fallback-notice {
+    top: 74px;
+    bottom: auto;
+  }
+}
