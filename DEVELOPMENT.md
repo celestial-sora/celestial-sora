@@ -23,7 +23,7 @@ The dev server uses port 4321. The static production artifact is `dist/`.
 
 ## Edit the universe
 
-`src/galaxy/projects.js` is the single source of truth for labels, project cards, dialogs, colors, orbital angles, and planet appearance. The five worlds are Vivian (large ringed planet, pastel purple), Oonchai (small raspberry planet), Vivian Qwen3 8B v0.4 (ice blue), Larp LLM (amber), and Sora (green personal world). All destinations use verified public URLs. Vivian links only to its public source repository; never add its private deployment URL. The interface uses Raspberry Pink independently of each planet's palette.
+`src/galaxy/projects.js` is the single source of truth for labels, project cards, dialogs, colors, orbital angles, and planet appearance. The five worlds are Vivian (gold ringed planet), Oonchai (small dark red planet), Vivian Qwen3 8B v0.4 (ice blue), Larp LLM (muted violet), and Sora (teal personal world). All destinations use verified public URLs. Vivian links only to its public source repository; never add its private deployment URL. The Origin interface uses ivory and champagne against deep black; project dialogs retain their existing accent treatment. The lower-left headline, rounded warm frame, restrained stars and warm off-center nucleus follow the reference supplied on 2026-10-07. See `Handoff.md` for the required single-push workflow.
 
 `src/galaxy/socials.js` stores the eight public social profiles, rendered by `GalaxySocials.astro` in the personal world and About dialog. The model URL is the full BF16 v0.4 repository supplied by the owner; the Larp LLM GitHub repository contains a Gemma 3 12B LoRA Colab playground.
 

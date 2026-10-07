@@ -1,3 +1,14 @@
+# Active Three.js portfolio
+
+The active homepage is Sora Astral's miniature universe, built with Astro, Three.js and GSAP. Read `Handoff.md` and `DEVELOPMENT.md` before editing. The legacy hero/banner sections below describe retained older components, not the current homepage; do not apply their file explorer/device mockup layout to this universe.
+
+- Follow the 2026-10-07 reference: deep black, a thin rounded warm frame, large lower-left Instrument Serif copy, italic champagne emphasis, a warm galaxy nucleus and five smaller shaded planets on a tilted orbital plane.
+- Keep project metadata in `src/galaxy/projects.js`, orbital positions in `OrbitLayout.js`, and scene bounds based on measured HTML regions. Rings and camera fitting must scale with planet radius.
+- Preserve the five worlds, seven travel stops, native dialogs, accessible keyboard controls, public social destinations, reduced motion, WebKit direct rendering and WebGL fallback.
+- Names appear on planet hover/focus; codes remain visible. Keep the full project index usable by keyboard and touch.
+- Pull/fetch latest code before editing. Local commits may save each complete batch, but finish all code, validation and documentation before pushing `main` **once**. Never push per file or per commit, and never add a separate CLI deployment to the automatic Git deployment.
+- Verify the build, whitespace, desktop/tablet/mobile layout, all world stories and navigation, and fallback. Wait for the production deployment of the final commit to be Ready before reporting it live.
+
 # Project Banner Standard
 
 ## Canonical banner size
