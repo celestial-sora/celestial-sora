@@ -28,12 +28,12 @@ void main(){
  vec3 color=mix(uDark,uMid,smoothstep(.12,.58,pattern));
  color=mix(color,uLight,smoothstep(.58,.95,pattern)*.8);
  vec3 normal=normalize(vNormal); vec3 viewDir=normalize(vView);
- float diffuse=max(0.,dot(normal,normalize(vec3(-.8,.55,-.3))));
+ float diffuse=max(0.,dot(normal,normalize(vec3(-.8,.55,.45))));
  float rim=pow(1.-max(0.,dot(normal,viewDir)),3.5);
- color*=.025+diffuse*1.1;
+ color*=.045+diffuse*1.1;
  // Light scatters at the horizon; the dark hemisphere keeps its volume.
  float flow=.5+.5*sin(p.y*9.+n*7.-uTime*.32);
- color+=uLight*rim*(.5+uHover*.65)*( .85+flow*.15 );
+ color+=uLight*rim*(.7+uHover*.65)*( .85+flow*.15 );
  if(uKind>1.5&&uKind<2.5){color+=uMid*pow(1.-abs(p.y),5.)*rim*flow*.32;}
  if(uKind>3.5){float aurora=pow(max(0.,sin(p.y*13.+n*6.-uTime*.35)),8.);color+=uMid*aurora*rim*(.4+uHover*.35);}
  if(uKind>2.5&&uKind<3.5){float veins=pow(1.-smoothstep(0.,.065,abs(n-.5)),3.);color+=uLight*veins*(.12+.07*sin(uTime*.45+n*9.));}
@@ -97,14 +97,14 @@ void main(){
  float gap=smoothstep(0.,.015,abs(r-1.63));
  float glint=pow(max(0.,cos(a-uTime*.13)),24.);
  vec3 color=uColor*(.6+bands*.5)+uColor*glint*(.5+uHover*.6);
- gl_FragColor=vec4(color,bands*edge*mix(.2,1.,gap)*1.35*uPresence);
+ gl_FragColor=vec4(color,bands*edge*mix(.2,1.,gap)*.72*uPresence);
  #include <tonemapping_fragment>
  #include <colorspace_fragment>
 }`;
 export const starVertex = /* glsl */ `
 attribute float aSize; attribute float aPhase; varying float vAlpha;
 uniform float uTime; uniform float uPixelRatio;
-void main(){vec4 mv=modelViewMatrix*vec4(position,1.);gl_Position=projectionMatrix*mv;gl_PointSize=clamp(aSize*uPixelRatio*15./-mv.z,.7,3.5*uPixelRatio);vAlpha=.07+.035*sin(aPhase+uTime*.12);}`;
+void main(){vec4 mv=modelViewMatrix*vec4(position,1.);gl_Position=projectionMatrix*mv;gl_PointSize=clamp(aSize*uPixelRatio*15./-mv.z,.7,3.5*uPixelRatio);vAlpha=.22+.13*sin(aPhase+uTime*.12);}`;
 export const starFragment = /* glsl */ `
 varying float vAlpha;void main(){float d=length(gl_PointCoord-.5);float a=smoothstep(.5,.05,d);gl_FragColor=vec4(vec3(.76,.76,.86),a*vAlpha);
  #include <tonemapping_fragment>

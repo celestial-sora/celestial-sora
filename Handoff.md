@@ -11,16 +11,16 @@
 
 ## Current visual direction
 
-The homepage follows the reference image supplied on 2026-10-07:
+The owner clarified on 2026-10-07 that the reference image is an example of **planet arrangement only**. Preserve the established fullscreen UI and its original colors. Do not add an outer frame, rewrite the homepage copy, or redesign navigation based on that image.
 
-- Deep black space inside a thin warm border with generous rounded corners.
-- Small Sora Astral wordmark at top left and opt-in sound at top right.
-- Large Instrument Serif headline at lower left: “Sora Astral builds / small universes / for the web.” The middle line is italic champagne.
-- A soft warm galaxy nucleus offset to the right of the orbital center, blue-grey spiral clouds, sparse dust, and faint background stars.
-- Five small project planets in one tilted orbital plane. Vivian is the largest, with gold rings; Oonchai is dark red, the Qwen model ice blue, Larp LLM muted violet, and Sora teal.
-- Planet codes remain visible; project names appear on hover or keyboard focus. Accessible names and the project index stay available.
-- A numbered rail provides Origin, five project worlds, and Signal. Coordinates and a travel hint sit at the bottom.
-- On mobile, the introduction sits above the galaxy and the rail becomes horizontal. Keep text and controls outside the scene's measured reserved areas.
+- Fullscreen space with the existing Sora Astral wordmark, opt-in sound and original navigation.
+- Original Instrument Serif headline: “A little curiosity. / Entire worlds.” Preserve its typography, position and introduction copy.
+- Original pink nebula, star brightness, surface lighting and palettes: Vivian violet with rings, Oonchai pink, Qwen ice blue, Larp LLM warm amber, and Sora sage green.
+- Keep the newer tilted orbital arrangement, current smaller planet radii, ring orientation and proportional rings/camera fitting. Preserve each world's current orbital angle and Larp LLM's inner-orbit scale.
+- Restore visible project names and category labels, including their existing title fonts. Keep their hit areas separate and the project index available.
+- Preserve the numbered rail, coordinates and travel hint. Mobile retains the existing responsive UI, with the scene fitted below the introduction.
+
+The required content/travel order is **PX-01 Sora → PX-02 Vivian → PX-03 Oonchai → PX-04 Larp LLM → PX-05 Qwen**. Keep each world’s current position and palette when reordering. Use stable project IDs for fallback styles and model-specific behavior; never tie those to array indices.
 
 ## Existing behavior to preserve
 
@@ -76,4 +76,4 @@ git diff --check
 
 Browser verification must include desktop, tablet, 390px mobile and 320px compact widths; all five stories; all seven stops; keyboard navigation; optional sound; reduced motion; and forced WebGL context loss. Check both shader/runtime errors and horizontal overflow. Headless software rendering verifies correctness, not actual-device 60fps performance.
 
-The orbital layout branch `codex/orbit-layout-2026-10-07` was incorporated locally by fast-forward before this reference-design work. Its responsive camera fitting and fallback fixes are preserved. Only the final complete `main` should be pushed.
+The orbital layout branch `codex/orbit-layout-2026-10-07` was incorporated locally by fast-forward before this layout work. Its responsive camera fitting and fallback fixes are preserved. Only the final complete `main` should be pushed.

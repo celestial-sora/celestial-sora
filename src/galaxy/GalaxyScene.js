@@ -143,7 +143,7 @@ export class GalaxyScene {
       new THREE.LineBasicMaterial({
         color: "#b49bc3",
         transparent: true,
-        opacity: 0.012,
+        opacity: 0.22,
         depthWrite: false,
       }),
     );
@@ -201,10 +201,10 @@ export class GalaxyScene {
     } else if (this.rig.stop === 0) {
       if (mobile) {
         bounds.top = copy.offsetTop + copy.offsetHeight + (h <= 650 ? 20 : 40);
-        bounds.bottom = h - (h <= 650 ? 100 : 156);
+        bounds.bottom = h - 156;
       }
       else {
-        bounds.left = w * 0.3;
+        bounds.left = Math.max(w * 0.3, copy.offsetLeft + copy.offsetWidth + 50);
         bounds.right = w * 0.86;
         bounds.top = h * 0.26;
         bounds.bottom = h * 0.85;
@@ -275,23 +275,51 @@ export class GalaxyScene {
     this.stars.material.uniforms.uPixelRatio.value = this.output.pixelRatio;
     this.stars.update(this.reduced ? 0 : this.elapsed);
     this.nebula.update(this.reduced ? 0 : this.elapsed);
-    this.planets.forEach((p, i) => {
+    const labelLayouts = this.planets.map((p, i) => {
       this.projection.copy(p.group.position);
       this.projection.y += p.project.radius * (p.project.labelBelow ? -1.15 : 1.15);
       this.projection.project(this.rig.camera);
-      const x = (this.projection.x * 0.5 + 0.5) * this.stage.clientWidth + (p.project.labelOffsetX || 0),
-        y = (-this.projection.y * 0.5 + 0.5) * this.stage.clientHeight;
+      const x = (this.projection.x * 0.5 + 0.5) * this.stage.clientWidth + (p.project.labelOffsetX || 0);
+      const y = (-this.projection.y * 0.5 + 0.5) * this.stage.clientHeight;
+      const width = this.labelWidths[i], height = this.labelHeights[i];
+      return {
+        i, width, height,
+        left: Math.min(this.stage.clientWidth - width - 8, Math.max(8, x - width * 0.5)),
+        top: Math.max(this.labelTop, p.project.labelBelow ? y + (p.project.labelGap || 8) : y - height - 8),
+        visible: this.projection.z < 1 && Math.abs(this.projection.x) < 0.97 &&
+          Math.abs(this.projection.y) < 0.9 && this.rig.stop === 0,
+      };
+    });
+    // Reserve space for wider labels first, then find the nearest free hit area.
+    // The worlds themselves retain their orbital positions.
+    const placedLabels = [];
+    labelLayouts.sort((a, b) => b.width - a.width || a.top - b.top).forEach((layout) => {
+      const { i, width, height, visible } = layout;
       const label = this.labels[i];
-      const labelWidth = this.labelWidths[i];
+      let left = layout.left, top = layout.top;
+      if (visible) {
+        const maxLeft = this.stage.clientWidth - width - 8;
+        const maxTop = this.stage.clientHeight - (this.stage.clientWidth < 700 ? 112 : 72) - height;
+        top = Math.min(top, maxTop);
+        const xs = [left, 8, maxLeft, ...placedLabels.flatMap(r => [r.left - width - 4, r.right + 4])];
+        const ys = [top, this.labelTop, maxTop, ...placedLabels.flatMap(r => [r.top - height - 4, r.bottom + 4])];
+        let nearest = Infinity;
+        for (const candidateX of xs) for (const candidateY of ys) {
+          if (candidateX < 8 || candidateX > maxLeft || candidateY < this.labelTop || candidateY > maxTop) continue;
+          if (placedLabels.some(r => candidateX < r.right + 3 && candidateX + width > r.left - 3 &&
+            candidateY < r.bottom + 3 && candidateY + height > r.top - 3)) continue;
+          const distance = (candidateX - layout.left) ** 2 + (candidateY - layout.top) ** 2;
+          if (distance < nearest) {
+            nearest = distance;
+            left = candidateX;
+            top = candidateY;
+          }
+        }
+        placedLabels.push({ left, top, right: left + width, bottom: top + height });
+      }
       label.style.left = "0";
       label.style.top = "0";
-      const labelY = p.project.labelBelow ? y + (p.project.labelGap || 8) : y - this.labelHeights[i] - 8;
-      label.style.transform = `translate3d(${Math.min(this.stage.clientWidth - labelWidth - 8, Math.max(8, x - labelWidth * 0.5))}px,${Math.max(this.labelTop, labelY)}px,0)`;
-      const visible =
-        this.projection.z < 1 &&
-        Math.abs(this.projection.x) < 0.97 &&
-        Math.abs(this.projection.y) < 0.9 &&
-        this.rig.stop === 0;
+      label.style.transform = `translate3d(${left}px,${top}px,0)`;
       label.style.opacity = visible ? "1" : "0";
       label.style.pointerEvents = visible ? "auto" : "none";
       label.tabIndex = visible ? 0 : -1;

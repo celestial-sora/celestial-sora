@@ -44,7 +44,7 @@ function selectProject(index) {
   $("catalog").close();
   $("about-dialog").close();
   $("index-toggle").setAttribute("aria-expanded", "false");
-  $("detail-number").textContent = `WORLD 0${index + 1} / THE CONSTELLATION`;
+  $("detail-number").textContent = `${p.code} / THE CONSTELLATION`;
   $("detail-category").textContent = p.category;
   $("detail-title").textContent = p.name;
   $("detail-title").classList.toggle("meme-title", p.titleFont === "meme");
@@ -161,9 +161,9 @@ function travel(next) {
   title.classList.toggle("meme-title", projects[stop - 1]?.titleFont === "meme");
   title.classList.toggle("sora-title", projects[stop - 1]?.titleFont === "sweetbliss");
   if (stop === 0) {
-    title.innerHTML = "Sora Astral builds<br /><em>small universes</em><br />for the web.";
+    title.innerHTML = "A little curiosity.<br /><em>Entire worlds.</em>";
     description.textContent =
-      "I build AI companions, story worlds, and experiments for the web. Every world in this system is a project — travel between them, or land on one to read its story.";
+      "I’m Sora. I build companions, tell stories, and turn small ideas into places worth exploring.";
     eyebrow.textContent = "00 — ORIGIN · A PERSONAL UNIVERSE";
   } else if (stop === 6) {
     title.innerHTML = "The next world<br /><em>starts with hello.</em>";
@@ -174,12 +174,12 @@ function travel(next) {
     const p = projects[stop - 1];
     title.textContent = p.title || p.name;
     description.textContent = p.tagline;
-    eyebrow.textContent = `0${stop} — ${p.category} · ${p.status.toUpperCase()}`;
+    eyebrow.textContent = `${p.code} — ${p.category} · ${p.status.toUpperCase()}`;
   }
   $("journey-cta").hidden = stop === 0;
   $("journey-cta").firstChild.textContent =
     stop === 6 ? "Find me around the web " : "Discover this world ";
-  document.body.classList.toggle("model-world", stop === 3);
+  document.body.classList.toggle("model-world", projects[stop - 1]?.id === "qwen");
   $("journey-contact").hidden = stop !== 6;
   $("coordinate-ra").textContent =
     `${String(stop * 3).padStart(2, "0")}h ${String(stop * 7).padStart(2, "0")}m`;
@@ -354,7 +354,7 @@ async function init() {
     );
     if (!galaxy) return;
     document.body.classList.add("webgl-ready");
-    // The rendered view replaces full fallback names with compact code labels.
+    // Measure full labels after leaving the positioned CSS fallback.
     galaxy.resize(true);
     if (stop > 0) galaxy.travel(stop);
     if (selected >= 0) galaxy.select(selected);

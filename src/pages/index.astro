@@ -26,7 +26,6 @@ const sora = projects.find((project) => project.social);
     <title>Sora Astral — A small universe</title>
   </head>
   <body>
-    <div class="universe-frame" aria-hidden="true"></div>
     <a class="skip-link" href="#index-toggle">
       Skip to projects
     </a>
@@ -65,7 +64,7 @@ const sora = projects.find((project) => project.social);
           <circle cx="16" cy="16" r="10" />
         </svg>
         <span>
-          Sora<span class="wordmark-light"> Astral</span>
+          SORA<span class="wordmark-light"> ASTRAL</span>
           <small>INDEPENDENT CREATOR & EXPLORER</small>
         </span>
       </a>
@@ -98,16 +97,13 @@ const sora = projects.find((project) => project.social);
             00 — ORIGIN · A PERSONAL UNIVERSE
           </div>
           <h1 id="journey-title">
-            Sora Astral builds
+            A little curiosity.
             <br />
-            <em>small universes</em>
-            <br />
-            for the web.
+            <em>Entire worlds.</em>
           </h1>
           <p id="journey-description">
-            I build AI companions, story worlds, and experiments for the web.
-            Every world in this system is a project — travel between them,
-            or land on one to read its story.
+            I’m Sora. I build companions, tell stories, and turn small ideas
+            into places worth exploring.
           </p>
           <button class="journey-cta" id="journey-cta" hidden>
             Discover this world{" "}
@@ -143,7 +139,7 @@ const sora = projects.find((project) => project.social);
           <div class="fallback-worlds" aria-hidden="true">
             {projects.map((project, i) => (
               <div
-                class={`fallback-planet p${i}`}
+                class={`fallback-planet world-${project.id}`}
                 style={`--planet-color:${project.color};--orbit-x:${Math.cos(project.orbitAngle) * (project.orbitScale || 1)};--orbit-y:${Math.sin(project.orbitAngle) * (project.orbitScale || 1)}`}
               />
             ))}
@@ -156,7 +152,7 @@ const sora = projects.find((project) => project.social);
           <div class="planet-labels" id="planet-labels">
             {projects.map((project, i) => (
               <button
-                class={`planet-label label-${i}`}
+                class={`planet-label label-${project.id}`}
                 data-planet={i}
                 style={`--planet-color:${project.color};--orbit-x:${Math.cos(project.orbitAngle) * (project.orbitScale || 1)};--orbit-y:${Math.sin(project.orbitAngle) * (project.orbitScale || 1)}`}
                 aria-label={`Explore ${project.name}`}
@@ -164,7 +160,7 @@ const sora = projects.find((project) => project.social);
                 <span class="label-dot"></span>
                 <span class="planet-label-copy">
                   <small>
-                    PX–0{i + 1}
+                    {project.code} / {project.category}
                   </small>
                   <strong class:list={{ "meme-title": project.titleFont === "meme", "sora-title": project.titleFont === "sweetbliss" }}>
                     {project.name}{" "}
@@ -238,7 +234,7 @@ const sora = projects.find((project) => project.social);
             aria-label={`Travel to ${p.name}`}
           >
             <span class:list={{ "meme-title": p.titleFont === "meme", "sora-title": p.titleFont === "sweetbliss" }}>{p.name}</span>
-            <small>0{i + 1}</small>
+            <small>{p.code}</small>
             <i></i>
           </button>
         ))}
@@ -396,8 +392,8 @@ const sora = projects.find((project) => project.social);
           class="catalog-item"
           style={`--planet-color:${p.color}`}
         >
-          <span>0{i + 1}</span>
-          <i class={`planet-thumb thumb-${i}`}></i>
+          <span>{p.code}</span>
+          <i class={`planet-thumb thumb-${p.id}`}></i>
           <span>
             <strong class:list={{ "meme-title": p.titleFont === "meme", "sora-title": p.titleFont === "sweetbliss" }}>{p.name}</strong>
             <small>
