@@ -11,16 +11,16 @@
 
 ## Current visual direction
 
-The owner clarified on 2026-10-07 that the reference image is an example of **planet arrangement only**. Preserve the established fullscreen UI and its original colors. Do not add an outer frame, rewrite the homepage copy, or redesign navigation based on that image.
+The owner clarified on 2026-10-07 that the reference image is an example of **planet arrangement only**. Preserve the established fullscreen UI and background colors; use the latest PX world mapping below. Do not add an outer frame, rewrite the homepage copy, or redesign navigation based on that image.
 
 - Fullscreen space with the existing Sora Astral wordmark, opt-in sound and original navigation.
 - Original Instrument Serif headline: “A little curiosity. / Entire worlds.” Preserve its typography, position and introduction copy.
-- Original pink nebula, star brightness, surface lighting and palettes: Vivian violet with rings, Oonchai pink, Qwen ice blue, Larp LLM warm amber, and Sora sage green.
-- Keep the newer tilted orbital arrangement, current smaller planet radii, ring orientation and proportional rings/camera fitting. Preserve each world's current orbital angle and Larp LLM's inner-orbit scale.
+- Keep the pink nebula, established star brightness and surface lighting. Current world palettes: Sora violet with rings, Vivian red, Oonchai sage green, Larp LLM warm amber, and Qwen ice blue.
+- Keep the newer tilted orbital arrangement, current smaller planet radii, ring orientation and proportional rings/camera fitting. Keep the visual slots' orbital angles and Larp LLM's inner-orbit scale; the latest owner request assigns the violet ringed slot to Sora, red slot to Vivian and green slot to Oonchai.
 - Restore visible project names and category labels, including their existing title fonts. Keep their hit areas separate and the project index available.
 - Preserve the numbered rail, coordinates and travel hint. Mobile retains the existing responsive UI, with the scene fitted below the introduction.
 
-The required content/travel order is **PX-01 Sora → PX-02 Vivian → PX-03 Oonchai → PX-04 Larp LLM → PX-05 Qwen**. Keep each world’s current position and palette when reordering. Use stable project IDs for fallback styles and model-specific behavior; never tie those to array indices.
+The required content/travel order is **PX-01 Sora → PX-02 Vivian → PX-03 Oonchai → PX-04 Larp LLM → PX-05 Qwen**. Visual mapping: PX-01 Sora is the violet Saturn-like world with rings, PX-02 Vivian is the small red world, PX-03 Oonchai is green, PX-04 Larp LLM stays amber, and PX-05 Qwen stays ice blue. Preserve the existing physical arrangement by assigning those identities to the corresponding visual slots. Replace the large orbital line with dispersed particles; keep Sora’s planetary rings. Use stable project IDs for fallback styles and model-specific behavior; never tie those to array indices.
 
 ## Existing behavior to preserve
 
@@ -40,6 +40,7 @@ The required content/travel order is **PX-01 Sora → PX-02 Vivian → PX-03 Oon
 - `src/pages/index.astro`: semantic page, labels, navigation and dialogs.
 - `src/galaxy/projects.js`: project metadata, palettes, orbital angles and radii.
 - `src/galaxy/OrbitLayout.js`: shared responsive tilted orbital plane.
+- `src/galaxy/OrbitDust.js`: soft dispersed orbital particles (500 desktop / 225 mobile), responsive layout and shader drift; replaces the large orbital line. CSS fallback uses scattered dots with no orbital outline.
 - `src/galaxy/GalaxyScene.js`: lifecycle, measured framing bounds, rendering and label projection.
 - `src/galaxy/CameraRig.js`: GSAP transitions, perspective fitting and pointer parallax. Rings use the planet's radius for fitting.
 - `src/galaxy/Planet.js`, `shaders.js`: surfaces, atmosphere, proportional rings and orbiting dust.

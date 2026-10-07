@@ -7,6 +7,7 @@ import { GalaxyRenderer } from "./Renderer.js";
 import { Interaction } from "./Interaction.js";
 import { projects } from "./projects.js";
 import { orbitPosition } from "./OrbitLayout.js";
+import { OrbitDust } from "./OrbitDust.js";
 export class GalaxyScene {
   constructor(stage, onSelect, onProgress, onError, onTravel) {
     this.stage = stage;
@@ -54,7 +55,7 @@ export class GalaxyScene {
       this.nebula = new Nebula(this.mobile);
       this.nebula.layout(this.mobile);
       this.scene.add(this.nebula.group);
-      this.addOrbits();
+      this.addOrbitDust();
       this.rig.reset(true, this.framingBounds());
       onProgress(65);
       this.labels = [...document.querySelectorAll("[data-planet]")];
@@ -123,31 +124,12 @@ export class GalaxyScene {
       planet.group.position.fromArray(orbitPosition(planet.project.orbitAngle, mobile, planet.project.orbitScale));
       planet.baseY = planet.group.position.y;
     });
-    if (this.orbitLine) {
-      const attribute = this.orbitLine.geometry.attributes.position;
-      for (let i = 0; i < attribute.count; i++) {
-        attribute.setXYZ(i, ...orbitPosition((i / (attribute.count - 1)) * Math.PI * 2, mobile));
-      }
-      attribute.needsUpdate = true;
-      this.orbitLine.geometry.computeBoundingSphere();
-    }
+    this.orbitDust?.layout(mobile);
   }
-  addOrbits() {
-    const mobile = this.stage.clientWidth < 700;
-    const points = Array.from({ length: 181 }, (_, i) =>
-      new THREE.Vector3(...orbitPosition((i / 180) * Math.PI * 2, mobile)),
-    );
-    this.orbits = new THREE.Group();
-    this.orbitLine = new THREE.Line(
-      new THREE.BufferGeometry().setFromPoints(points),
-      new THREE.LineBasicMaterial({
-        color: "#b49bc3",
-        transparent: true,
-        opacity: 0.22,
-        depthWrite: false,
-      }),
-    );
-    this.orbits.add(this.orbitLine);
+  addOrbitDust() {
+    this.orbitDust = new OrbitDust(this.mobile, this.output.pixelRatio);
+    this.orbitDust.layout(this.stage.clientWidth < 700);
+    this.orbits = this.orbitDust.points;
     this.scene.add(this.orbits);
   }
   resize(force = false) {
@@ -275,11 +257,15 @@ export class GalaxyScene {
     this.stars.material.uniforms.uPixelRatio.value = this.output.pixelRatio;
     this.stars.update(this.reduced ? 0 : this.elapsed);
     this.nebula.update(this.reduced ? 0 : this.elapsed);
+    this.orbitDust.update(this.reduced ? 0 : this.elapsed, this.output.pixelRatio);
     const labelLayouts = this.planets.map((p, i) => {
       this.projection.copy(p.group.position);
       this.projection.y += p.project.radius * (p.project.labelBelow ? -1.15 : 1.15);
       this.projection.project(this.rig.camera);
-      const x = (this.projection.x * 0.5 + 0.5) * this.stage.clientWidth + (p.project.labelOffsetX || 0);
+      const labelOffset = this.stage.clientWidth < 1200
+        ? p.project.labelOffsetXCompact ?? p.project.labelOffsetX
+        : p.project.labelOffsetX;
+      const x = (this.projection.x * 0.5 + 0.5) * this.stage.clientWidth + (labelOffset || 0);
       const y = (-this.projection.y * 0.5 + 0.5) * this.stage.clientHeight;
       const width = this.labelWidths[i], height = this.labelHeights[i];
       return {
@@ -338,10 +324,7 @@ export class GalaxyScene {
     this.planets?.forEach((p) => p.dispose());
     this.stars?.dispose();
     this.nebula?.dispose();
-    this.orbits?.traverse((o) => {
-      o.geometry?.dispose();
-      o.material?.dispose();
-    });
+    this.orbitDust?.dispose();
     this.output?.dispose();
     this.rig.dispose();
   }

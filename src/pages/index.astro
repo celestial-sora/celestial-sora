@@ -137,6 +137,11 @@ const sora = projects.find((project) => project.social);
         </div>
         <div id="galaxy-stage" class="galaxy-stage">
           <div class="fallback-worlds" aria-hidden="true">
+            {Array.from({ length: 64 }, (_, i) => {
+              const angle = i * 2.399963;
+              const scale = 0.78 + ((i * 17) % 23) / 23 * 0.44;
+              return <span class="fallback-dust" style={`--orbit-x:${Math.cos(angle) * scale};--orbit-y:${Math.sin(angle) * scale};--dust-alpha:${0.2 + (i % 5) * 0.08}`} />;
+            })}
             {projects.map((project, i) => (
               <div
                 class={`fallback-planet world-${project.id}`}

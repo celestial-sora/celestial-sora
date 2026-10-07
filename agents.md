@@ -2,15 +2,15 @@
 
 The active homepage is Sora Astral's miniature universe, built with Astro, Three.js and GSAP. Read `Handoff.md` and `DEVELOPMENT.md` before editing. The legacy hero/banner sections below describe retained older components, not the current homepage; do not apply their file explorer/device mockup layout to this universe.
 
-- The 2026-10-07 reference is for planet arrangement only. Keep the original fullscreen UI, “A little curiosity. / Entire worlds.” headline, pink nebula and original project palettes. Do not add a frame or redesign the UI. Preserve the newer orbital angles, smaller planet radii and ring orientation.
+- The 2026-10-07 reference is for planet arrangement only. Keep the original fullscreen UI, “A little curiosity. / Entire worlds.” headline, pink nebula and the requested PX color mapping below. Do not add a frame or redesign the UI. Preserve the newer orbital angles, smaller planet radii and ring orientation.
 - Keep project metadata in `src/galaxy/projects.js`, orbital positions in `OrbitLayout.js`, and scene bounds based on measured HTML regions. Rings and camera fitting must scale with planet radius.
 - Preserve the five worlds, seven travel stops, native dialogs, accessible keyboard controls, public social destinations, reduced motion, WebKit direct rendering and WebGL fallback.
 - Project names and category labels remain visible. Keep the full project index usable by keyboard and touch.
 - Pull/fetch latest code before editing. Local commits may save each complete batch, but finish all code, validation and documentation before pushing `main` **once**. Never push per file or per commit, and never add a separate CLI deployment to the automatic Git deployment.
 - Verify the build, whitespace, desktop/tablet/mobile layout, all world stories and navigation, and fallback. Wait for the production deployment of the final commit to be Ready before reporting it live.
 
+The required content/travel order is **PX-01 Sora → PX-02 Vivian → PX-03 Oonchai → PX-04 Larp LLM → PX-05 Qwen**. Visual mapping: PX-01 Sora is the violet Saturn-like world with rings, PX-02 Vivian is the small red world, PX-03 Oonchai is green, PX-04 Larp LLM stays amber, and PX-05 Qwen stays ice blue. Preserve the existing physical arrangement by assigning those identities to the corresponding visual slots. Replace the large orbital line with dispersed particles; keep Sora’s planetary rings. Use stable project IDs for fallback styles and model-specific behavior; never tie those to array indices.
 
-The required content/travel order is **PX-01 Sora → PX-02 Vivian → PX-03 Oonchai → PX-04 Larp LLM → PX-05 Qwen**. Keep each world’s current position and palette when reordering. Use stable project IDs for fallback styles and model-specific behavior; never tie those to array indices.
 # Project Banner Standard
 
 ## Canonical banner size
