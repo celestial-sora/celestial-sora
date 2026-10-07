@@ -27,7 +27,13 @@
   --ease-io:cubic-bezier(.65,0,.35,1);
 }
 *,*::before,*::after{box-sizing:border-box}
-html{ -webkit-text-size-adjust:100%; scroll-behavior:auto; }
+html{
+  -webkit-text-size-adjust:100%; scroll-behavior:auto;
+  /* Mobile Safari can still pan the root horizontally when fixed menu and
+     foreground layers extend beyond the viewport. Clip that axis at the
+     root while leaving vertical page scrolling untouched. */
+  overflow-x:clip;
+}
 body{
   margin:0; background:var(--ink); color:var(--bone);
   font-family:'Onest',system-ui,-apple-system,'Helvetica Neue',sans-serif;
