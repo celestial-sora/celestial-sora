@@ -75,7 +75,7 @@ export class CameraRig {
     const extent = { left: Infinity, right: -Infinity, bottom: Infinity, top: -Infinity, front: -Infinity };
     for (const planet of this.worlds) {
       const p = planet.group.position;
-      const radius = planet.project.rings ? 2.1 : planet.project.radius * 1.12;
+      const radius = planet.project.radius * (planet.project.rings ? 1.9 : 1.12);
       extent.left = Math.min(extent.left, p.x - radius);
       extent.right = Math.max(extent.right, p.x + radius);
       extent.bottom = Math.min(extent.bottom, p.y - radius);
@@ -107,7 +107,7 @@ export class CameraRig {
     // Fit the complete world, including its rings, in the space beside/below copy.
     const radius = Math.max(
       planet.project.radius * 1.12,
-      planet.project.rings ? 2.1 : 0,
+      planet.project.rings ? planet.project.radius * 1.9 : 0,
     );
     const tangent = Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2));
     const distance = Math.max(

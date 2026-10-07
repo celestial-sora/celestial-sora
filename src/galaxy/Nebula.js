@@ -3,7 +3,6 @@ import * as THREE from "three";
 export class Nebula {
   constructor(mobile) {
     this.group = new THREE.Group();
-    this.group.position.set(3.2, 0.5, -5);
     this.cloud = new THREE.Mesh(
       new THREE.PlaneGeometry(19, 19),
       new THREE.ShaderMaterial({
@@ -16,7 +15,15 @@ export class Nebula {
  varying vec2 vUv;uniform float uTime;
  float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
  float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);}
- void main(){vec2 p=(vUv-.5)*2.;p.x*=1.3;float r=length(p);float n=noise(p*8.)*.5+noise(p*19.)*.27+noise(p*47.)*.12;float a=atan(p.y,p.x);float arm=pow(.5+.5*sin(a*2.+r*14.+n*4.),3.);float cloud=exp(-r*r*5.)*arm*n*.15;float core=exp(-r*r*120.)*.2;vec3 color=mix(vec3(.38,.10,.23),vec3(.76,.32,.46),exp(-r*r*18.));gl_FragColor=vec4(color,cloud+core);
+ void main(){
+ vec2 p=(vUv-.5)*2.;p=mat2(.87,-.5,.5,.87)*p;p.y*=1.35;
+ float r=length(p),n=noise(p*8.)*.5+noise(p*19.)*.27+noise(p*47.)*.12;
+ float a=atan(p.y,p.x),arm=pow(.5+.5*sin(a*2.+r*14.+n*4.),3.);
+ float cloud=exp(-r*r*4.8)*arm*n*.45;
+ vec3 color=mix(vec3(.09,.13,.29),vec3(.55,.35,.15),exp(-r*r*17.))*cloud;
+ color+=vec3(.74,.5,.27)*exp(-r*r*48.)*(.19+n*.2);
+ color+=vec3(2.8,2.3,1.65)*exp(-r*r*650.);
+ gl_FragColor=vec4(color,1.);
  #include <tonemapping_fragment>
  #include <colorspace_fragment>
 }`,
@@ -31,10 +38,11 @@ export class Nebula {
       const r = Math.pow(Math.random(), 0.6) * 6.5,
         a = r * 1.2 + (i % 2) * Math.PI + (Math.random() - 0.5) * 0.75;
       positions.set(
-        [Math.cos(a) * r, (Math.random() - 0.5) * 0.4, Math.sin(a) * r],
+        [Math.cos(a) * r, Math.sin(a) * r * 0.74, (Math.random() - 0.5) * 0.5],
         i * 3,
       );
-      color.setHSL(0.94 - r * 0.008, 0.22, 0.18 + Math.random() * 0.2);
+      color.set(r < 2 ? "#b9a182" : "#68769f");
+      color.multiplyScalar(0.55 + Math.random() * 0.65);
       colors.set([color.r, color.g, color.b], i * 3);
     }
     const geometry = new THREE.BufferGeometry();
@@ -43,22 +51,22 @@ export class Nebula {
     this.dust = new THREE.Points(
       geometry,
       new THREE.PointsMaterial({
-        size: 0.018,
+        size: 0.025,
         transparent: true,
-        opacity: 0.44,
+        opacity: 0.28,
         depthWrite: false,
         vertexColors: true,
         blending: THREE.AdditiveBlending,
       }),
     );
-    this.dust.rotation.set(0.85, 0.2, 0.55);
+    this.dust.rotation.set(0, 0, 0.5);
     this.group.add(this.dust);
   }
   update(time) {
-    this.dust.rotation.y = 0.2 + time * 0.006;
+    this.dust.rotation.z = 0.5 + time * 0.006;
   }
   layout(mobile) {
-    this.group.position.set(mobile ? 0 : 3.2, mobile ? -0.2 : 0.5, -5);
+    this.group.position.set(mobile ? 0 : 5.2, mobile ? -0.6 : 1, -3);
     this.group.scale.setScalar(mobile ? 0.7 : 1);
   }
   dispose() {

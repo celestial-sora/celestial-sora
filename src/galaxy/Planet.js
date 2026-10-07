@@ -92,12 +92,13 @@ export class Planet {
 
     if (project.rings) {
       this.ring = new THREE.Mesh(
-        new THREE.RingGeometry(1.4, 2.1, mobile ? 112 : 160),
+        new THREE.RingGeometry(project.radius * 1.25, project.radius * 1.9, mobile ? 112 : 160),
         new THREE.ShaderMaterial({
           vertexShader: ringVertex,
           fragmentShader: ringFragment,
           uniforms: {
             ...uniforms,
+            uRadius: { value: project.radius },
             uColor: {
               value: color.clone().lerp(new THREE.Color(project.colors[2]), 0.25),
             },
@@ -107,7 +108,7 @@ export class Planet {
           depthWrite: false,
         }),
       );
-      this.ring.rotation.set(-0.95, 0.2, -0.35);
+      this.ring.rotation.set(-0.75, -0.45, 0.35);
       this.group.add(this.ring);
     }
 
@@ -163,7 +164,7 @@ export class Planet {
     this.group.position.y =
       this.baseY + Math.sin(time * 0.3 + this.index) * 0.045;
     this.atmosphere.rotation.y = time * 0.055;
-    if (this.ring) this.ring.rotation.z = -0.35 + Math.sin(time * 0.12) * 0.018;
+    if (this.ring) this.ring.rotation.z = 0.35 + Math.sin(time * 0.12) * 0.018;
     // Integrate velocity so hovering accelerates dust without jumping its phase.
     this.orbitPhase += dt * (0.095 + this.interest * 0.07);
     const attribute = this.dust.geometry.attributes.position;

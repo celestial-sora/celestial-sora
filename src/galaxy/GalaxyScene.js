@@ -143,7 +143,7 @@ export class GalaxyScene {
       new THREE.LineBasicMaterial({
         color: "#b49bc3",
         transparent: true,
-        opacity: 0.22,
+        opacity: 0.012,
         depthWrite: false,
       }),
     );
@@ -200,7 +200,12 @@ export class GalaxyScene {
         bounds.top = copy.offsetTop + copy.offsetHeight + 40;
         bounds.bottom = h - 156;
       }
-      else bounds.left = w * 0.44;
+      else {
+        bounds.left = w * 0.3;
+        bounds.right = w * 0.86;
+        bounds.top = h * 0.26;
+        bounds.bottom = h * 0.85;
+      }
     } else if (this.rig.stop > 0 && this.rig.stop < 6) {
       bounds.top = copy.offsetTop + copy.offsetHeight + gap;
     }

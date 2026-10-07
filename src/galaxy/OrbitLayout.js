@@ -1,6 +1,6 @@
 // The worlds and their visible path share one tilted orbital plane.
 const layouts = {
-  desktop: { center: [3.1, 0.8, -1], width: 4.5, depth: 3.8, tilt: 0.46, roll: -0.2 },
+  desktop: { center: [3.1, 0.8, -1], width: 4.5, depth: 3.8, tilt: 0.75, roll: 0.3 },
   mobile: { center: [0, -0.6, -1], width: 2.65, depth: 3.2, tilt: 0.62, roll: -0.12 },
 };
 
