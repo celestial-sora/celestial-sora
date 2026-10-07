@@ -297,7 +297,18 @@ listen($("sound-toggle"), "click", async () => {
     $("sound-toggle").disabled = true;
   }
 });
+function fitFallback() {
+  const copy = $("journey-copy");
+  $("galaxy-stage").style.setProperty(
+    "--fallback-top",
+    `${copy.offsetTop + copy.offsetHeight + 40}px`,
+  );
+}
+listen(window, "resize", () => {
+  if (!galaxy) fitFallback();
+});
 function fallback() {
+  fitFallback();
   document.querySelectorAll("[data-planet]").forEach((el) => {
     el.style.left = "";
     el.style.top = "";
@@ -314,6 +325,8 @@ function fallback() {
   galaxy = null;
 }
 async function init() {
+  fitFallback();
+  document.fonts.ready.then(() => { if (!galaxy) fitFallback(); });
   $("loading").hidden = false;
   const progress = (value) => {
     $("loading-progress").setAttribute("aria-valuenow", String(value));

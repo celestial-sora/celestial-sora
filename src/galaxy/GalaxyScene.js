@@ -6,6 +6,7 @@ import { CameraRig } from "./CameraRig.js";
 import { GalaxyRenderer } from "./Renderer.js";
 import { Interaction } from "./Interaction.js";
 import { projects } from "./projects.js";
+import { orbitPosition } from "./OrbitLayout.js";
 export class GalaxyScene {
   constructor(stage, onSelect, onProgress, onError, onTravel) {
     this.stage = stage;
@@ -46,6 +47,7 @@ export class GalaxyScene {
         this.scene.add(planet.group);
         return planet;
       });
+      this.rig.worlds = this.planets;
       this.layoutPlanets();
       this.stars = new Starfield(this.mobile, this.output.pixelRatio);
       this.scene.add(this.stars.points);
@@ -53,6 +55,7 @@ export class GalaxyScene {
       this.nebula.layout(this.mobile);
       this.scene.add(this.nebula.group);
       this.addOrbits();
+      this.rig.reset(true, this.framingBounds());
       onProgress(65);
       this.labels = [...document.querySelectorAll("[data-planet]")];
       this.labelWidths = this.labels.map((label) => label.offsetWidth);
@@ -66,6 +69,9 @@ export class GalaxyScene {
         this.invalidate();
       });
       this.resizeObserver.observe(stage);
+      document.fonts.ready.then(() => {
+        if (!this.disposed) this.resize(true);
+      });
       this.intersectionObserver = new IntersectionObserver(
         (entries) => {
           this.visible = entries[0].isIntersecting;
@@ -113,56 +119,45 @@ export class GalaxyScene {
   }
   layoutPlanets() {
     const mobile = this.stage.clientWidth < 700;
-    const locations = [
-      [-0.1, 0.6, 1],
-      [-2.55, 3, 0],
-      [2.6, 3.2, -1],
-      [-2.2, -1.9, 1],
-      [2.7, -1.4, 0],
-    ];
-    this.planets.forEach((p, i) => {
-      p.group.position.fromArray(mobile ? locations[i] : projects[i].position);
-      p.baseY = p.group.position.y;
+    this.planets.forEach((planet) => {
+      planet.group.position.fromArray(orbitPosition(planet.project.orbitAngle, mobile));
+      planet.baseY = planet.group.position.y;
     });
+    if (this.orbitLine) {
+      const attribute = this.orbitLine.geometry.attributes.position;
+      for (let i = 0; i < attribute.count; i++) {
+        attribute.setXYZ(i, ...orbitPosition((i / (attribute.count - 1)) * Math.PI * 2, mobile));
+      }
+      attribute.needsUpdate = true;
+      this.orbitLine.geometry.computeBoundingSphere();
+    }
   }
   addOrbits() {
+    const mobile = this.stage.clientWidth < 700;
+    const points = Array.from({ length: 181 }, (_, i) =>
+      new THREE.Vector3(...orbitPosition((i / 180) * Math.PI * 2, mobile)),
+    );
     this.orbits = new THREE.Group();
-    for (let j = 0; j < 3; j++) {
-      const points = [];
-      for (let i = 0; i <= 180; i++) {
-        const a = (i / 180) * Math.PI * 2;
-        const r = 3.2 + j * 2.3;
-        points.push(
-          new THREE.Vector3(
-            Math.cos(a) * r,
-            Math.sin(a) * r * 0.28 - 0.45,
-            Math.sin(a) * r * 0.35 - 1,
-          ),
-        );
-      }
-      const line = new THREE.Line(
-        new THREE.BufferGeometry().setFromPoints(points),
-        new THREE.LineBasicMaterial({
-          color: "#786081",
-          transparent: true,
-          opacity: j === 0 ? 0.12 : 0.075,
-        }),
-      );
-      line.rotation.z = -0.14;
-      this.orbits.add(line);
-    }
-    this.orbits.position.x = 3;
-    this.orbits.visible = false;
+    this.orbitLine = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(points),
+      new THREE.LineBasicMaterial({
+        color: "#b49bc3",
+        transparent: true,
+        opacity: 0.22,
+        depthWrite: false,
+      }),
+    );
+    this.orbits.add(this.orbitLine);
     this.scene.add(this.orbits);
   }
-  resize() {
+  resize(force = false) {
     if (this.disposed) return;
     const w = this.stage.clientWidth,
       h = this.stage.clientHeight;
     const pixelRatio = window.devicePixelRatio || 1;
-    if (!w || !h || (
+    if (!w || !h || (!force && (
       w === this.width && h === this.height && pixelRatio === this.devicePixelRatio
-    )) return;
+    ))) return;
     this.width = w;
     this.height = h;
     this.devicePixelRatio = pixelRatio;
@@ -200,6 +195,12 @@ export class GalaxyScene {
         bounds.right = rect.left - gap;
         bounds.bottom = h - gap;
       }
+    } else if (this.rig.stop === 0) {
+      if (mobile) {
+        bounds.top = copy.offsetTop + copy.offsetHeight + 40;
+        bounds.bottom = h - 156;
+      }
+      else bounds.left = w * 0.44;
     } else if (this.rig.stop > 0 && this.rig.stop < 6) {
       bounds.top = copy.offsetTop + copy.offsetHeight + gap;
     }
@@ -229,6 +230,7 @@ export class GalaxyScene {
     this.setFocus(stop > 0 && stop < 6 ? stop - 1 : -1);
     // Set the chapter before measuring its reserved text area.
     this.rig.stop = stop;
+    this.orbits.visible = stop === 0;
     this.rig.travel(
       stop,
       stop > 0 && stop < 6 ? this.planets[stop - 1] : null,
@@ -238,6 +240,7 @@ export class GalaxyScene {
     this.invalidate();
   }
   setFocus(index) {
+    this.orbits.visible = index < 0 && this.rig.stop !== 6;
     this.planets.forEach((planet, i) => {
       planet.targetFocus = Number(i === index);
       planet.targetPresence = index < 0 || i === index ? 1 : 0.06;
@@ -266,15 +269,16 @@ export class GalaxyScene {
     this.nebula.update(this.reduced ? 0 : this.elapsed);
     this.planets.forEach((p, i) => {
       this.projection.copy(p.group.position);
-      this.projection.y += p.project.radius * 1.15;
+      this.projection.y += p.project.radius * (p.project.labelBelow ? -1.15 : 1.15);
       this.projection.project(this.rig.camera);
-      const x = (this.projection.x * 0.5 + 0.5) * this.stage.clientWidth,
+      const x = (this.projection.x * 0.5 + 0.5) * this.stage.clientWidth + (p.project.labelOffsetX || 0),
         y = (-this.projection.y * 0.5 + 0.5) * this.stage.clientHeight;
       const label = this.labels[i];
       const labelWidth = this.labelWidths[i];
       label.style.left = "0";
       label.style.top = "0";
-      label.style.transform = `translate3d(${Math.min(this.stage.clientWidth - labelWidth - 8, Math.max(8, x - labelWidth * 0.5))}px,${Math.max(80, y - this.labelHeights[i] - 8)}px,0)`;
+      const labelY = p.project.labelBelow ? y + (p.project.labelGap || 8) : y - this.labelHeights[i] - 8;
+      label.style.transform = `translate3d(${Math.min(this.stage.clientWidth - labelWidth - 8, Math.max(8, x - labelWidth * 0.5))}px,${Math.max(80, labelY)}px,0)`;
       const visible =
         this.projection.z < 1 &&
         Math.abs(this.projection.x) < 0.97 &&

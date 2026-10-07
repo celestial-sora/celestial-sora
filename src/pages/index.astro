@@ -140,7 +140,7 @@ const sora = projects.find((project) => project.social);
             {projects.map((project, i) => (
               <div
                 class={`fallback-planet p${i}`}
-                style={`--planet-color:${project.color}`}
+                style={`--planet-color:${project.color};--orbit-x:${Math.cos(project.orbitAngle)};--orbit-y:${Math.sin(project.orbitAngle)}`}
               />
             ))}
           </div>
@@ -154,7 +154,7 @@ const sora = projects.find((project) => project.social);
               <button
                 class={`planet-label label-${i}`}
                 data-planet={i}
-                style={`--planet-color:${project.color}`}
+                style={`--planet-color:${project.color};--orbit-x:${Math.cos(project.orbitAngle)};--orbit-y:${Math.sin(project.orbitAngle)}`}
                 aria-label={`Explore ${project.name}`}
               >
                 <span class="label-dot"></span>

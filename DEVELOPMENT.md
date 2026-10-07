@@ -23,12 +23,13 @@ The dev server uses port 4321. The static production artifact is `dist/`.
 
 ## Edit the universe
 
-`src/galaxy/projects.js` is the single source of truth for labels, project cards, dialogs, colors, positions, and planet appearance. The five worlds are Vivian (large ringed planet, pastel purple), Oonchai (small raspberry planet), Vivian Qwen3 8B v0.4 (ice blue), Larp LLM (amber), and Sora (green personal world). All destinations use verified public URLs. Vivian links only to its public source repository; never add its private deployment URL. The interface uses Raspberry Pink independently of each planet's palette.
+`src/galaxy/projects.js` is the single source of truth for labels, project cards, dialogs, colors, orbital angles, and planet appearance. The five worlds are Vivian (large ringed planet, pastel purple), Oonchai (small raspberry planet), Vivian Qwen3 8B v0.4 (ice blue), Larp LLM (amber), and Sora (green personal world). All destinations use verified public URLs. Vivian links only to its public source repository; never add its private deployment URL. The interface uses Raspberry Pink independently of each planet's palette.
 
 `src/galaxy/socials.js` stores the eight public social profiles, rendered by `GalaxySocials.astro` in the personal world and About dialog. The model URL is the full BF16 v0.4 repository supplied by the owner; the Larp LLM GitHub repository contains a Gemma 3 12B LoRA Colab playground.
 
 Visible copy contains no emoji, emoticons, or kaomoji. Larp LLM sets `titleFont: "meme"`; its title uses the locally hosted Permanent Marker font supplied by the user across the journey, project details, planet label, rail, and catalog. The font license is bundled in `public/fonts/permanent-marker-LICENSE.txt`.
 
+- `OrbitLayout.js`: shared tilted ellipse for world placement and the visible orbit; responsive dimensions preserve the front/back order. Vivian occupies the near arc, with the remaining worlds spaced around the same path.
 - `GalaxyScene.js`: scene lifecycle, responsive layout, render loop and HTML label projection.
 - `Renderer.js`: WebGL renderer, bloom, tone mapping, resolution and adaptive quality.
 - `CameraRig.js`: perspective camera, GSAP flights and damped pointer parallax.

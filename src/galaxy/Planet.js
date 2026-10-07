@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { orbitPosition } from "./OrbitLayout.js";
 import {
   planetVertex,
   planetFragment,
@@ -14,7 +15,7 @@ export class Planet {
     this.project = project;
     this.index = index;
     this.group = new THREE.Group();
-    this.group.position.fromArray(project.position);
+    this.group.position.fromArray(orbitPosition(project.orbitAngle, mobile));
     this.baseY = this.group.position.y;
     this.targetHover = 0;
     this.targetFocus = 0;

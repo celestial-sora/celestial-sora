@@ -63,19 +63,38 @@ export class CameraRig {
         immediate,
       );
     } else {
-      const compactOffset = this.mobile && this.height <= 750 ? 1.1 : 0;
-      this.move(
-        {
-          x: 0,
-          y: this.mobile ? 2.7 + compactOffset : 1.3,
-          z: this.mobile ? 24 : 17,
-          tx: 0,
-          ty: this.mobile ? 2.3 + compactOffset : 0.6,
-          tz: 0,
-        },
-        immediate,
-      );
+      if (this.worlds) {
+        this.frameOverview(bounds, immediate);
+      } else {
+        this.move({ x: 0, y: 1.3, z: 17, tx: 0, ty: 0.6, tz: 0 }, immediate);
+      }
     }
+  }
+  frameOverview(bounds, immediate = false) {
+    const frame = bounds || { left: 0, right: this.width, top: 0, bottom: this.height };
+    const extent = { left: Infinity, right: -Infinity, bottom: Infinity, top: -Infinity, front: -Infinity };
+    for (const planet of this.worlds) {
+      const p = planet.group.position;
+      const radius = planet.project.rings ? 2.1 : planet.project.radius * 1.12;
+      extent.left = Math.min(extent.left, p.x - radius);
+      extent.right = Math.max(extent.right, p.x + radius);
+      extent.bottom = Math.min(extent.bottom, p.y - radius);
+      extent.top = Math.max(extent.top, p.y + radius);
+      extent.front = Math.max(extent.front, p.z + radius);
+    }
+    const tangent = Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2));
+    const distance = Math.max(
+      ((extent.right - extent.left) * this.width) /
+        (2 * Math.max(1, frame.right - frame.left) * tangent * this.camera.aspect),
+      ((extent.top - extent.bottom) * this.height) /
+        (2 * Math.max(1, frame.bottom - frame.top) * tangent),
+    ) * 1.13 + extent.front;
+    const halfHeight = distance * tangent;
+    const x = (extent.left + extent.right) / 2 -
+      ((frame.left + frame.right) / this.width - 1) * halfHeight * this.camera.aspect;
+    const y = (extent.top + extent.bottom) / 2 +
+      ((frame.top + frame.bottom) / this.height - 1) * halfHeight;
+    this.move({ x, y, z: distance, tx: x, ty: y, tz: 0 }, immediate);
   }
   framePlanet(planet, bounds, immediate = false) {
     const p = planet.group.position;

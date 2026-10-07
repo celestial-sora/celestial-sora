@@ -2316,3 +2316,94 @@ body {
     min-height: 57px;
   }
 }
+
+/* Keep the accessible fallback on the same near and far orbital arcs. */
+.galaxy-stage {
+  --orbit-center-x: 70%;
+  --orbit-center-y: 48%;
+  --orbit-width: 22%;
+  --orbit-height: 15%;
+  --orbit-skew-x: -3%;
+  --orbit-skew-y: 4%;
+}
+.fallback-worlds::before {
+  content: "";
+  position: absolute;
+  left: var(--orbit-center-x);
+  top: var(--orbit-center-y);
+  width: 44%;
+  height: 30%;
+  border: 1px solid #b49bc338;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotate(11deg);
+}
+.fallback-planet,
+body:not(.webgl-ready) .planet-label {
+  left: calc(var(--orbit-center-x) + var(--orbit-width) * var(--orbit-x) + var(--orbit-skew-x) * var(--orbit-y));
+  top: calc(var(--orbit-center-y) + var(--orbit-skew-y) * var(--orbit-x) + var(--orbit-height) * var(--orbit-y));
+}
+.fallback-planet {
+  transform: translate(-50%, -50%);
+}
+body:not(.webgl-ready) .planet-label {
+  --label-gap: 42px;
+  transform: translate(-50%, calc(-100% - var(--label-gap)));
+}
+body:not(.webgl-ready) .label-0 {
+  --label-gap: 105px;
+}
+@media (max-width: 700px) {
+  .galaxy-stage {
+    --orbit-center-x: 50%;
+    --orbit-center-y: 65%;
+    --orbit-width: 31%;
+    --orbit-height: 14%;
+    --orbit-skew-x: -1.5%;
+    --orbit-skew-y: 2%;
+  }
+  .fallback-worlds::before {
+    width: 62%;
+    height: 28%;
+    transform: translate(-50%, -50%) rotate(6deg);
+  }
+  .fallback-planet.p0 {
+    left: calc(var(--orbit-center-x) + var(--orbit-width) * var(--orbit-x) + var(--orbit-skew-x) * var(--orbit-y));
+    top: calc(var(--orbit-center-y) + var(--orbit-skew-y) * var(--orbit-x) + var(--orbit-height) * var(--orbit-y));
+  }
+  body:not(.webgl-ready) .planet-label {
+    --label-gap: 26px;
+    max-width: calc(100vw - 16px);
+  }
+  body:not(.webgl-ready) .label-0 {
+    --label-gap: 75px;
+  }
+}
+
+body:not(.webgl-ready) .label-0,
+body:not(.webgl-ready) .label-3 {
+  transform: translate(-50%, var(--label-gap));
+}
+body:not(.webgl-ready) .label-3 {
+  --label-gap: 50px;
+}
+@media (max-width: 700px) {
+  body:not(.webgl-ready) .label-3 {
+    --label-gap: 40px;
+  }
+}
+
+@media (max-width: 700px) {
+  body:not(.webgl-ready) .fallback-worlds,
+  body:not(.webgl-ready) .planet-labels {
+    top: var(--fallback-top, 40%);
+    bottom: 156px;
+  }
+  .galaxy-stage {
+    --orbit-center-y: 40%;
+    --orbit-height: 20%;
+    --orbit-skew-y: 4%;
+  }
+  .fallback-worlds::before {
+    height: 40%;
+  }
+}
