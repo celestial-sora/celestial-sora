@@ -9,7 +9,7 @@ The owner replaced the Galaxy homepage with the Kage-derived Sora landing page. 
 - Use Sora’s profile, the supplied Vivian banner (`public/sora-art/vivian.jpg`), the supplied Sekaira image (`public/sora-art/sekaira.png`) and `public/sora-art/larp-llm.png` in place of the original temple stills. Keep the moon and its light pastel pink.
 - Remove the decorative HTML foreground overlays (branches, leaves, lanterns, walls and grass) from all chapters; keep the live Three.js scene visible without these cut-outs.
 - Asset URLs at `/` resolve under `/sora-preview/sora-world-assets/`. The original preview URL remains available.
-- The floating Alya hero preview and caption are removed. Keep the footer avatar uncropped.
+- The floating Alya hero preview and caption are removed. Use the supplied Celestial-Sora logo (`public/sora-art/celestial-sora-logo.png`) in the footer, uncropped.
 - Use the local Sweetbliss font for the Sora name in the project information grid.
 - Preserve the vertical Japanese Sora inscription `空の道` beside the hero; do not replace it with English branding.
 - Do not restore the Galaxy homepage unless the owner explicitly requests it.
