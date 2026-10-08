@@ -13,6 +13,7 @@ The owner replaced the Galaxy homepage with the Kage-derived Sora landing page. 
 - Use the supplied moon S emblem for the favicon, header icon and loader. Include opaque Apple touch PNGs (120, 152, 167, 180px), favicon ICO/PNGs and 192/512px manifest icons. Keep the separate footer logo.
 - Use the local Sweetbliss font for the Sora name in the project information grid.
 - Preserve the vertical Japanese Sora inscription `空の道` beside the hero; do not replace it with English branding.
+- On `celestial-sora.vercel.app` only, actual render FPS below 13 continuously for more than 6 foreground seconds starts a visible 5-second countdown to `https://celestial-sora.github.io`. FPS >= 13 cancels and resets both phases. Hidden tabs pause both phases and resume with a fresh frame timestamp; never count hidden time or loading time.
 - Do not restore the Galaxy homepage unless the owner explicitly requests it.
 - Validate the production build, asset loading, chapter navigation and desktop/mobile overflow before pushing `main` once.
 

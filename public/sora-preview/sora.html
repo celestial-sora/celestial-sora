@@ -127,6 +127,14 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
   font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted); }
 .pre-meta b{ font-weight:500; color:var(--bone-dim); font-variant-numeric:tabular-nums; }
 
+#performance-notice{
+  position:fixed; left:50%; bottom:24px; transform:translateX(-50%); z-index:90;
+  width:max-content; max-width:calc(100% - 32px); padding:14px 20px;
+  border:1px solid var(--line-soft); border-radius:12px;
+  background:rgba(5,7,10,.92); color:var(--bone); font-size:13px; text-align:center;
+}
+#performance-notice[hidden]{ display:none; }
+
 /* ============================================================= nav */
 .nav{
   /* Width comes from --vw, not from right:0. A fixed element resolves its
@@ -791,6 +799,8 @@ body[data-layout-gallery="b"] .card:nth-child(3) .card-fr{aspect-ratio:1586 / 99
     </div>
   </div>
 </div>
+
+<div id="performance-notice" role="status" aria-live="polite" hidden></div>
 
 <!-- ============================================================ nav -->
 <header class="nav" id="nav">
@@ -4192,6 +4202,40 @@ function renderCards(rt) {
 /* ==================================================== 13 · the machine */
 let running = false, tPrev = 0, clock = 0, fadeIn = 0;
 const INTRO = { t0: 0 };
+const PERFORMANCE_FALLBACK = {
+  enabled: location.hostname === 'celestial-sora.vercel.app',
+  lowSeconds: 0, countdownSeconds: null, displayedSeconds: null
+};
+const performanceNotice = $('#performance-notice');
+
+function checkPerformance(raw) {
+  if (!PERFORMANCE_FALLBACK.enabled || document.hidden || raw <= 0) return;
+  const state = PERFORMANCE_FALLBACK;
+  if (1 / raw >= 13) {
+    state.lowSeconds = 0;
+    state.countdownSeconds = null;
+    state.displayedSeconds = null;
+    performanceNotice.hidden = true;
+    return;
+  }
+  if (state.countdownSeconds === null) {
+    state.lowSeconds += raw;
+    if (state.lowSeconds <= 6) return;
+    state.countdownSeconds = 5;
+  } else {
+    state.countdownSeconds = Math.max(0, state.countdownSeconds - raw);
+  }
+  const seconds = Math.ceil(state.countdownSeconds);
+  if (seconds !== state.displayedSeconds) {
+    state.displayedSeconds = seconds;
+    performanceNotice.textContent = 'Opening the lightweight portfolio in ' + seconds + ' seconds…';
+    performanceNotice.hidden = false;
+  }
+  if (state.countdownSeconds === 0) {
+    state.enabled = false;
+    location.assign('https://celestial-sora.github.io');
+  }
+}
 
 function resize() {
   const w = vpW(), h = vpH();
@@ -4293,8 +4337,9 @@ function render() {
 }
 
 function frame(now) {
-  if (!running) return;
-  const raw = (now - tPrev) / 1000 || 0;
+  if (!running || document.hidden) return;
+  const raw = tPrev ? (now - tPrev) / 1000 : 0;
+  checkPerformance(raw);
   const dt = Math.min(raw, .05);              /* animation never jumps … */
   tPrev = now; clock += dt;
   fadeIn = INTRO.t0 ? sat((now - INTRO.t0) / 700) : 1;
@@ -4323,7 +4368,8 @@ function frame(now) {
   queue();
 }
 const TIMER = qs('driver', 'raf') === 'timer';
-function queue() { TIMER ? setTimeout(() => frame(performance.now()), 16) : requestAnimationFrame(frame); }
+let frameHandle = 0;
+function queue() { frameHandle = TIMER ? setTimeout(() => frame(performance.now()), 16) : requestAnimationFrame(frame); }
 
 /* ======================================================== 14 · booting */
 const JOBS = [
@@ -4411,8 +4457,10 @@ function start() {
   addEventListener('resize', () => { resize(); }, { passive: true });
   addEventListener('orientationchange', () => setTimeout(resize, 250));
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) { running = false; }
-    else if (!running) { running = true; tPrev = performance.now(); queue(); }
+    if (document.hidden) {
+      running = false; tPrev = 0;
+      TIMER ? clearTimeout(frameHandle) : cancelAnimationFrame(frameHandle);
+    } else if (!running) { running = true; tPrev = 0; queue(); }
   });
   resize();
 
@@ -4433,7 +4481,7 @@ function start() {
         setTimeout(() => e.classList.add('rv-in'), REDUCE ? 0 : 120 + i * 95));
     }, REDUCE ? 0 : 340);
   }
-  running = true; tPrev = performance.now();
+  running = !document.hidden; tPrev = 0;
   INTRO.t0 = shot !== null ? 0 : (REDUCE ? performance.now() - 4000 : performance.now());
   queue();
   window.__sora = window.__secret = { RIG: RIG, WORLD: WORLD, WORD: WORD, CAM: CAM, POST: POST, renderer: renderer, scene: scene, camera: camera, anchors: () => anchors };
