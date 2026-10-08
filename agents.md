@@ -10,6 +10,7 @@ The owner replaced the Galaxy homepage with the Kage-derived Sora landing page. 
 - Remove the decorative HTML foreground overlays (branches, leaves, lanterns, walls and grass) from all chapters; keep the live Three.js scene visible without these cut-outs.
 - Asset URLs at `/` resolve under `/sora-preview/sora-world-assets/`. The original preview URL remains available.
 - The floating Alya hero preview and caption are removed. Use the supplied Celestial-Sora logo (`public/sora-art/celestial-sora-logo.png`) in the footer, uncropped.
+- Use the supplied moon S emblem for the favicon, header icon and loader. Include opaque Apple touch PNGs (120, 152, 167, 180px), favicon ICO/PNGs and 192/512px manifest icons. Keep the separate footer logo.
 - Use the local Sweetbliss font for the Sora name in the project information grid.
 - Preserve the vertical Japanese Sora inscription `空の道` beside the hero; do not replace it with English branding.
 - Do not restore the Galaxy homepage unless the owner explicitly requests it.

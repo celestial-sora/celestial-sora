@@ -5,7 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sora Astral — AI, code & stories</title>
 <meta name="description" content="Hi, I’m Sora. I make AI companions, little story worlds, and cozy places on the internet. Explore Vivian, Oonchai and my open language models.">
-<link rel="icon" href="/favicon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+<link rel="apple-touch-icon" sizes="167x167" href="/apple-touch-icon-167x167.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Sora">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#11121c">
 <link rel="stylesheet" href="sora-world-assets/fonts.css">
 <style>
 /* ============================================================= tokens */
@@ -107,7 +119,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 #pre.done{ opacity:0; visibility:hidden; pointer-events:none; }
 .pre-in{ width:min(420px,74vw); text-align:center; }
 .pre-mark{ margin:0 auto 26px; width:44px; height:44px; opacity:.9; }
-.pre-mark svg{ width:100%; height:100%; display:block; }
+.pre-mark svg,.pre-mark img{ width:100%; height:100%; display:block; }
 .pre-jp{ font-size:12px; letter-spacing:.5em; color:var(--bone-dim); margin-bottom:20px; }
 .pre-bar{ position:relative; height:1px; background:rgba(223,231,224,.14); overflow:hidden; }
 .pre-bar i{ position:absolute; inset:0 100% 0 0; background:var(--bone); transition:right .35s linear; }
@@ -145,7 +157,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .nav.stuck::after{ opacity:1; }
 .nav.hide{ transform:translate3d(0,-101%,0); }
 .brand{ display:flex; align-items:center; gap:11px; flex:0 0 auto; }
-.brand svg{ width:34px; height:34px; display:block; }
+.brand svg,.brand-icon{ width:34px; height:34px; display:block; }
 .brand-tx{ display:flex; flex-direction:column; line-height:1; gap:3px; }
 .brand-tx b{ font-size:12px; font-weight:500; letter-spacing:.26em; }
 .brand-tx i{ font-style:normal; font-size:8px; letter-spacing:.34em; color:var(--muted); }
@@ -770,7 +782,7 @@ body[data-layout-gallery="b"] .card:nth-child(3) .card-fr{aspect-ratio:1586 / 99
 <!-- ============================================================ preloader -->
 <div id="pre">
   <div class="pre-in">
-    <div class="pre-mark"><svg viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M22 3 27 17 41 22 27 27 22 41 17 27 3 22 17 17Z" fill="#f4b8d0"/><circle cx="22" cy="22" r="15" stroke="#dfe7e0" stroke-width="1" opacity=".5"/></svg>
+    <div class="pre-mark"><img src="/favicon.png" width="44" height="44" alt="">
     </div>
     <div class="pre-jp">SORA</div>
     <div class="pre-bar"><i id="pre-fill"></i></div>
@@ -782,7 +794,7 @@ body[data-layout-gallery="b"] .card:nth-child(3) .card-fr{aspect-ratio:1586 / 99
 
 <!-- ============================================================ nav -->
 <header class="nav" id="nav">
-  <a class="brand" href="#top" data-cursor><svg viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M22 3 27 17 41 22 27 27 22 41 17 27 3 22 17 17Z" fill="#f4b8d0"/><circle cx="22" cy="22" r="15" stroke="#dfe7e0" stroke-width="1" opacity=".5"/></svg>
+  <a class="brand" href="#top" data-cursor><img class="brand-icon" src="/favicon.png" width="34" height="34" alt="">
     <span class="brand-tx"><b>SORA</b><i>A PERSONAL UNIVERSE</i></span>
   </a>
   <nav class="nav-links" id="navlinks">
