@@ -1279,16 +1279,6 @@ dialog::backdrop {
     font-size: 6px;
   }
 }
-/* Keep the canvas boundary quiet, like a single continuous field of space. */
-.galaxy-stage {
-  mask-image: linear-gradient(
-    to bottom,
-    transparent,
-    black 9%,
-    black 90%,
-    transparent
-  );
-}
 @media (max-width: 700px) {
   .explore-hint {
     font-size: 5px;
@@ -1425,9 +1415,6 @@ body {
   height: 100svh;
   min-height: 0;
   max-height: none;
-}
-.galaxy-stage {
-  mask-image: none;
 }
 .hero-copy {
   top: auto;
@@ -2224,15 +2211,6 @@ body {
   font-family: var(--sora);
   font-weight: 400;
   letter-spacing: normal;
-}
-/* Keep the Signal invitation readable over the moving planets. */
-.signal-world .hero-copy::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -24px -7%;
-  pointer-events: none;
-  background: radial-gradient(ellipse, #000e 25%, #000b 62%, transparent 82%);
 }
 .signal-world.journey-copy .hero-copy h1 {
   font-size: clamp(68px, 7vw, 105px);
