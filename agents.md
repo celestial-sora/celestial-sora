@@ -1,3 +1,15 @@
+# Active homepage — updated 2026-10-08
+
+The owner replaced the Galaxy homepage with the Kage-derived Sora landing page. This direction supersedes the galaxy homepage instructions below, which are retained as historical reference.
+
+- `/` renders `public/sora-preview/sora.html` through `src/pages/index.astro`.
+- Preserve the existing Sora branding, Kage temple scene, chapter layout and bundled Three.js runtime.
+- Asset URLs at `/` resolve under `/sora-preview/sora-world-assets/`. The original preview URL remains available.
+- Do not restore the Galaxy homepage unless the owner explicitly requests it.
+- Validate the production build, asset loading, chapter navigation and desktop/mobile overflow before pushing `main` once.
+
+---
+
 # Active Three.js portfolio
 
 The active homepage is Sora Astral's miniature universe, built with Astro, Three.js and GSAP. Read `Handoff.md` and `DEVELOPMENT.md` before editing. The legacy hero/banner sections below describe retained older components, not the current homepage; do not apply their file explorer/device mockup layout to this universe.
