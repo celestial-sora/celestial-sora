@@ -3,7 +3,9 @@
 The owner replaced the Galaxy homepage with the Kage-derived Sora landing page. This direction supersedes the galaxy homepage instructions below, which are retained as historical reference.
 
 - `/` renders `public/sora-preview/sora.html` through `src/pages/index.astro`.
-- Preserve the existing Sora branding, Kage temple scene, chapter layout and bundled Three.js runtime.
+- Preserve Sora’s adapted portfolio content, Kage-derived scene, chapter layout and bundled Three.js runtime.
+- Content comes from the archived Galaxy metadata: Sora’s introduction, Vivian, Oonchai, Larp LLM, Vivian Qwen3 8B v0.4 and eight public social accounts. Vivian links only to its public GitHub repository.
+- Use Sora’s profile, Vivian character, Oonchai banner and `public/sora-art/qwen-conversations.svg` in place of the original temple stills. Keep the moon and its light pastel pink.
 - Remove the decorative HTML foreground overlays (branches, leaves, lanterns, walls and grass) from all chapters; keep the live Three.js scene visible without these cut-outs.
 - Asset URLs at `/` resolve under `/sora-preview/sora-world-assets/`. The original preview URL remains available.
 - Do not restore the Galaxy homepage unless the owner explicitly requests it.

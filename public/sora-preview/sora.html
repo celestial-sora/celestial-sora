@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Sora — A little universe</title>
-<meta name="description" content="A small universe of companions, stories, and digital experiments by Sora, rendered as an immersive Three.js world.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2305070a'/%3E%3Ccircle cx='16' cy='17' r='8' fill='%23e0231c'/%3E%3Crect x='4' y='8' width='24' height='2.6' fill='%23dfe7e0'/%3E%3Crect x='7' y='13' width='18' height='2' fill='%23dfe7e0'/%3E%3C/svg%3E">
+<title>Sora Astral — AI, code & stories</title>
+<meta name="description" content="Hi, I’m Sora. I make AI companions, little story worlds, and cozy places on the internet. Explore Vivian, Oonchai and my open language models.">
+<link rel="icon" href="/favicon.png">
 <link rel="stylesheet" href="sora-world-assets/fonts.css">
 <style>
 /* ============================================================= tokens */
@@ -17,7 +17,7 @@
   --muted:#78837c;
   --line:rgba(223,231,224,.13);
   --line-soft:rgba(223,231,224,.07);
-  --vermilion:#e0231c;
+  --vermilion:#f4b8d0;
   --ember:#ff5a3c;
   --gold:#c9a24a;
   --pad:clamp(20px, 3.4vw, 56px);
@@ -200,7 +200,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .chip:hover p{ color:var(--bone-dim); }
 .chip.on .num{ color:var(--ember); }
 .chip.on b{ color:var(--bone); }
-/* the floating window: a generated Sanmon still carried over the hero */
+/* Sora’s profile preview beside the introduction. */
 .peek{
   position:absolute; z-index:2; right:clamp(78px,11vw,190px); top:clamp(132px,25vh,238px);
   width:clamp(150px,16vw,262px); display:block;
@@ -208,7 +208,7 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 }
 .peek-fr{ display:block; aspect-ratio:16/10;
   background:linear-gradient(180deg, rgba(3,6,9,.04) 24%, rgba(3,6,9,.48) 100%),
-    url('sora-world-assets/generated/sora-sanmon-preview.webp') center / cover no-repeat;
+    linear-gradient(135deg,#21182c,#101522);
   outline:1px solid rgba(223,231,224,.16); outline-offset:-1px;
   box-shadow:0 34px 70px -30px rgba(0,0,0,.9); transition:outline-color .5s; }
 .peek:hover{ transform:translate3d(0,-5px,0); }
@@ -290,18 +290,15 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .card:hover .card-fr{ outline-color:rgba(223,231,224,.30); }
 .card:nth-child(1) .card-fr{
   background:
-    linear-gradient(180deg,rgba(3,6,9,.04) 36%,rgba(3,6,9,.72) 100%),
-    url('sora-world-assets/generated/sora-approach.webp') center / cover no-repeat;
+    linear-gradient(180deg,rgba(3,6,9,.04) 36%,rgba(3,6,9,.72) 100%);
 }
 .card:nth-child(2) .card-fr{
   background:
-    linear-gradient(180deg,rgba(3,6,9,.06) 36%,rgba(3,6,9,.74) 100%),
-    url('sora-world-assets/generated/sora-lantern-court.webp') center / cover no-repeat;
+    linear-gradient(180deg,rgba(3,6,9,.06) 36%,rgba(3,6,9,.74) 100%);
 }
 .card:nth-child(3) .card-fr{
   background:
-    linear-gradient(180deg,rgba(3,6,9,.05) 36%,rgba(3,6,9,.74) 100%),
-    url('sora-world-assets/generated/sora-moonwater.webp') center / cover no-repeat;
+    linear-gradient(180deg,rgba(3,6,9,.05) 36%,rgba(3,6,9,.74) 100%);
 }
 .card-fr::after{ content:''; position:absolute; inset:0;
   background:linear-gradient(transparent 46%, rgba(4,6,9,.80)); pointer-events:none; }
@@ -720,6 +717,28 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   [data-rv]{ opacity:1 !important; transform:none !important; }
   .mask-line > span,.word{ opacity:1 !important; transform:none !important; }
 }
+
+/* Sora’s own portraits, projects, and public destinations. */
+@font-face{font-family:Permanent Marker;src:url('/fonts/permanent-marker-regular.ttf') format('truetype');font-display:swap;}
+.meme-title{font-family:Permanent Marker,cursive;text-transform:uppercase;}
+.project-card{display:block;color:inherit;text-decoration:none;}
+.project-art{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.art-vivian{object-fit:contain;object-position:center 15%;background:radial-gradient(ellipse at 50% 28%,#69445d,#1f1a2e 75%);padding:12px 14px 60px;}
+.art-oonchai{object-fit:contain;background:linear-gradient(150deg,#13342b,#203b3a);padding:20px;}
+.card-lab span{font-family:inherit;font-size:10px;letter-spacing:.08em;}
+.profile-preview{width:100%;height:100%;object-fit:cover;}
+.profile-avatar{border-radius:50%;object-fit:cover;}
+.les{cursor:default;min-width:0;}
+.les h3 em{font-family:inherit;font-size:11px;letter-spacing:.05em;line-height:1.6;}
+.les p{max-width:none;line-height:1.75;}
+.project-destination{display:block;margin-top:18px;color:#f4c9de;font-size:12px;line-height:1.6;text-decoration:none;}
+.project-destination:hover{text-decoration:underline;}
+.project-destination.secondary{margin-top:8px;color:var(--muted);}
+.social-links a{display:flex;align-items:center;gap:10px;}
+.social-links img{opacity:.8;}
+a:focus-visible{outline:2px solid #f4b8d0;outline-offset:6px;}
+@media(max-width:560px){.gate-stats{flex-wrap:wrap;gap:20px 30px;}.gate-stats>div{flex:1 0 35%;}.les .t{position:static;display:block;margin-top:18px;}.hero-side{display:none;}}
+
 </style>
 </head>
 <body data-layout-hero="b" data-layout-story="b" data-layout-gallery="b"
@@ -733,13 +752,9 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 <!-- ============================================================ preloader -->
 <div id="pre">
   <div class="pre-in">
-    <div class="pre-mark">
-      <svg viewBox="0 0 44 44" fill="none" aria-hidden="true">
-        <circle cx="22" cy="24" r="9.5" stroke="#e0231c" stroke-width="1.2"/>
-        <path d="M6 12h32M9.5 17h25M22 8v28" stroke="#dfe7e0" stroke-width="1.2"/>
-      </svg>
+    <div class="pre-mark"><svg viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M22 3 27 17 41 22 27 27 22 41 17 27 3 22 17 17Z" fill="#f4b8d0"/><circle cx="22" cy="22" r="15" stroke="#dfe7e0" stroke-width="1" opacity=".5"/></svg>
     </div>
-    <div class="pre-jp jp">空の道</div>
+    <div class="pre-jp">SORA</div>
     <div class="pre-bar"><i id="pre-fill"></i></div>
     <div class="pre-meta">
       <span>Opening the Sora universe</span><b><span id="pre-pct">0</span>%</b>
@@ -749,19 +764,14 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 
 <!-- ============================================================ nav -->
 <header class="nav" id="nav">
-  <a class="brand" href="#top" data-cursor>
-    <svg viewBox="0 0 44 44" fill="none" aria-hidden="true">
-      <circle cx="22" cy="25" r="8.6" fill="#e0231c" fill-opacity=".9"/>
-      <path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/>
-      <path d="M14 35.5h16" stroke="#dfe7e0" stroke-width="1.2" stroke-opacity=".6"/>
-    </svg>
+  <a class="brand" href="#top" data-cursor><svg viewBox="0 0 44 44" fill="none" aria-hidden="true"><path d="M22 3 27 17 41 22 27 27 22 41 17 27 3 22 17 17Z" fill="#f4b8d0"/><circle cx="22" cy="22" r="15" stroke="#dfe7e0" stroke-width="1" opacity=".5"/></svg>
     <span class="brand-tx"><b>SORA</b><i>A PERSONAL UNIVERSE</i></span>
   </a>
   <nav class="nav-links" id="navlinks">
-    <a class="nav-link" href="#gate" data-cursor><span>Temples</span><span class="alt">伽藍</span></a>
-    <a class="nav-link" href="#pathways" data-cursor><span>Gardens</span><span class="alt">庭園</span></a>
-    <a class="nav-link" href="#lessons" data-cursor><span>Rituals</span><span class="alt">神事</span></a>
-    <a class="nav-link" href="#eternity" data-cursor><span>Afterlight</span><span class="alt">残光</span></a>
+    <a class="nav-link" href="#gate" data-cursor><span>About me</span><span class="alt">Sora</span></a>
+    <a class="nav-link" href="#pathways" data-cursor><span>Selected work</span><span class="alt">Projects</span></a>
+    <a class="nav-link" href="#lessons" data-cursor><span>What I make</span><span class="alt">Explore</span></a>
+    <a class="nav-link" href="#eternity" data-cursor><span>Say hello</span><span class="alt">Connect</span></a>
   </nav>
   <button class="nav-burger" aria-label="Menu" data-cursor><i></i><i></i></button>
 </header>
@@ -771,14 +781,13 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 <!-- ============================================================ hero -->
 <section class="hero" id="hero" data-cam="0">
   <div class="hero-top">
-    <div class="eyebrow" data-rv="fade"><span class="dot"></span> Chapter 00 — The Hidden Gate</div>
+    <div class="eyebrow" data-rv="fade"><span class="dot"></span> A LITTLE CORNER OF SORA</div>
     <h1 class="display h-hero">
-      <span class="mask-line"><span>Where stillness</span></span>
-      <span class="mask-line"><span>reveals the</span></span>
-      <span class="mask-line"><span>unseen.</span></span>
+      <span class="mask-line"><span>A soft heart.</span></span>
+      <span class="mask-line"><span>A head full of</span></span>
+      <span class="mask-line"><span>daydreams.</span></span>
     </h1>
-    <p class="hero-sub body" data-rv="up">Enter Kyoto through its quiet thresholds, where ritual,
-      craft, and memory shape the path.</p>
+    <p class="hero-sub body" data-rv="up">hiii, i’m sora. i make AI companions, little story worlds, and cozy places on the internet. make yourself comfy — i’m happy you found your way here.</p>
   </div>
 
   <div class="hero-spacer"></div>
@@ -787,184 +796,75 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <div class="hero-cue" data-rv="fade"><span>Scroll to enter</span><span class="track"><i></i></span></div>
     <div class="chapters" id="chips">
       <div class="chip" data-chip="0" data-rv="up" data-cursor><span class="num">01</span>
-        <span class="tx"><b>Thresholds</b><p>Discover the hidden gates that open on to deeper paths.</p></span></div>
+        <span class="tx"><b>A little hello</b><p>The person behind this little corner.</p></span></div>
       <div class="chip" data-chip="1" data-rv="up" data-cursor><span class="num">02</span>
-        <span class="tx"><b>Still Gardens</b><p>Witness the courts where silence gently unfolds.</p></span></div>
+        <span class="tx"><b>Selected work</b><p>Companions and story worlds I’m bringing to life.</p></span></div>
       <div class="chip" data-chip="2" data-rv="up" data-cursor><span class="num">03</span>
-        <span class="tx"><b>Sacred Craft</b><p>Embrace the hands and heritage that shape devotion.</p></span></div>
+        <span class="tx"><b>Open experiments</b><p>Language models, code, and curious ideas.</p></span></div>
       <div class="chip" data-chip="3" data-rv="up" data-cursor><span class="num">04</span>
-        <span class="tx"><b>Night Rituals</b><p>Explore the rites that awaken when the day is done.</p></span></div>
+        <span class="tx"><b>Say hello</b><p>Find me around the internet.</p></span></div>
     </div>
   </div>
 
-  <a class="peek" href="#pathways" data-view="3" data-rv="fade" data-cursor aria-label="Preview: Sanmon, before the bell">
-    <!-- data-frame, or the live view is blitted over the whole anchor and
-         runs on down behind the caption instead of stopping at the frame -->
-    <span class="peek-fr" data-frame></span>
-    <span class="peek-play"><svg viewBox="0 0 22 22" fill="none"><path d="M8 5.6 16.4 11 8 16.4z" fill="#dfe7e0"/></svg></span>
-    <span class="peek-cap"><b class="jp">山門</b><i>Sanmon — before the bell</i></span>
+  <a class="peek" href="#gate" data-rv="fade" data-cursor aria-label="Meet Sora">
+    <span class="peek-fr"><img class="profile-preview" src="/sora-profile.jpg" alt="Sora’s profile portrait" width="600" height="600"></span>
+    <span class="peek-cap"><b>SORA</b><i>A little hello from me</i></span>
   </a>
 
   <div class="word-fb" aria-hidden="true">SORA</div>
 
   <div class="hero-side" data-rv="up">
-    <span class="v jp">空の道</span>
+    <span class="v">SORA ASTRAL</span>
   </div>
 </section>
 
 <!-- ============================================================ chapter I -->
 <section class="sec" id="gate" data-cam="1">
-  <div class="sec-head" data-rv="fade">
-    <span class="k"><b>01</b> — The Sanmon</span><span class="rule"></span><span class="k jp">山門</span>
-  </div>
+  <div class="sec-head" data-rv="fade"><span class="k"><b>01</b> — A little hello</span><span class="rule"></span><span class="k">Sora Astral</span></div>
   <div class="gate-grid">
-    <h2 class="display h-sec" data-rv="up">Charred cypress, worn stone, one gate left open.</h2>
+    <h2 class="display h-sec" data-rv="up">A soft heart, and a tiny universe to call home.</h2>
     <div class="gate-copy">
-      <p class="lead" data-rv="up">Sora begins where the city stops: a mountain gate of cedar burned black,
-        standing in its own weather. The soot is not decoration. It is how a board is taught to survive a
-        hundred rainy seasons, and the first thing this place asks you to understand.</p>
-      <p class="body" data-rv="up">Climb the worn steps and the worship hall lifts out of the mist, its paper
-        screens lit from inside like a lantern the size of a house. Above the eaves a vermilion moon holds
-        its place, patient, half hidden. Nothing here is in a hurry. Neither, for the next ninety minutes,
-        are you.</p>
-      <a class="arrowlink" href="#pathways" data-rv="fade" data-cursor>
-        <span>Cross the threshold</span>
-        <span class="ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-      </a>
+      <p class="lead" data-rv="up">i’m sora, an independent creator with a head full of daydreams. i make AI companions, little story worlds, and cozy places on the internet.</p>
+      <p class="body" data-rv="up">this is my little corner for things i dream up and slowly bring to life — a bit of code, a little curiosity, and lots of love. have a little look around. i’m happy you’re here.</p>
+      <a class="arrowlink" href="https://github.com/celestial-sora" target="_blank" rel="noopener noreferrer" data-rv="fade" data-cursor><span>Come see what i’m making</span><span class="ar"><svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.3"/></svg></span></a>
     </div>
   </div>
-  <div class="gate-stats" data-rv="up">
-    <div><b>05</b><span>Chapters</span></div>
-    <div><b>92</b><span>Minutes</span></div>
-    <div><b>1611</b><span>Hall raised</span></div>
-    <div><b>∞</b><span>Stillness</span></div>
-  </div>
+  <div class="gate-stats" data-rv="up"><div><b>AI</b><span>Companions</span></div><div><b>Code</b><span>Open experiments</span></div><div><b>Stories</b><span>Little worlds</span></div><div><b>Sora</b><span>Always curious</span></div></div>
 </section>
 
 <!-- ============================================================ chapter II -->
 <section class="sec" id="pathways" data-cam="2">
   <div class="sec-head" data-rv="fade">
-    <span class="k"><b>02</b> — Still Gardens</span><span class="rule"></span><span class="k jp">庭園</span>
+    <span class="k"><b>02</b> — Selected work</span><span class="rule"></span><span class="k">In my little world</span>
   </div>
-  <div class="cards" id="cards">
-    <article class="card" data-rv="up" data-view="0" data-cursor>
-      <div class="card-fr" data-frame>
-                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow" style="--gx:80.2%; --gy:23.9%; --gr:22%; --gt:6.1s; --gt2:9.7s; --gc1:rgba(255,142,108,.50); --gc2:rgba(212,56,38,.24)"></i>
-        <div class="card-lab"><b>Approach</b><span class="jp">参道</span></div>
-      </div>
-      <div class="card-meta"><span>The long climb</span><span>01 / 03</span></div>
-    </article>
-    <article class="card" data-rv="up" data-view="1" data-cursor>
-      <div class="card-fr" data-frame>
-                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow glow--flame" style="--gx:70.5%; --gy:47.2%; --gr:14%; --gt:3.7s; --gt2:5.3s; --gc1:rgba(255,198,124,.62); --gc2:rgba(226,118,40,.30)"></i>
-        <div class="card-lab"><b>Lanterns</b><span class="jp">灯籠</span></div>
-      </div>
-      <div class="card-meta"><span>Lantern court</span><span>02 / 03</span></div>
-    </article>
-    <article class="card" data-rv="up" data-view="2" data-cursor>
-      <div class="card-fr" data-frame>
-                <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow" style="--gx:48.0%; --gy:16.8%; --gr:20%; --gt:7.3s; --gt2:11.2s; --gc1:rgba(255,138,104,.52); --gc2:rgba(208,54,36,.24)"></i>
-        <div class="card-lab"><b>Moonwater</b><span class="jp">月明かり</span></div>
-      </div>
-      <div class="card-meta"><span>The wet court</span><span>03 / 03</span></div>
-    </article>
-  </div>
+  <div class="cards" id="cards"><a class="card project-card" href="https://github.com/celestial-sora/ai-waifu" target="_blank" rel="noopener noreferrer" data-rv="up" data-cursor><div class="card-fr"><img class="project-art art-vivian" src="/vivian-character.webp" alt="Vivian, with pastel pink hair and a navy and white maid outfit" loading="lazy"><span class="card-ar" aria-hidden="true"><svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.3"/></svg></span><div class="card-lab"><b>Vivian</b><span>In development</span></div></div><div class="card-meta"><span>AI COMPANION</span><span>01 / 03</span></div></a><a class="card project-card" href="https://oonchai.vercel.app/" target="_blank" rel="noopener noreferrer" data-rv="up" data-cursor><div class="card-fr"><img class="project-art art-oonchai" src="/oonchai-banner.svg" alt="Oonchai story world artwork" loading="lazy"><span class="card-ar" aria-hidden="true"><svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.3"/></svg></span><div class="card-lab"><b>Oonchai</b><span>Live project</span></div></div><div class="card-meta"><span>AI &amp; STORYTELLING</span><span>02 / 03</span></div></a><a class="card project-card" href="https://huggingface.co/celestial-sora/Vivian-Qwen3-8B-v0.4" target="_blank" rel="noopener noreferrer" data-rv="up" data-cursor><div class="card-fr"><img class="project-art art-qwen" src="/sora-art/qwen-conversations.svg" alt="Pastel conversation orbits for Vivian Qwen3" loading="lazy"><span class="card-ar" aria-hidden="true"><svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.3"/></svg></span><div class="card-lab"><b>Vivian Qwen3 8B</b><span>Public · v0.4</span></div></div><div class="card-meta"><span>8B LANGUAGE MODEL · V0.4</span><span>03 / 03</span></div></a></div>
 </section>
 
 <!-- ============================================================ chapter III -->
 <section class="sec" id="lessons" data-cam="3">
   <div class="sec-head" data-rv="fade">
-    <span class="k"><b>03</b> — Sacred Craft</span><span class="rule"></span><span class="k jp">手業</span>
+    <span class="k"><b>03</b> — What I make</span><span class="rule"></span><span class="k">AI · code · stories</span>
   </div>
   <div class="cur-head">
-    <h2 class="display h-sec" data-rv="up">Five chapters. Ninety minutes. One quiet mind.</h2>
-    <p class="body-lg" data-rv="up">Each chapter is a walk, not a lecture. You arrive at the gate, climb the
-      steps, sit with the lantern, and leave with one thing worth keeping.</p>
+    <h2 class="display h-sec" data-rv="up">Little ideas, slowly brought to life.</h2>
+    <p class="body-lg" data-rv="up">Companions, characters, and open experiments. Here’s what I’m making, what’s already out in the world, and where you can explore it.</p>
   </div>
-  <div class="cur" id="cur">
-    <div class="les" data-les="0" data-cursor>
-      <span class="k">01</span>
-      <h3>The Hidden Gate<em class="jp">山門</em></h3>
-      <p>Why a gate is a sentence, and what you agree to when you walk under one.</p>
-      <span class="t">14 min</span><i class="bar"></i>
-    </div>
-    <div class="les" data-les="1" data-cursor>
-      <span class="k">02</span>
-      <h3>Borrowed Scenery<em class="jp">借景</em></h3>
-      <p>Shakkei: composing with a mountain you will never own.</p>
-      <span class="t">18 min</span><i class="bar"></i>
-    </div>
-    <div class="les" data-les="2" data-cursor>
-      <span class="k">03</span>
-      <h3>Charred Cypress<em class="jp">焼杉</em></h3>
-      <p>Yakisugi: burning a board black so the weather will let it live.</p>
-      <span class="t">21 min</span><i class="bar"></i>
-    </div>
-    <div class="les" data-les="3" data-cursor>
-      <span class="k">04</span>
-      <h3>Lantern Light<em class="jp">灯籠</em></h3>
-      <p>How a single ember decides the scale of everything around it.</p>
-      <span class="t">17 min</span><i class="bar"></i>
-    </div>
-    <div class="les" data-les="4" data-cursor>
-      <span class="k">05</span>
-      <h3>The Vermilion Moon<em class="jp">朱月</em></h3>
-      <p>Why the moon burns red over the valley, and what the garden does with it.</p>
-      <span class="t">22 min</span><i class="bar"></i>
-    </div>
-  </div>
+  <div class="cur" id="cur"><article class="les" data-les="0"><span class="k">01</span><h3 class="">Sora<em>AI · code · stories</em></h3><p>An independent creator making AI companions, little story worlds, and cozy places on the internet.</p><a class="project-destination" href="https://github.com/celestial-sora" target="_blank" rel="noopener noreferrer" data-cursor>come see what i’m making <span aria-hidden="true"><svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.3"/></svg></span></a><a class="project-destination secondary" href="https://huggingface.co/celestial-sora" target="_blank" rel="noopener noreferrer">say hi to my AI creations <span aria-hidden="true"><svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.3"/></svg></span></a><span class="t">Always curious</span><i class="bar"></i></article><article class="les" data-les="1"><span class="k">02</span><h3 class="">Vivian<em>Companion experience</em></h3><p>A cozy AI companion with Live2D, memory, voice, and vision. Vivian is my exploration of how technology can feel more personal, more present, and a little more human.</p><a class="project-destination" href="https://github.com/celestial-sora/ai-waifu" target="_blank" rel="noopener noreferrer" data-cursor>Explore Vivian on GitHub <span aria-hidden="true"><svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.3"/></svg></span></a><span class="t">In development</span><i class="bar"></i></article><article class="les" data-les="2"><span class="k">03</span><h3 class="">Oonchai<em>AI roleplay platform</em></h3><p>An AI roleplay platform for creating characters, exploring stories, and building conversations that remember you. Developed under the codename Sekaira, Oonchai gives imagination a place to stay.</p><a class="project-destination" href="https://oonchai.vercel.app/" target="_blank" rel="noopener noreferrer" data-cursor>Enter Oonchai <span aria-hidden="true"><svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.3"/></svg></span></a><span class="t">Live project</span><i class="bar"></i></article><article class="les" data-les="3"><span class="k">04</span><h3 class="meme-title">Larp LLM<em>Gemma 3 12B · LoRA</em></h3><p>A Google Colab playground for my Larp LLM LoRA adapter, based on Gemma 3 12B. The notebook brings together Unsloth and Gradio to load the model and launch a temporary chat interface in a GPU runtime.</p><a class="project-destination" href="https://github.com/celestial-sora/Larp-LLM" target="_blank" rel="noopener noreferrer" data-cursor>Explore Larp LLM on GitHub <span aria-hidden="true"><svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.3"/></svg></span></a><a class="project-destination secondary" href="https://colab.research.google.com/github/celestial-sora/Larp-LLM/blob/main/Larp_LLM_Colab_Playground.ipynb" target="_blank" rel="noopener noreferrer">Open the Colab playground <span aria-hidden="true"><svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.3"/></svg></span></a><span class="t">Public repository</span><i class="bar"></i></article><article class="les" data-les="4"><span class="k">05</span><h3 class="">Vivian Qwen3 8B<em>Qwen3 fine-tune</em></h3><p>My fine-tuned Qwen3 8B language model, shared openly on Hugging Face. Version 0.4 includes the BF16 model weights, tokenizer, and chat template — ready to explore with Transformers.</p><a class="project-destination" href="https://huggingface.co/celestial-sora/Vivian-Qwen3-8B-v0.4" target="_blank" rel="noopener noreferrer" data-cursor>View model on Hugging Face <span aria-hidden="true"><svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M3 11 11 3M5 3h6v6" stroke="currentColor" stroke-width="1.3"/></svg></span></a><span class="t">Public · v0.4</span><i class="bar"></i></article></div>
 </section>
 
 <!-- ============================================================ chapter IV -->
 <section class="sec fin" id="eternity" data-cam="4">
-  <div class="eyebrow" data-rv="fade">Chapter 04 — Afterlight</div>
-  <h2 class="display" data-rv="up">Afterlight</h2>
-  <p class="body-lg" data-rv="up">The gate does not close behind you. Take the walk whenever the noise
-    gets loud — it is always the same path, and never the same light.</p>
-  <a class="cta" href="#top" data-rv="fade" data-cursor>
-    <i></i><span>Begin the walk</span>
+  <div class="eyebrow" data-rv="fade">A LITTLE HELLO GOES A LONG WAY</div>
+  <h2 class="display" data-rv="up">Let’s connect.</h2>
+  <p class="body-lg" data-rv="up">a place for little conversations, shared ideas, and whatever we dream up next. come find me around the internet.</p>
+  <a class="cta" href="https://huggingface.co/celestial-sora" target="_blank" rel="noopener noreferrer" data-rv="fade" data-cursor>
+    <i></i><span>Meet my AI creations</span>
     <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg>
   </a>
 </section>
 
 <!-- ============================================================ footer -->
-<footer class="foot" data-cam="5">
-  <div class="foot-grid">
-    <div class="foot-brand">
-      <svg viewBox="0 0 44 44" fill="none" width="34" height="34" aria-hidden="true">
-        <circle cx="22" cy="25" r="8.6" fill="#e0231c" fill-opacity=".9"/>
-        <path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/>
-      </svg>
-      <p>A five-chapter night walk through a Kyoto mountain temple. Three illustrated garden field notes
-        sit inside a live Three.js sanctuary.</p>
-    </div>
-    <div><h4>Chapters</h4><ul>
-      <li><a href="#gate" data-cursor>The Sanmon</a></li>
-      <li><a href="#pathways" data-cursor>Still Gardens</a></li>
-      <li><a href="#lessons" data-cursor>Sacred Craft</a></li>
-      <li><a href="#eternity" data-cursor>Afterlight</a></li>
-    </ul></div>
-    <div><h4>Practice</h4><ul>
-      <li><a href="#lessons" data-cursor>Borrowed scenery</a></li>
-      <li><a href="#lessons" data-cursor>Lantern light</a></li>
-      <li><a href="#lessons" data-cursor>Charred cypress</a></li>
-      <li><a href="#lessons" data-cursor>Raked gravel</a></li>
-    </ul></div>
-    <div><h4>Elsewhere</h4><ul>
-      <li><a href="#top" data-cursor>Journal</a></li>
-      <li><a href="#top" data-cursor>Field notes</a></li>
-      <li><a href="#top" data-cursor>Colophon</a></li>
-    </ul></div>
-  </div>
-  <div class="foot-base">
-    <span>© 2026 Sora — Sora no Michi</span>
-    <span class="jp">静けさは一つの技である</span>
-    <span>WebGL · Onest · Kyoto</span>
-  </div>
-</footer>
+<footer class="foot" data-cam="5"><div class="foot-grid"><div class="foot-brand"><img src="/sora-profile.jpg" width="64" height="64" alt="Sora’s profile portrait" class="profile-avatar"><p>A soft heart, a head full of daydreams, and a tiny universe to call home.</p></div><div><h4>Explore</h4><ul><li><a href="#gate">About me</a></li><li><a href="#pathways">Selected work</a></li><li><a href="#lessons">What I make</a></li><li><a href="#eternity">Say hello</a></li></ul></div><div><h4>Creations</h4><ul><li><a href="https://github.com/celestial-sora" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><a href="https://huggingface.co/celestial-sora" target="_blank" rel="noopener noreferrer">Hugging Face</a></li></ul></div><div><h4>Find me here</h4><ul class="social-links"><li><a href="https://www.instagram.com/sphle_sora/" target="_blank" rel="noopener noreferrer" data-cursor><img src="/icons/instagram.svg" width="16" height="16" alt="">Instagram</a></li><li><a href="https://www.tiktok.com/@celestialsora.vercel.app" target="_blank" rel="noopener noreferrer" data-cursor><img src="/icons/tiktok.svg" width="16" height="16" alt="">TikTok</a></li><li><a href="https://www.youtube.com/@sorachanXZ-d1r" target="_blank" rel="noopener noreferrer" data-cursor><img src="/icons/youtube.svg" width="16" height="16" alt="">YouTube</a></li><li><a href="https://discord.com/users/1433232573202698302" target="_blank" rel="noopener noreferrer" data-cursor><img src="/icons/discord.svg" width="16" height="16" alt="">Discord</a></li><li><a href="https://t.me/sorastra" target="_blank" rel="noopener noreferrer" data-cursor><img src="/icons/telegram.svg" width="16" height="16" alt="">Telegram</a></li><li><a href="https://www.roblox.com/share?code=bd0b2fd6ff7ddd4f820d9ed51929aa1a&amp;type=Profile&amp;source=ProfileShare&amp;stamp=1789968912882" target="_blank" rel="noopener noreferrer" data-cursor><img src="/icons/roblox.svg" width="16" height="16" alt="">Roblox</a></li><li><a href="https://open.spotify.com/user/313t4w53kejr4fj7f3i5kysvwx7u" target="_blank" rel="noopener noreferrer" data-cursor><img src="/icons/spotify.svg" width="16" height="16" alt="">Spotify</a></li><li><a href="https://x.com/Sorachan67" target="_blank" rel="noopener noreferrer" data-cursor><img src="/icons/x.svg" width="16" height="16" alt="">X</a></li></ul></div></div><div class="foot-base"><span>© 2026 Sora Astral</span><span>AI · code · stories</span><span>A little corner of the internet</span></div></footer>
 
 </div><!-- /.page -->
 
@@ -1637,11 +1537,7 @@ function texRoof() {
      3 · the craters, thickest in the bright highlands, each with a rim lit
          from the same side as the rest of the frame.
 
-   The tint is measured off the reference plate, not invented: a blood moon
-   sits at G/R ≈ B/R ≈ .48 — a rose red with green and blue level. Grading it
-   as an orange (blue well under green) is what makes a CG moon read as a
-   fireball, and that is what this was doing. The disc is authored here in
-   near-neutral albedo and the colour is applied once, on the material. */
+   The surface stays neutral; Sora’s pastel pink tint is applied on the material. */
 function texMoon() {
   const S = 512, c = cvs(S, S), x = c.getContext('2d');
   const R = S / 2 - 1, rnd = mulberry32(91);
@@ -2472,26 +2368,22 @@ function buildTemple() {
   mist.position.set(0, F - 1.4, TEMPLE_Z + 10); mist.renderOrder = 2; scene.add(mist);
 }
 
-/* --------------------------------------------------- the vermilion moon
+/* --------------------------------------------------- the pastel pink moon
    Hung well behind the hall so the roof crosses its lower left — near
    enough to the ridge to sit in the mist, far enough that it never moves
    against the buildings when the rig drifts.                             */
 const MOON = { x: 17.9, y: 31.9, z: -72, r: 8.6 };
 function buildMoon() {
   const disc = new THREE.Mesh(new THREE.PlaneGeometry(MOON.r * 2, MOON.r * 2),
-    /* The whole blood-moon grade lives here, on a near-neutral albedo. The
-       plate measures G/R ≈ B/R ≈ .48, but that is a *display* ratio: the map
-       is decoded out of sRGB before this multiplies it, so the tint has to be
-       written in linear, where the same look is ≈ .21. Reading the ratio
-       straight off the reference is what left the moon a pale pink. */
-    new THREE.MeshBasicMaterial({ map: tx(texMoon()), color: hdr(3.6, .64, .61),
+    /* Pastel pink tint in linear light, preserving the lunar surface. */
+    new THREE.MeshBasicMaterial({ map: tx(texMoon()), color: hdr(4.6, 2.1, 2.75),
       transparent: true, depthWrite: false, fog: false, toneMapped: false }));
   disc.position.set(MOON.x, MOON.y, MOON.z); disc.renderOrder = 1;
   scene.add(disc); WORLD.moon = disc;
 
   /* the air around it — a wide, weak corona that the bloom picks up */
   const halo = new THREE.Mesh(new THREE.PlaneGeometry(MOON.r * 6.4, MOON.r * 6.4),
-    new THREE.MeshBasicMaterial({ map: tx(texGlow('rgba(255,124,112,.90)', 'rgba(206,52,48,.26)')),
+    new THREE.MeshBasicMaterial({ map: tx(texGlow('rgba(255,194,222,.72)', 'rgba(224,158,206,.20)')),
       transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, fog: false, opacity: .44 }));
   halo.position.set(MOON.x, MOON.y, MOON.z - .3); halo.renderOrder = 0;
   scene.add(halo); WORLD.moonHalo = halo;
@@ -3661,7 +3553,7 @@ function buildLights() {
 
   /* moonlight: no shadow, no fill, purely a rim down the right-hand slope of
      every roof — without it the hall is a flat black cut-out against the sky */
-  const moonKey = new THREE.DirectionalLight(0xff6a42, .52);
+  const moonKey = new THREE.DirectionalLight(0xf4b8d0, .52);
   moonKey.position.set(26, 30, -60);
   moonKey.target.position.set(0, 8, -40); scene.add(moonKey.target);
   scene.add(moonKey);
@@ -3678,7 +3570,7 @@ function buildLights() {
 
   /* the moon throws almost nothing, but a trace of red high on the right
      keeps it attached to the scene instead of floating on top of it */
-  const moonL = new THREE.PointLight(0xff3a1c, 3.0, 46, 2);
+  const moonL = new THREE.PointLight(0xf4b8d0, 3.0, 46, 2);
   moonL.position.set(11.0, 17.0, -24.0); scene.add(moonL); WORLD.moonLight = moonL;
 
   const fill = new THREE.PointLight(0x86c6d2, 0.95, 30, 2);
@@ -4021,7 +3913,7 @@ function wireHeroExit() {
 function wireNav() {
   let last = 0;
   const rail = $('#rail');
-  const names = ['The Hidden Gate', 'The Sanmon', 'Still Gardens', 'Sacred Craft', 'Afterlight', 'Colophon'];
+  const names = ['Hello', 'About Sora', 'Selected work', 'What I make', 'Let’s connect', 'Socials'];
   SECS.forEach((s, i) => {
     const b = document.createElement('button');
     b.innerHTML = '<i></i>'; b.title = names[i] || '';

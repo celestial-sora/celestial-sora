@@ -1,6 +1,6 @@
 # Sora preview
 
-A Sora-branded adaptation of ThreeUI Community’s Kage landing page, used as the active homepage. The immersive scene and chapter layout are preserved while the wordmark, page identity, and related Japanese name are being adapted.
+A Sora-branded adaptation of ThreeUI Community’s Kage landing page, used as the active homepage. The immersive scene and chapter layout now hold Sora’s own introduction, project descriptions and public social links from the former Galaxy portfolio. Original temple stills have been replaced with Sora’s project artwork, and the live moon uses a pastel pink palette.
 
 - Source: https://github.com/MengTo/threeui
 - Upstream file: `public/landing-pages/kage.html`
