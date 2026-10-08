@@ -4,6 +4,7 @@ The owner replaced the Galaxy homepage with the Kage-derived Sora landing page. 
 
 - `/` renders `public/sora-preview/sora.html` through `src/pages/index.astro`.
 - Preserve the existing Sora branding, Kage temple scene, chapter layout and bundled Three.js runtime.
+- Remove the decorative HTML foreground overlays (branches, leaves, lanterns, walls and grass) from all chapters; keep the live Three.js scene visible without these cut-outs.
 - Asset URLs at `/` resolve under `/sora-preview/sora-world-assets/`. The original preview URL remains available.
 - Do not restore the Galaxy homepage unless the owner explicitly requests it.
 - Validate the production build, asset loading, chapter navigation and desktop/mobile overflow before pushing `main` once.

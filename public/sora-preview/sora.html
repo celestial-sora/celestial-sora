@@ -29,8 +29,8 @@
 *,*::before,*::after{box-sizing:border-box}
 html{
   -webkit-text-size-adjust:100%; scroll-behavior:auto;
-  /* Mobile Safari can still pan the root horizontally when fixed menu and
-     foreground layers extend beyond the viewport. Clip that axis at the
+  /* Mobile Safari can still pan the root horizontally when fixed menus and
+     decorative canvases extend beyond the viewport. Clip that axis at the
      root while leaving vertical page scrolling untouched. */
   overflow-x:clip;
 }
@@ -642,176 +642,9 @@ body[data-layout-footer="b"] .foot-grid > div:nth-child(n+3){
 body[data-layout-footer="b"] .foot-base{ display:grid; grid-template-columns:1fr auto 1fr; }
 body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 
-/* ================================================= foreground layers (SORA)
-   The transparent PNG library in sora-world-assets/foreground/png is
-   introduced as a near plane. Each section carries one .fg box holding a few
-   cut-outs that stand between the live sanctuary and the reading: the scene
-   itself is untouched, this is only the garden that grows in front of it.
-
-   The cut-outs are the nearest plane on the page, so they sit in front of the
-   reading rather than behind it. Inside .page — itself z-index:10, above the
-   #gl canvas at 0:
-     -1   .sec::before / .foot::before   the section scrims
-      2   headings, copy, links, cards, stats, CTA
-      3   .fg                            the cut-outs: aria-hidden, inert
-   .page caps everything it holds at tier 10, which is under the fixed
-   furniture (rail 45, nav 50), so the chapter's live near plane is moved out
-   to #fg-sky at 52 — over the layout and the navigation both, and still under
-   the passes that treat the frame as one image: vignette 55, grain 60,
-   cursor 80.
-
-   A stage is only ever shown while its own chapter holds the viewport, and
-   only in the fixed bottom-anchored form. Parked back in its section it is
-   inert and invisible: a near plane that scrolls with the page reads as
-   wallpaper printed on the document rather than as something standing between
-   the camera and the scene, so there is no second, section-owned appearance.
-   Every piece is therefore placed from the bottom edge of that fixed plane —
-   left/right and bottom, never top.
-
-   The entrance is driven by the chapter, not by the scroll observer: each
-   [data-fg-in] piece rises from the edge it is anchored to when its stage goes
-   live, one every 90ms in DOM order, and the reduced-motion block at the foot
-   of this sheet flattens it. The wrapper owns the entrance and animates
-   opacity and transform only; the artwork itself remains at full opacity, with
-   the reading protected by the layer order rather than a translucent
-   foreground treatment. */
-.fg{
-  position:absolute; inset:0; z-index:3;
-  overflow:visible; pointer-events:none;
-}
-/* Nothing inside a section may widen the document. The foreground cut-outs and
-   the cloth canvases are placed to hang past the frame edges on purpose, and as
-   ordinary in-flow descendants they dragged the page box out with them — 194px
-   past a 1440 frame. Clip the horizontal axis at the section, which is exactly
-   viewport-wide, so each overhang is cut precisely where it leaves the screen.
-   `clip` pairs with `visible` without coercing it, so no scroll container is
-   created and every bit of vertical bleed survives. */
+/* Keep section artwork inside the viewport and text above the live scene. */
 .sec, .foot{ overflow-x:clip; overflow-y:visible; }
-/* the host for whichever chapter currently owns the near plane — no box of
-   its own, since every stage it holds is position:fixed to the viewport */
-#fg-sky{
-  position:fixed; left:0; top:0; width:0; height:0;
-  z-index:52; pointer-events:none;
-}
-.sec > *:not(.fg), .foot > *:not(.fg){ position:relative; z-index:2; }
-.fg-el{ position:absolute; display:block; opacity:0; }
-.fg-el > img{
-  width:100%; height:auto;   /* the width/height attrs hold the box before the lazy image lands */
-  opacity:1;
-  filter:saturate(.88) brightness(.86);
-}
-.fg-el--flip > img{ transform:scaleX(-1); }
-/* each piece waits off the edge it is anchored to until its chapter is called */
-[data-fg-in="up"]   { transform:translate3d(0,13%,0); }
-[data-fg-in="left"] { transform:translate3d(-11%,6%,0); }
-[data-fg-in="right"]{ transform:translate3d(11%,6%,0); }
-/* one slow breath, on the two lightest layers only */
-@keyframes fg-sway{
-  from{ transform:rotate(-.45deg) translate3d(0,2px,0); }
-  to  { transform:rotate(.45deg)  translate3d(0,-6px,0); }
-}
-.fg-el--sway > img{ animation:fg-sway 21s var(--ease-io) infinite alternate; transform-origin:0% 45%; }
-
-/* The active chapter owns a bottom-anchored near plane. Its former stage is
-   retained only long enough to dissolve into the next chapter's scene. */
-.fg.fg-active,.fg.fg-retiring{
-  position:fixed; left:0; right:0; top:auto; bottom:0; height:min(56svh,680px);
-  z-index:1; overflow:visible; pointer-events:none;
-}
-.fg.fg-active .fg-el{
-  opacity:1; transform:none;
-  transition:opacity 1.2s var(--ease-out), transform 1.5s var(--ease-out);
-  transition-delay:var(--fg-delay,0ms);
-}
-.fg .fg-el:nth-child(2){ --fg-delay:90ms; }
-.fg .fg-el:nth-child(3){ --fg-delay:180ms; }
-.fg .fg-el:nth-child(4){ --fg-delay:270ms; }
-.fg.fg-retiring .fg-el{
-  opacity:0; transform:translate3d(0,8vh,0) scale(.98); filter:blur(18px);
-  transition:opacity .68s var(--ease-out),transform .78s var(--ease-out),filter .78s var(--ease-out);
-}
-
-/* Placement is keyed off [data-fg] rather than the section id, because the
-   stage of the live chapter is re-parented into #fg-sky and stops being a
-   descendant of its own section for as long as it holds the near plane.
-
-   Every piece is anchored from the bottom of that plane, which is the bottom
-   of the viewport. The cut-outs in png/ are trimmed flush to their own lowest
-   opaque row, so a negative bottom here is a real amount of artwork buried off
-   the foot of the frame, not slack in the file — the ground-sitting pieces
-   carry enough of it that their base line never lifts off the edge. */
-
-/* — I · the gate: the wall runs along the lower-left frame, a pine holds the
-     far edge, and one bank of grass closes the foot of the chapter */
-/* Wall against the left edge, pine against the right: the chapter is framed
-   by the two of them with the court open between.
-
-   left:0, not a negative offset — the plate is trimmed to its own artwork, so
-   pulling it off-frame cuts the gate itself rather than trimming empty margin.
-   Its left edge sits on the viewport's. */
-[data-fg="gate"] .fg-wall  { left:0; bottom:-30px; width:clamp(430px,47vw,780px); }
-[data-fg="gate"] .fg-pine  { right:-4%; bottom:-46px; width:clamp(190px,21vw,370px); }
-[data-fg="gate"] .fg-grass { left:3%;   bottom:-150px; width:clamp(420px,60vw,1050px); }
-
-/* — II · still gardens: sakura and maple sweep in from the two lower corners
-     and carry their whole length, a lit lantern and a low bush hold the edges */
-[data-fg="pathways"] .fg-sakura { left:-6%;  bottom:-86px;  width:clamp(430px,50vw,880px); }
-[data-fg="pathways"] .fg-leaves { right:-6%; bottom:-62px;  width:clamp(330px,38vw,670px); }
-[data-fg="pathways"] .fg-lantern{ left:-1%;  bottom:-96px;  width:clamp(120px,13vw,215px); }
-[data-fg="pathways"] .fg-bush   { right:-4%; bottom:-38px;  width:clamp(250px,30vw,530px); }
-/* the lantern is the one lit object in the library — it keeps its ember */
-[data-fg="pathways"] .fg-lantern > img{ filter:saturate(.96) brightness(1); }
-[data-fg="pathways"] .fg-leaves > img{ transform-origin:100% 40%; }
-
-/* — III · sacred craft: basalt and a low wall fragment bracket the atlas and
-     a stand of grass ties them together, all three below the plate grid */
-[data-fg="lessons"] .fg-wall   { right:-8%; bottom:-78px; width:clamp(390px,50vw,870px); }
-[data-fg="lessons"] .fg-stones { left:-4%;  bottom:-48px; width:clamp(250px,30vw,530px); }
-[data-fg="lessons"] .fg-grass  { left:24%;  bottom:-84px; width:clamp(280px,33vw,580px); }
-
-/* — IV · afterlight: a far hill closes the horizon, the shrine ruins stand at
-     the left of it, grass banks the right, one branch hangs into the corner */
-[data-fg="eternity"] .fg-hill   { left:-8%; width:min(150vh,116%); bottom:calc(-1 * min(20vh,15.5vw)); }
-[data-fg="eternity"] .fg-ruins  { left:-5%;  bottom:-32px; width:clamp(240px,28vw,500px); }
-[data-fg="eternity"] .fg-grass  { right:-7%; bottom:-60px; width:clamp(300px,37vw,670px); }
-[data-fg="eternity"] .fg-sakura { left:-15%; bottom:-70px; width:clamp(280px,33vw,580px); }
-
-/* — colophon: one restrained planting along the lower edge, nothing above it */
-[data-fg="foot"] .fg-bush   { left:-6%;  bottom:-110px; width:clamp(230px,28vw,480px); }
-[data-fg="foot"] .fg-grass  { right:-5%; bottom:-98px;  width:clamp(255px,30vw,530px); }
-[data-fg="foot"] .fg-stones { left:36%;  bottom:-104px; width:clamp(190px,22vw,370px); }
-
-@media (max-width:1080px){
-  /* the columns have collapsed and the copy has taken the width back, so the
-     framing layers step down rather than crowd it */
-  [data-fg="gate"] .fg-wall      { width:clamp(390px,42vw,600px); }
-  [data-fg="pathways"] .fg-sakura{ width:clamp(400px,46vw,660px); }
-  [data-fg="pathways"] .fg-leaves{ width:clamp(310px,35vw,500px); }
-  [data-fg="lessons"] .fg-wall   { width:clamp(360px,45vw,640px); }
-  [data-fg="eternity"] .fg-sakura{ width:clamp(260px,30vw,430px); }
-}
-@media (max-width:820px){
-  /* one or two anchors per section: the stacked cards, the atlas plates and
-     the call to action own the whole width here, so every duplicated piece
-     of ornament goes and what stays is smaller */
-  [data-fg="gate"] .fg-pine, [data-fg="pathways"] .fg-sakura,
-  [data-fg="pathways"] .fg-leaves, [data-fg="lessons"] .fg-wall,
-  [data-fg="eternity"] .fg-sakura, [data-fg="foot"] .fg-stones{ display:none; }
-  [data-fg="gate"] .fg-wall     { left:-14%; bottom:-22px; width:min(82vw,440px); }
-  [data-fg="gate"] .fg-grass    { left:auto; right:-10%; bottom:-76px; width:min(94vw,530px); }
-  [data-fg="pathways"] .fg-lantern{ left:-4%;   bottom:-58px; width:clamp(80px,20vw,128px); }
-  [data-fg="pathways"] .fg-bush   { right:-10%; bottom:-38px; width:min(72vw,400px); }
-  [data-fg="lessons"] .fg-stones  { left:-8%; bottom:-34px; width:min(66vw,360px); }
-  [data-fg="lessons"] .fg-grass   { left:auto; right:-8%; bottom:-44px; width:min(70vw,380px); }
-  [data-fg="eternity"] .fg-ruins  { left:-8%;   bottom:-25px; width:min(54vw,300px); }
-  [data-fg="eternity"] .fg-grass  { right:-12%; bottom:-34px; width:min(80vw,440px); }
-  [data-fg="foot"] .fg-bush  { left:-12%;  bottom:-26px; width:min(68vw,340px); }
-  [data-fg="foot"] .fg-grass { right:-12%; bottom:-30px; width:min(74vw,380px); }
-}
-@media (prefers-reduced-motion:reduce){
-  .fg-el--sway > img{ animation:none; }
-  .fg.fg-retiring .fg-el{ transition:none !important; filter:none !important; }
-}
+.sec > *, .foot > *{ position:relative; z-index:2; }
 
 @media (max-width:1080px){
   body[data-layout-hero="b"] .chapters{ gap:16px 20px; }
@@ -981,18 +814,6 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 
 <!-- ============================================================ chapter I -->
 <section class="sec" id="gate" data-cam="1">
-  <!-- foreground: the wall arrives first, the pine at the edge, the grass last -->
-  <div class="fg" data-fg="gate" aria-hidden="true">
-    <span class="fg-el fg-wall" data-fg-in="left">
-      <img src="sora-world-assets/foreground/png/temple-wall.webp" alt="" width="1536" height="884" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-pine" data-fg-in="right">
-      <img src="sora-world-assets/foreground/png/pine-tree.webp" alt="" width="1024" height="1438" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-grass" data-fg-in="up">
-      <img src="sora-world-assets/foreground/png/tall-grass.webp" alt="" width="1717" height="916" loading="lazy" decoding="async">
-    </span>
-  </div>
   <div class="sec-head" data-rv="fade">
     <span class="k"><b>01</b> — The Sanmon</span><span class="rule"></span><span class="k jp">山門</span>
   </div>
@@ -1022,21 +843,6 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 
 <!-- ============================================================ chapter II -->
 <section class="sec" id="pathways" data-cam="2">
-  <!-- foreground: the garden frames the mosaic from the sides and the two lower corners -->
-  <div class="fg" data-fg="pathways" aria-hidden="true">
-    <span class="fg-el fg-sakura fg-el--sway" data-fg-in="left">
-      <img src="sora-world-assets/foreground/png/sakura-branch.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-leaves fg-el--sway" data-fg-in="right">
-      <img src="sora-world-assets/foreground/png/maple-leaves.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-lantern" data-fg-in="up">
-      <img src="sora-world-assets/foreground/png/stone-lantern.webp" alt="" width="1024" height="1499" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-bush" data-fg-in="up">
-      <img src="sora-world-assets/foreground/png/garden-bush.webp" alt="" width="1717" height="876" loading="lazy" decoding="async">
-    </span>
-  </div>
   <div class="sec-head" data-rv="fade">
     <span class="k"><b>02</b> — Still Gardens</span><span class="rule"></span><span class="k jp">庭園</span>
   </div>
@@ -1070,18 +876,6 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 
 <!-- ============================================================ chapter III -->
 <section class="sec" id="lessons" data-cam="3">
-  <!-- foreground: a low periphery for the atlas — wall fragment, basalt, one stand of grass -->
-  <div class="fg" data-fg="lessons" aria-hidden="true">
-    <span class="fg-el fg-wall fg-el--flip" data-fg-in="right">
-      <img src="sora-world-assets/foreground/png/temple-wall.webp" alt="" width="1536" height="884" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-stones" data-fg-in="up">
-      <img src="sora-world-assets/foreground/png/basalt-stones.webp" alt="" width="1536" height="996" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-grass" data-fg-in="up">
-      <img src="sora-world-assets/foreground/png/tall-grass.webp" alt="" width="1717" height="916" loading="lazy" decoding="async">
-    </span>
-  </div>
   <div class="sec-head" data-rv="fade">
     <span class="k"><b>03</b> — Sacred Craft</span><span class="rule"></span><span class="k jp">手業</span>
   </div>
@@ -1126,21 +920,6 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 
 <!-- ============================================================ chapter IV -->
 <section class="sec fin" id="eternity" data-cam="4">
-  <!-- foreground: the closing horizon: hill, ruins, grass, and the last branch -->
-  <div class="fg" data-fg="eternity" aria-hidden="true">
-    <span class="fg-el fg-hill" data-fg-in="up">
-      <img src="sora-world-assets/foreground/png/hill.webp" alt="" width="1774" height="887" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-ruins" data-fg-in="left">
-      <img src="sora-world-assets/foreground/png/shrine-ruins.webp" alt="" width="1536" height="1001" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-grass" data-fg-in="up">
-      <img src="sora-world-assets/foreground/png/tall-grass.webp" alt="" width="1717" height="916" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-sakura" data-fg-in="left">
-      <img src="sora-world-assets/foreground/png/sakura-branch.webp" alt="" width="1536" height="1024" loading="lazy" decoding="async">
-    </span>
-  </div>
   <div class="eyebrow" data-rv="fade">Chapter 04 — Afterlight</div>
   <h2 class="display" data-rv="up">Afterlight</h2>
   <p class="body-lg" data-rv="up">The gate does not close behind you. Take the walk whenever the noise
@@ -1153,18 +932,6 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 
 <!-- ============================================================ footer -->
 <footer class="foot" data-cam="5">
-  <!-- foreground: one planting along the lower edge of the colophon -->
-  <div class="fg" data-fg="foot" aria-hidden="true">
-    <span class="fg-el fg-bush" data-fg-in="up">
-      <img src="sora-world-assets/foreground/png/garden-bush.webp" alt="" width="1717" height="876" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-grass" data-fg-in="up">
-      <img src="sora-world-assets/foreground/png/tall-grass.webp" alt="" width="1717" height="916" loading="lazy" decoding="async">
-    </span>
-    <span class="fg-el fg-stones" data-fg-in="up">
-      <img src="sora-world-assets/foreground/png/basalt-stones.webp" alt="" width="1536" height="996" loading="lazy" decoding="async">
-    </span>
-  </div>
   <div class="foot-grid">
     <div class="foot-brand">
       <svg viewBox="0 0 44 44" fill="none" width="34" height="34" aria-hidden="true">
@@ -1201,10 +968,6 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
 
 </div><!-- /.page -->
 
-<!-- The near plane of the active chapter is parked here rather than inside its
-     section: .page is a stacking context at z-index 10, so nothing living in it
-     can rise past the nav. #fg-sky sits above the whole layout instead. -->
-<div id="fg-sky" aria-hidden="true"></div>
 
 <div class="rail" id="rail"></div>
 
@@ -4199,83 +3962,6 @@ function splitHeadingWords() {
   });
 }
 
-/* Foreground PNGs are section-owned until their chapter is called. At that
-   point the active stage becomes a fixed lower viewport plane; its predecessor
-   remains there just long enough to blur and fade out before returning home.
-
-   While it holds that plane the stage is re-parented into #fg-sky, which lives
-   outside .page and so is not capped by its stacking context — that is the
-   only way a cut-out can pass in front of the nav and the chapter rail. The
-   move costs nothing in layout: the stage is position:fixed either way, and
-   its placement rules key off [data-fg], not off the section it came from. */
-function wireForegroundStages() {
-  const pairs = $$('.sec .fg, .foot .fg').map(stage => ({
-    section:stage.closest('.sec, .foot'), stage
-  })).filter(pair => pair.section);
-  if (!pairs.length) return;
-
-  const sky = $('#fg-sky');
-  const ratios = new Map(pairs.map(pair => [pair.section, 0]));
-  const homes = new WeakMap(pairs.map(pair => [pair.stage, pair.section]));
-  const timers = new WeakMap();
-  let activeStage = null;
-
-  const lift = stage => {
-    if (!sky || stage.parentNode === sky) return;
-    sky.appendChild(stage);
-    /* A re-inserted element has no previous computed style, so the entrance
-       would land already finished. Resolve the parked state in its new parent
-       first and the pieces have something to rise from. */
-    void stage.offsetWidth;
-  };
-  const park = stage => {
-    const home = homes.get(stage);
-    if (home && stage.parentNode !== home) home.insertBefore(stage, home.firstChild);
-  };
-
-  const retire = stage => {
-    if (!stage || stage === activeStage) return;
-    const pending = timers.get(stage);
-    if (pending) clearTimeout(pending);
-    stage.classList.remove('fg-active');
-    if (REDUCE) { park(stage); return; }
-    stage.classList.add('fg-retiring');
-    timers.set(stage, setTimeout(() => {
-      stage.classList.remove('fg-retiring');
-      timers.delete(stage);
-      park(stage);
-    }, 820));
-  };
-
-  const activate = stage => {
-    if (!stage || stage === activeStage) return;
-    const pending = timers.get(stage);
-    if (pending) clearTimeout(pending);
-    stage.classList.remove('fg-retiring');
-    lift(stage);
-    stage.classList.add('fg-active');
-    const prior = activeStage;
-    activeStage = stage;
-    retire(prior);
-  };
-
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => ratios.set(entry.target, entry.isIntersecting ? entry.intersectionRatio : 0));
-    const next = pairs.reduce((best, pair) =>
-      (ratios.get(pair.section) || 0) > (ratios.get(best.section) || 0) ? pair : best
-    );
-    const nextRatio = ratios.get(next.section) || 0;
-    if (nextRatio > 0) activate(next.stage);
-    else if (activeStage) {
-      const prior = activeStage;
-      activeStage = null;
-      retire(prior);
-    }
-  }, { rootMargin:'-12% 0px -12% 0px', threshold:[0, .12, .32, .55] });
-
-  pairs.forEach(pair => observer.observe(pair.section));
-}
-
 /* ------------------------------------------------------ leaving the hero
    Everything along the foot of the hero is spent the moment the walk starts:
    the cue has been read, the four chapters have been offered, the preview has
@@ -4755,7 +4441,7 @@ const JOBS = [
 
 function boot() {
   makeGrain();
-  wireReveals(); wireForegroundStages(); wireNav(); wireHeroExit(); wireFocus(); wireCursor();
+  wireReveals(); wireNav(); wireHeroExit(); wireFocus(); wireCursor();
   document.body.classList.add('is-locked');
   let i = 0;
   const step = () => {
