@@ -10,6 +10,7 @@ The owner replaced the Galaxy homepage with the Kage-derived Sora landing page. 
 - Remove the decorative HTML foreground overlays (branches, leaves, lanterns, walls and grass) from all chapters; keep the live Three.js scene visible without these cut-outs.
 - Asset URLs at `/` resolve under `/sora-preview/sora-world-assets/`. The original preview URL remains available.
 - Show the Alya profile artwork at its original aspect ratio without cropping, including the hero preview and footer avatar.
+- Preserve the vertical Japanese Sora inscription `空の道` beside the hero; do not replace it with English branding.
 - Do not restore the Galaxy homepage unless the owner explicitly requests it.
 - Validate the production build, asset loading, chapter navigation and desktop/mobile overflow before pushing `main` once.
 
